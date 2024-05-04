@@ -22,7 +22,7 @@ class SemTaxaServicoTest {
 	void getTaxaIdentificatorPorClassePessoaFisica2() {
 		TaxaIdentificator identificador = new SemTaxaServico();
 		assertEquals(SemTaxaServico.SEM_TAXA_SERVICO,
-				identificador.getTaxa(new PessoaFisica(null, null, new ContaCDI(0.0, 0.0), null)));
+				identificador.getTaxa(new PessoaFisica("", "", new ContaCDI(0.0, 0.0), "")));
 	}
 
 	@Test
@@ -35,7 +35,7 @@ class SemTaxaServicoTest {
 	void getTaxaIdentificatorPorClassePessoaJuridica2() {
 		TaxaIdentificator identificador = new SemTaxaServico();
 		assertEquals(SemTaxaServico.SEM_TAXA_SERVICO,
-				identificador.getTaxa(new PessoaJuridica(null, null, new ContaCDI(0.0, 0.0), null)));
+				identificador.getTaxa(new PessoaJuridica("", "", new ContaCDI(0.0, 0.0), "")));
 	}
 
 }

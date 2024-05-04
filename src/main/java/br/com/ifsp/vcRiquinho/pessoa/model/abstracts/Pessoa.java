@@ -22,9 +22,8 @@ public abstract class Pessoa {
 	}
 
 	public Pessoa(String nome, String email, Set<Conta> contas) {
-		//this.nome = Objects.requireNonNull(nome,"Nome não pode ser nulo");
-		this.nome = nome;
-		this.email = email;
+		this.nome = Objects.requireNonNull(nome,"Nome não pode ser nulo");
+		this.email = Objects.requireNonNull(email, "Email não pode ser nulo");
 		setContas(contas);
 	}
 	
@@ -49,7 +48,6 @@ public abstract class Pessoa {
 	 * @param conta a ser adicionada
 	 * @return true se a conta for adiionada com sucesso, false se a conta já estiver cadastrada
 	 */
-	
 	public boolean addConta(Conta conta) {
 		boolean jaContemOTipoDeConta = contas.stream().anyMatch(p -> p.equals(conta));
 		

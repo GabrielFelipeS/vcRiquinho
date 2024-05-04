@@ -13,6 +13,7 @@ import br.com.ifsp.vcRiquinho.conta.models.entities.concrate.ContaCorrente;
 import br.com.ifsp.vcRiquinho.conta.models.entities.concrate.ContaInvestimentoAutomatico;
 import br.com.ifsp.vcRiquinho.pessoa.model.concrate.PessoaFisica;
 import br.com.ifsp.vcRiquinho.pessoa.model.concrate.PessoaJuridica;
+import br.com.ifsp.vcRiquinho.produto.model.concrete.ProdutoRendaFixa;
 
 class TaxaDeServicoServiceTest {
 
@@ -20,42 +21,42 @@ class TaxaDeServicoServiceTest {
 	void getTaxaDeContaCDIEPessoaFisica() {
 		TaxaDeServicoServiceInterface taxaService = new TaxaDeServicoService();
 		assertEquals(TaxaServicoContaCDI.TAXA_SERVICO_PF, taxaService.obterTaxa(new ContaCDI(0.0, 0.0),
-				new PessoaFisica(null, null, new ContaCDI(0.0, 0.0), null)) );
+				new PessoaFisica("", "", new ContaCDI(0.0, 0.0), "")) );
 	}
 	
 	@Test
 	void getTaxaDeContaCDIEPessoaJuridica() {
 		TaxaDeServicoServiceInterface taxaService = new TaxaDeServicoService();
 		assertEquals(TaxaServicoContaCDI.TAXA_SERVICO_PJ, taxaService.obterTaxa(new ContaCDI(0.0, 0.0),
-				new PessoaJuridica(null, null, new ContaCDI(0.0, 0.0), null)) );
+				new PessoaJuridica("", "", new ContaCDI(0.0, 0.0), "")) );
 	}
 	
 	@Test
 	void getTaxaDeContaInvestimentoAutomaticoEPessoaFisica() {
 		TaxaDeServicoServiceInterface taxaService = new TaxaDeServicoService();
-		assertEquals(TaxaServicoContaInvestimentoAutomatico.TAXA_SERVICO_PF, taxaService.obterTaxa(new ContaInvestimentoAutomatico(0.0, null),
-				new PessoaFisica(null, null, new ContaInvestimentoAutomatico(0.0, null), null)) );
+		assertEquals(TaxaServicoContaInvestimentoAutomatico.TAXA_SERVICO_PF, taxaService.obterTaxa(new ContaInvestimentoAutomatico(0.0,  new ProdutoRendaFixa(0.0, 0)),
+				new PessoaFisica("", "", new ContaInvestimentoAutomatico(0.0,  new ProdutoRendaFixa(0.0, 0)), "")) );
 	}
 	
 	@Test
 	void getTaxaDeContaInvestimentoAutomaticoEPessoaJuridica() {
 		TaxaDeServicoServiceInterface taxaService = new TaxaDeServicoService();
-		assertEquals(TaxaServicoContaInvestimentoAutomatico.TAXA_SERVICO_PJ, taxaService.obterTaxa(new ContaInvestimentoAutomatico(0.0, null),
-				new PessoaJuridica(null, null, new ContaInvestimentoAutomatico(0.0, null), null)) );
+		assertEquals(TaxaServicoContaInvestimentoAutomatico.TAXA_SERVICO_PJ, taxaService.obterTaxa(new ContaInvestimentoAutomatico(0.0,  new ProdutoRendaFixa(0.0, 0)),
+				new PessoaJuridica("", "", new ContaInvestimentoAutomatico(0.0, new ProdutoRendaFixa(0.0, 0)), "")) );
 	}
 	
 	@Test
 	void getTaxaDeContaCorrenteEPessoaFisica() {
 		TaxaDeServicoServiceInterface taxaService = new TaxaDeServicoService();
 		assertEquals(SemTaxaServico.TAXA_SERVICO_PF, taxaService.obterTaxa(new ContaCorrente(0.0),
-				new PessoaFisica(null, null, new ContaCorrente(0.0), null)) );
+				new PessoaFisica("", "", new ContaCorrente(0.0), "")) );
 	}
 	
 	@Test
 	void getTaxaDeContaCorrenteEPessoaJuridica() {
 		TaxaDeServicoServiceInterface taxaService = new TaxaDeServicoService();
 		assertEquals(SemTaxaServico.TAXA_SERVICO_PJ, taxaService.obterTaxa(new ContaCorrente(0.0),
-				new PessoaJuridica(null, null, new ContaCorrente(0.0), null)) );
+				new PessoaJuridica("", "", new ContaCorrente(0.0), "")) );
 	}
 
 }

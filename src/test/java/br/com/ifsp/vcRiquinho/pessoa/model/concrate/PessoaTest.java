@@ -26,102 +26,102 @@ class PessoaTest {
 
 	@Test
 	void createPessoaFisicaTest1() {
-		assertDoesNotThrow(() -> new PessoaFisica(null, null, new ContaCDI(null, null), null));
+		assertDoesNotThrow(() -> new PessoaFisica("", "", new ContaCDI(null, null), ""));
 	}
 
 	@Test
 	void createPessoaFisicaTest2() {
 		assertDoesNotThrow(
-				() -> new PessoaFisica(null, null, new HashSet<Conta>(Arrays.asList(new ContaCDI(null, null))), null));
+				() -> new PessoaFisica("", "", new HashSet<Conta>(Arrays.asList(new ContaCDI(null, null))), ""));
 	}
 
 	@Test
 	void createPessoaFisicaTest3() {
-		assertDoesNotThrow(() -> new PessoaJuridica(null, null, new ContaCDI(null, null), null));
+		assertDoesNotThrow(() -> new PessoaJuridica("", "", new ContaCDI(null, null), ""));
 	}
 
 	@Test
 	void createPessoaFisicaTest4() {
-		assertDoesNotThrow(() -> new PessoaJuridica(null, null,
-				new HashSet<Conta>(Arrays.asList(new ContaCDI(null, null))), null));
+		assertDoesNotThrow(() -> new PessoaJuridica("", "",
+				new HashSet<Conta>(Arrays.asList(new ContaCDI(null, null))), ""));
 	}
 
 	@Test
 	void createPessoaFisicaZeroContasExceptionTest1() {
-		assertThrows(ZeroContasException.class, () -> new PessoaFisica(null, null, new HashSet<Conta>(), null));
+		assertThrows(ZeroContasException.class, () -> new PessoaFisica("", "", new HashSet<Conta>(), ""));
 	}
 
 	@Test
 	void createPessoaFisicaZeroContasExceptionTest2() {
-		assertThrows(ZeroContasException.class, () -> new PessoaJuridica(null, null, new HashSet<Conta>(), null));
+		assertThrows(ZeroContasException.class, () -> new PessoaJuridica("", "", new HashSet<Conta>(), ""));
 	}
 
 	@Test
 	void addContaFalse1() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCDI(null, null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCDI(null, null), "");
 
 		assertFalse(pessoa.addConta(new ContaCDI(null, null)));
 	}
 
 	@Test
 	void addContaFalse2() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCorrente(null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(null), "");
 
 		assertFalse(pessoa.addConta(new ContaCorrente(null)));
 	}
 
 	@Test
 	void addContaFalse3() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaInvestimentoAutomatico(null, null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaInvestimentoAutomatico(null, null), "");
 
 		assertFalse(pessoa.addConta(new ContaInvestimentoAutomatico(null, null)));
 	}
 
 	@Test
 	void addContaTrue1() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCDI(null, null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCDI(null, null), "");
 
 		assertTrue(pessoa.addConta(new ContaCorrente(null)));
 	}
 
 	@Test
 	void addContaTrue2() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCDI(null, null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCDI(null, null), "");
 
 		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(null, null)));
 	}
 
 	@Test
 	void addContaTrue3() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaInvestimentoAutomatico(null, null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaInvestimentoAutomatico(null, null), "");
 
 		assertTrue(pessoa.addConta(new ContaCDI(null, null)));
 	}
 
 	@Test
 	void addContaTrue4() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaInvestimentoAutomatico(null, null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaInvestimentoAutomatico(null, null), "");
 
 		assertTrue(pessoa.addConta(new ContaCorrente(null)));
 	}
 
 	@Test
 	void addContaTrue5() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCorrente(null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(null), "");
 
 		assertTrue(pessoa.addConta(new ContaCDI(null, null)));
 	}
 
 	@Test
 	void addContaTrue6() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCorrente(null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(null), "");
 
 		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(null, null)));
 	}
 
 	@Test
 	void addContaTrue7() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCorrente(null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(null), "");
 
 		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(null, null)));
 		assertTrue(pessoa.addConta(new ContaCDI(null, null)));
@@ -129,7 +129,7 @@ class PessoaTest {
 
 	@Test
 	void addContaTrueAndFalse() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCorrente(null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(null), "");
 
 		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(null, null)));
 		assertFalse(pessoa.addConta(new ContaInvestimentoAutomatico(null, null)));
@@ -137,7 +137,7 @@ class PessoaTest {
 
 	@Test
 	void addConta() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCorrente(null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(null), "");
 
 		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(null, null)));
 		assertFalse(pessoa.addConta(new ContaInvestimentoAutomatico(null, null)));
@@ -145,7 +145,7 @@ class PessoaTest {
 
 	@Test
 	void tiposDeContasNaoCadastradas1() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCorrente(null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(null), "");
 
 		List<Conta> verificarContasFaltantes = new ArrayList<>(Arrays.asList(new ContaCDI(null, null),
 				new ContaCorrente(null), new ContaInvestimentoAutomatico(null, null)));
@@ -157,7 +157,7 @@ class PessoaTest {
 
 	@Test
 	void tiposDeContasNaoCadastradas2() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCorrente(null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(null), "");
 
 		List<Conta> verificarContasFaltantes = new ArrayList<>(
 				Arrays.asList(new ContaCDI(null, null), new ContaInvestimentoAutomatico(null, null)));
@@ -169,7 +169,7 @@ class PessoaTest {
 
 	@Test
 	void tiposDeContasNaoCadastradas3() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCorrente(null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(null), "");
 
 		List<Conta> verificarContasFaltantes = new ArrayList<>(Arrays.asList(new ContaCDI(null, null),
 				new ContaCorrente(null), new ContaInvestimentoAutomatico(null, null)));
@@ -184,7 +184,7 @@ class PessoaTest {
 
 	@Test
 	void tiposDeContasNaoCadastradas4() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCorrente(null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(null), "");
 		pessoa.addConta(new ContaCDI(null, null));
 
 		List<Conta> verificarContasFaltantes = new ArrayList<>(Arrays.asList(new ContaCDI(null, null),
@@ -200,7 +200,7 @@ class PessoaTest {
 
 	@Test
 	void tiposDeContasNaoCadastradas5() {
-		Pessoa pessoa = new PessoaJuridica(null, null, new ContaCorrente(null), null);
+		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(null), "");
 		pessoa.addConta(new ContaCDI(null, null));
 		pessoa.addConta(new ContaInvestimentoAutomatico(null, null));
 

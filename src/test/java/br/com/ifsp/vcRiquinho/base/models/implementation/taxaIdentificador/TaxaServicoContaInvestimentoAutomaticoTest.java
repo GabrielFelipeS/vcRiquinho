@@ -21,7 +21,7 @@ class TaxaServicoContaInvestimentoAutomaticoTest {
 	void getTaxaIdentificatorPorClassePessoaFisica2() {
 		TaxaIdentificator identificador = new TaxaServicoContaInvestimentoAutomatico();
 		assertEquals(TaxaServicoContaInvestimentoAutomatico.TAXA_SERVICO_PF,
-				identificador.getTaxa(new PessoaFisica(null, null, new ContaCDI(0.0, 0.0), null)));
+				identificador.getTaxa(new PessoaFisica("", "", new ContaCDI(0.0, 0.0), "")));
 	}
 
 	@Test
@@ -35,7 +35,7 @@ class TaxaServicoContaInvestimentoAutomaticoTest {
 	void getTaxaIdentificatorPorClassePessoaJuridica2() {
 		TaxaIdentificator identificador = new TaxaServicoContaInvestimentoAutomatico();
 		assertEquals(TaxaServicoContaInvestimentoAutomatico.TAXA_SERVICO_PJ,
-				identificador.getTaxa(new PessoaJuridica(null, null, new ContaCDI(0.0, 0.0), null)));
+				identificador.getTaxa(new PessoaJuridica("", "", new ContaCDI(0.0, 0.0), "")));
 	}
 
 }
