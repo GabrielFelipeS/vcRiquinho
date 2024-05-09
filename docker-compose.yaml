@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: wolke
+      POSTGRES_PASSWORD: wolke2024
+      POSTGRES_DB: vcRiquinho
+    ports:
+      - 5433:5432
+
+  web:
+    depends_on:
+      - db
+    image: tomcat
+    volumes:
+      - ./target/LoginWebApp-1.war:/usr/local/tomcat/webapps/LoginWebApp-1.war
+    ports:
+      - '8082:8080'
+    environment:
+      POSTGRES_USER: wolke
+      POSTGRES_PASSWORD: wolke2024
+      POSTGRES_DB: vcRiquinho
