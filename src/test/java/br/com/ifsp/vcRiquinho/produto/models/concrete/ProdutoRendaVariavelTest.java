@@ -1,7 +1,7 @@
 package br.com.ifsp.vcRiquinho.produto.models.concrete;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import br.com.ifsp.vcRiquinho.produto.exceptions.DaysCannotByNegativeException;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
-import br.com.ifsp.vcRiquinho.produto.models.concrete.ProdutoRendaFixa;
 
 class ProdutoRendaVariavelTest {
 

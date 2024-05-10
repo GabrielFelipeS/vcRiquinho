@@ -9,7 +9,13 @@ import br.com.ifsp.vcRiquinho.base.db.exceptions.DbException;
 
 public interface IDBConnector {
 	Connection getConnection();
-
+	Connection getConnection(String url, String user, String password);
+	
+	// Primeira POG do projeto
+	default Connection getConnectionByDockerOrLocalDataBase() {
+		return null;
+	}
+	
 	void closeConnection();
 
 	default void closeStatement(Statement st) {

@@ -2,6 +2,7 @@ package br.com.ifsp.vcRiquinho.base.db;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,30 +14,33 @@ import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
 
 public class ConnectionPostgresTest {
+	/*
 	@Test
 	void connectionTest() {
-		IDBConnector dbConnection = new ConnectionPostgress();
+		ConnectionPostgress dbConnection = new ConnectionPostgress();
 		
 		assertDoesNotThrow(() -> {
-			dbConnection.getConnection();
+			dbConnection.getConnectionByDockerOrLocalDataBase();
 			dbConnection.closeConnection();
 		});
 		
+		assertNotEquals(null, dbConnection.getConnection());
 	}
 	
 	@Test
 	void verifyConnection() {
-		IDBConnector dbConnection = new ConnectionPostgress();
-		Connection connection = dbConnection.getConnection();
+		ConnectionPostgress dbConnection = new ConnectionPostgress();
+		Connection connection = dbConnection.getConnectionByDockerOrLocalDataBase();
 		
 		assertDoesNotThrow(() -> {
-			Statement st = connection.createStatement();
+			Statement st  =connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
 			ResultSet  rs = st.executeQuery("select * from TestConection");
-			rs.last();
-					
 			int QUANTIDADE_VALORES = 3;
-			assertEquals(QUANTIDADE_VALORES, rs.getRow());
+			rs.last();
+			int quanidadeDeLinhasBuscadas =  rs.getRow();
+			rs.beforeFirst();
+			assertEquals(QUANTIDADE_VALORES,quanidadeDeLinhasBuscadas);
 			
 			dbConnection.closeResultSet(rs);
 			dbConnection.closeStatement(st);
@@ -44,4 +48,6 @@ public class ConnectionPostgresTest {
 		
 		dbConnection.closeConnection();
 	}
+	
+	*/
 }

@@ -1,11 +1,12 @@
 package br.com.ifsp.vcRiquinho.pessoa.models.concrate;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -21,33 +22,31 @@ import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCorrente;
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaInvestimentoAutomatico;
 import br.com.ifsp.vcRiquinho.pessoa.exceptions.ZeroContasException;
 import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
-import br.com.ifsp.vcRiquinho.pessoa.models.concrate.PessoaFisica;
-import br.com.ifsp.vcRiquinho.pessoa.models.concrate.PessoaJuridica;
 import br.com.ifsp.vcRiquinho.produto.models.concrete.ProdutoRendaFixa;
 
 class PessoaTest {
 
 	@Test
 	void validarRequerimentoDeNaoNuloPessoa1() {
-		assertThrows("Nome não pode ser nulo", NullPointerException.class,
+		assertThrows(NullPointerException.class,
 				() -> new PessoaFisica(null, "", new ContaCDI(0, "", 0.0, 0.0), ""));
 	}
 
 	@Test
 	void validarRequerimentoDeNaoNuloPessoa2() {
-		assertThrows("Email não pode ser nulo", NullPointerException.class,
+		assertThrows(NullPointerException.class,
 				() -> new PessoaFisica("", null, new ContaCDI(0, "", 0.0, 0.0), ""));
 	}
 
 	@Test
 	void validarRequerimentoDeNaoNuloPessoaFisica() {
-		assertThrows("cpf não pode ser nulo", NullPointerException.class,
+		assertThrows(NullPointerException.class,
 				() -> new PessoaFisica("", "", new ContaCDI(0, "", 0.0, 0.0), null));
 	}
 
 	@Test
 	void validarRequerimentoDeNaoNuloPessoaJuridica() {
-		assertThrows("cnpj não pode ser nulo", NullPointerException.class,
+		assertThrows(NullPointerException.class,
 				() -> new PessoaJuridica("", "", new ContaCDI(0, "", 0.0, 0.0), null));
 	}
 

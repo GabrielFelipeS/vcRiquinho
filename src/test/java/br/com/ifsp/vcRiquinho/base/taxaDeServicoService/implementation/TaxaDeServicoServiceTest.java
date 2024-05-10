@@ -1,14 +1,13 @@
 package br.com.ifsp.vcRiquinho.base.taxaDeServicoService.implementation;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import br.com.ifsp.vcRiquinho.base.identificators.implementation.taxaIdentificador.SemTaxaServico;
 import br.com.ifsp.vcRiquinho.base.identificators.implementation.taxaIdentificador.TaxaServicoContaCDI;
 import br.com.ifsp.vcRiquinho.base.identificators.implementation.taxaIdentificador.TaxaServicoContaInvestimentoAutomatico;
-import br.com.ifsp.vcRiquinho.base.taxaDeServicoService.implementation.TaxaDeServicoService;
 import br.com.ifsp.vcRiquinho.base.taxaDeServicoService.interfaces.TaxaDeServicoServiceInterface;
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCDI;
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCorrente;
@@ -22,7 +21,7 @@ class TaxaDeServicoServiceTest {
 	
 	@Test
 	void validarRequerimentoDeNaoNulo() {
-		assertThrows("O tipo conta identificador não pode ser nulo", NullPointerException.class, ()-> new TaxaDeServicoService(null));
+		assertThrows(NullPointerException.class, ()-> new TaxaDeServicoService(null));
 	}
 	
 	@Test

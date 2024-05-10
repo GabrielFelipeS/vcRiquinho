@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import br.com.ifsp.vcRiquinho.base.identificators.implementation.taxaIdentificador.SemTaxaServico;
 import br.com.ifsp.vcRiquinho.base.identificators.interfaces.TaxaIdentificator;
-import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCDI;
 import br.com.ifsp.vcRiquinho.pessoa.models.concrate.PessoaFisica;
 import br.com.ifsp.vcRiquinho.pessoa.models.concrate.PessoaJuridica;
