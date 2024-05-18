@@ -8,10 +8,22 @@ import br.com.ifsp.vcRiquinho.base.db.exceptions.DbException;
 import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
 
 public class ConnectionPostgress implements IDBConnector {
+	private String url;
+	private String user;
+	private String password;
+	
 	private static Connection conn;
-	private final String VARIAVEL_DE_AMBIENTE_DO_DOCKER = "POSTGRES_DBURL";
+	
+	public ConnectionPostgress() {
+		
+	}
+	
+	public ConnectionPostgress(String url, String user, String password) {
+		this.url = url;
+		this.user = user;
+		this.password = password;
+	}
 
-	@Override
 	public Connection getConnection(String url, String user, String password) {
 		if (connectionNotOpen()) {
 			setConnection(url, user, password);
@@ -32,28 +44,23 @@ public class ConnectionPostgress implements IDBConnector {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 	
 	@Override
 	public Connection getConnection() {
-		return getConnectionByDockerOrLocalDataBase();
-	}
-
-
-	public Connection getConnectionByDockerOrLocalDataBase() {
-		if (conn == null) {
-			String dbUrl = System.getenv(VARIAVEL_DE_AMBIENTE_DO_DOCKER);
-
-			if (dbUrl != null) {
-				return getConnection("jdbc:postgresql://localhost:5432/vcriquinho", "wolke", "wolke2024");
-			} else {
-				return getConnection("jdbc:postgresql://localhost:5432/vcriquinho", "wolke", "wolke2024");
-			}
+		return tryConnectionByDockerOrLocalDataBase();
+	}	
+	
+	public Connection tryConnectionByDockerOrLocalDataBase() {
+		try {
+			System.out.println(System.getenv("DOCKER_POSTGRES_USER"));
+			return getConnection(System.getenv("DOCKER_POSTGRES_URL"), System.getenv("DOCKER_POSTGRES_USER"), System.getenv("DOCKER_POSTGRES_PASSWORD"));
+		} catch(RuntimeException e) {
+			System.out.println(System.getenv("LOCAL_POSTGRES_USER"));
+			return getConnection(System.getenv("LOCAL_POSTGRES_URL"), System.getenv("LOCAL_POSTGRES_USER"), System.getenv("LOCAL_POSTGRES_PASSWORD"));
 		}
-
-		return conn;
 	}
 
 	@Override
