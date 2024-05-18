@@ -4,8 +4,8 @@ br\com\ifsp\vcRiquinho\pessoa\models\concrate\PessoaTest.class
 br\com\ifsp\vcRiquinho\produto\models\concrete\ProdutoRendaVariavelTest.class
 br\com\ifsp\vcRiquinho\base\identificators\implementation\taxaIdentificador\TaxaServicoContaCDITest.class
 br\com\ifsp\vcRiquinho\produto\models\concrete\ProdutoRendaFixaTest.class
-br\com\ifsp\vcRiquinho\pessoa\dao\PessoaDAOTest.class
 br\com\ifsp\vcRiquinho\conta\dao\ContaDAOTest.class
+br\com\ifsp\vcRiquinho\pessoa\dao\PessoaDAOTest.class
 br\com\ifsp\vcRiquinho\base\identificators\implementation\taxaIdentificador\SemTaxaServicoTest.class
 br\com\ifsp\vcRiquinho\base\identificators\implementation\tipoContaIdentificador\PegarTipoDeContaMapTest.class
 br\com\ifsp\vcRiquinho\conta\models\concrate\ContaTest.class

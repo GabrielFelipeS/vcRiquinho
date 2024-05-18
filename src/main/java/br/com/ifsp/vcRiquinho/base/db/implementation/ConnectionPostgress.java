@@ -55,10 +55,10 @@ public class ConnectionPostgress implements IDBConnector {
 	
 	public Connection tryConnectionByDockerOrLocalDataBase() {
 		try {
-			System.out.println(System.getenv("DOCKER_POSTGRES_USER"));
+			//System.out.println(System.getenv("DOCKER_POSTGRES_USER"));
 			return getConnection(System.getenv("DOCKER_POSTGRES_URL"), System.getenv("DOCKER_POSTGRES_USER"), System.getenv("DOCKER_POSTGRES_PASSWORD"));
 		} catch(RuntimeException e) {
-			System.out.println(System.getenv("LOCAL_POSTGRES_USER"));
+			//System.out.println(System.getenv("LOCAL_POSTGRES_USER"));
 			return getConnection(System.getenv("LOCAL_POSTGRES_URL"), System.getenv("LOCAL_POSTGRES_USER"), System.getenv("LOCAL_POSTGRES_PASSWORD"));
 		}
 	}

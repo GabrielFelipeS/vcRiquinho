@@ -22,8 +22,8 @@ class PessoaDAOTest {
 	private String DEFAULT_ID_NOT_EXISTS = "99999999999";
 
 	private ConnectionPostgress iDbConnector = new ConnectionPostgress();
-	private Connection connection = iDbConnector.getConnection("jdbc:postgresql://localhost:5432/dbtest_vcriquinho",
-			"postgres", "gabriel10*");
+	private Connection connection = iDbConnector.getConnection("jdbc:postgresql://localhost:5433/dbtest_vcriquinho",
+			"postgres", "admin");
 
 	@AfterEach
 	void afterEach() throws SQLException {

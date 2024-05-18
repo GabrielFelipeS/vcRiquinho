@@ -1,11 +1,11 @@
 br\com\ifsp\vcRiquinho\conta\dao\ContaDAO.class
-br\com\ifsp\vcRiquinho\conta\models\concrate\ContaCDI.class
 br\com\ifsp\vcRiquinho\base\db\interfaces\IDBConnector.class
+br\com\ifsp\vcRiquinho\conta\models\concrate\ContaCDI.class
 br\com\ifsp\vcRiquinho\base\identificators\implementation\taxaIdentificador\TaxaServicoContaCDI.class
 br\com\ifsp\vcRiquinho\simulador\models\abstracts\SimuladorInterface.class
 br\com\ifsp\vcRiquinho\base\interfaces\DAO.class
-br\com\ifsp\vcRiquinho\conta\models\abstracts\Conta.class
 br\com\ifsp\vcRiquinho\base\taxaDeServicoService\implementation\TaxaDeServicoService.class
+br\com\ifsp\vcRiquinho\conta\models\abstracts\Conta.class
 br\com\ifsp\vcRiquinho\base\identificators\interfaces\TipoContaIdentificador.class
 br\com\ifsp\vcRiquinho\pessoa\models\abstracts\Pessoa.class
 br\com\ifsp\vcRiquinho\produto\models\concrete\ProdutoRendaFixa.class
