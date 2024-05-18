@@ -13,7 +13,7 @@ public class ConnectionPostgress implements IDBConnector {
 
 	@Override
 	public Connection getConnection() {
-		return getConnection("jdbc:postgresql://localhost:5432/vcRiquinho", "wolke", "wolke2024");
+		return getConnectionByDockerOrLocalDataBase();
 	}
 
 	@Override
@@ -34,9 +34,9 @@ public class ConnectionPostgress implements IDBConnector {
 			String dbUrl = System.getenv(VARIAVEL_DE_AMBIENTE_DO_DOCKER);
 
 			if (dbUrl != null) {
-				return getConnection("jdbc:postgresql://localhost:5432/vcRiquinho", "wolke", "wolke2024");
+				return getConnection("jdbc:postgresql://localhost:5432/vcriquinho", "wolke", "wolke2024");
 			} else {
-				return getConnection("jdbc:postgresql://localhost:5432/vcRiquinho", "wolke", "wolke2024");
+				return getConnection("jdbc:postgresql://localhost:5432/vcriquinho", "wolke", "wolke2024");
 			}
 		}
 

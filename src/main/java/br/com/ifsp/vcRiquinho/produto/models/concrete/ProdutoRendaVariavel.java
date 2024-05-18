@@ -8,15 +8,15 @@ public class ProdutoRendaVariavel extends Produto {
 	private Double rendimentoMensalEsperado;
 
 	
-	public ProdutoRendaVariavel(Double rendimentoMensalEsperado) {
-		this("vcInveste", 
+	public ProdutoRendaVariavel(Integer id, Double rendimentoMensalEsperado) {
+		this(id, "vcInveste", 
 				"Permite clientes investir ações de empresas globais, fundos de índice, "
 				+ "commodities e moedas digitais, os investidores podem diversificar suas carteiras de forma automática e eficaz"
 			,rendimentoMensalEsperado);
 	}
 	
-	public ProdutoRendaVariavel(String nome, String descricao, Double rendimentoMensalEsperado) {
-		super(nome, descricao);
+	public ProdutoRendaVariavel(Integer id, String nome, String descricao, Double rendimentoMensalEsperado) {
+		super(id, nome, descricao);
 		this.rendimentoMensalEsperado = Objects.requireNonNull(rendimentoMensalEsperado, "O rendimento mensal esperado do produto de renda variavel não pode ser nulo");
 	}
 	

@@ -9,6 +9,7 @@ D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\base\taxaDeServicoService
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\conta\models\concrate\ContaCorrente.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\simulador\controller\SimuladorController.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\Teste.java
+D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\conta\dto\DTOConta.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\pessoa\exceptions\ZeroContasException.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\produto\models\concrete\ProdutoRendaVariavel.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\base\identificators\implementation\taxaIdentificador\SemTaxaServico.java
@@ -18,6 +19,7 @@ D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\base\identificators\inter
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\pessoa\models\concrate\PessoaJuridica.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\base\identificators\implementation\taxaIdentificador\TaxaServicoContaCDI.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\conta\dao\ContaDAO.java
+D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\TesteHipotese.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\base\db\exceptions\DbException.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\simulador\models\concrates\SimuladorService.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\base\interfaces\Rentavel.java

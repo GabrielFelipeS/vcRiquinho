@@ -99,9 +99,9 @@ class PessoaTest {
 	@Test
 	void addContaFalse3() {
 		Pessoa pessoa = new PessoaJuridica("", "",
-				new ContaInvestimentoAutomatico(00, "", .0, new ProdutoRendaFixa(0.0, 0)), "");
+				new ContaInvestimentoAutomatico(00, "", .0, new ProdutoRendaFixa(0, 0.0, 0)), "");
 
-		assertFalse(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0))));
+		assertFalse(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0))));
 	}
 
 	@Test
@@ -115,13 +115,13 @@ class PessoaTest {
 	void addContaTrue2() {
 		Pessoa pessoa = new PessoaJuridica("", "", new ContaCDI(0, "", 0.0, 0.0), "");
 
-		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0))));
+		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0))));
 	}
 
 	@Test
 	void addContaTrue3() {
 		Pessoa pessoa = new PessoaJuridica("", "",
-				new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0)), "");
+				new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0)), "");
 
 		assertTrue(pessoa.addConta(new ContaCDI(0, "", 0.0, 0.0)));
 	}
@@ -129,7 +129,7 @@ class PessoaTest {
 	@Test
 	void addContaTrue4() {
 		Pessoa pessoa = new PessoaJuridica("", "",
-				new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0)), "");
+				new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0)), "");
 
 		assertTrue(pessoa.addConta(new ContaCorrente(0, "", 0.0)));
 	}
@@ -145,14 +145,14 @@ class PessoaTest {
 	void addContaTrue6() {
 		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(0, "", 0.0), "");
 
-		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0))));
+		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0))));
 	}
 
 	@Test
 	void addContaTrue7() {
 		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(0, "", 0.0), "");
 
-		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0))));
+		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0))));
 		assertTrue(pessoa.addConta(new ContaCDI(0, "", 0.0, 0.0)));
 	}
 
@@ -160,16 +160,16 @@ class PessoaTest {
 	void addContaTrueAndFalse() {
 		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(0, "", 0.0), "");
 
-		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0))));
-		assertFalse(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0))));
+		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0))));
+		assertFalse(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0))));
 	}
 
 	@Test
 	void addConta() {
 		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(0, "", 0.0), "");
 
-		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0))));
-		assertFalse(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0))));
+		assertTrue(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0))));
+		assertFalse(pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0))));
 	}
 
 	@Test
@@ -178,7 +178,7 @@ class PessoaTest {
 
 		List<Conta> verificarContasFaltantes = new ArrayList<>(
 				Arrays.asList(new ContaCDI(0, "", 0.0, 0.0), new ContaCorrente(0, "", 0.0),
-						new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0))));
+						new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0))));
 
 		var result = pessoa.verificarContasNaoCadastradas(verificarContasFaltantes);
 
@@ -190,7 +190,7 @@ class PessoaTest {
 		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(0, "", 0.0), "");
 
 		List<Conta> verificarContasFaltantes = new ArrayList<>(Arrays.asList(new ContaCDI(0, "", 0.0, 0.0),
-				new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0))));
+				new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0))));
 
 		var result = pessoa.verificarContasNaoCadastradas(verificarContasFaltantes);
 
@@ -203,10 +203,10 @@ class PessoaTest {
 
 		List<Conta> verificarContasFaltantes = new ArrayList<>(
 				Arrays.asList(new ContaCDI(0, "", 0.0, 0.0), new ContaCorrente(0, "", 0.0),
-						new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0))));
+						new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0))));
 
 		var listResultExpected = Arrays.asList(new ContaCDI(0, "", 0.0, 0.0),
-				new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0)));
+				new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0)));
 
 		var result = pessoa.verificarContasNaoCadastradas(verificarContasFaltantes);
 
@@ -221,10 +221,10 @@ class PessoaTest {
 
 		List<Conta> verificarContasFaltantes = new ArrayList<>(
 				Arrays.asList(new ContaCDI(0, "", 0.0, 0.0), new ContaCorrente(0, "", 0.0),
-						new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0))));
+						new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0))));
 
 		var listResultExpected = Arrays
-				.asList(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0)));
+				.asList(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0)));
 
 		var result = pessoa.verificarContasNaoCadastradas(verificarContasFaltantes);
 
@@ -236,11 +236,11 @@ class PessoaTest {
 	void tiposDeContasNaoCadastradas5() {
 		Pessoa pessoa = new PessoaJuridica("", "", new ContaCorrente(0, "", 0.0), "");
 		pessoa.addConta(new ContaCDI(0, "", 0.0, 0.0));
-		pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0)));
+		pessoa.addConta(new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0)));
 
 		List<Conta> verificarContasFaltantes = new ArrayList<>(
 				Arrays.asList(new ContaCDI(0, "", 0.0, 0.0), new ContaCorrente(0, "", 0.0),
-						new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0.0, 0))));
+						new ContaInvestimentoAutomatico(0, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0))));
 
 		var listResultExpected = Arrays.asList();
 

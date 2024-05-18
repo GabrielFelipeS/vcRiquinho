@@ -63,19 +63,19 @@ public class ContaTest {
 	@Test
 	void validarRequerimentoDeNuloInvestimentoAutomatico1() {
 		assertThrows(NullPointerException.class,
-				() -> new ContaInvestimentoAutomatico(null, "", 0.0, new ProdutoRendaFixa(0.0, 0)));
+				() -> new ContaInvestimentoAutomatico(null, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0)));
 	}
 
 	@Test
 	void validarRequerimentoDeNuloInvestimentoAutomatico2() {
 		assertThrows(NullPointerException.class,
-				() -> new ContaInvestimentoAutomatico(0, null, 0.0, new ProdutoRendaFixa(0.0, 0)));
+				() -> new ContaInvestimentoAutomatico(0, null, 0.0, new ProdutoRendaFixa(0, 0.0, 0)));
 	}
 
 	@Test
 	void validarRequerimentoDeNuloInvestimentoAutomatico3() {
 		assertThrows(NullPointerException.class,
-				() -> new ContaInvestimentoAutomatico(0, "", null, new ProdutoRendaFixa(0.0, 0)));
+				() -> new ContaInvestimentoAutomatico(0, "", null, new ProdutoRendaFixa(0, 0.0, 0)));
 	}
 
 	@Test

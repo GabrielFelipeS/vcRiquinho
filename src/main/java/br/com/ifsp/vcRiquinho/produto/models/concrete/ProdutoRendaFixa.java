@@ -11,19 +11,19 @@ public class ProdutoRendaFixa extends Produto {
 	private Integer carencia;
 	private LocalDate localDate;
 
-	public ProdutoRendaFixa(Double rendimentoMensalEsperado, Integer carencia) {
-		this("vcInveste", 
+	public ProdutoRendaFixa(Integer id, Double rendimentoMensalEsperado, Integer carencia) {
+		this(id, "vcInveste", 
 				"Permite clientes investir ações de empresas globais, fundos de índice, "
 				+ "commodities e moedas digitais, os investidores podem diversificar suas carteiras de forma automática e eficaz"
 			,rendimentoMensalEsperado, carencia);
 	}
 	
-	public ProdutoRendaFixa(String nome, String descricao, Double rendimentoMensal, Integer carencia) {
-		this(nome, descricao, rendimentoMensal, carencia, LocalDate.now());
+	public ProdutoRendaFixa(Integer id, String nome, String descricao, Double rendimentoMensal, Integer carencia) {
+		this(id, nome, descricao, rendimentoMensal, carencia, LocalDate.now());
 	}
 	
-	ProdutoRendaFixa(String nome, String descricao, Double rendimentoMensal, Integer carencia, LocalDate localDate) {
-		super(nome, descricao);
+	public ProdutoRendaFixa(Integer id, String nome, String descricao, Double rendimentoMensal, Integer carencia, LocalDate localDate) {
+		super(id, nome, descricao);
 		this.rendimentoMensal = Objects.requireNonNull(rendimentoMensal, "O rendimento mensal esperado do produto de renda fixa não pode ser nulo");
 		this.carencia = Objects.requireNonNull(carencia, "A carencia do produto de renda fixa não pode ser nulo");
 		this.localDate = Objects.requireNonNull(localDate, "O localDate do produto de renda fixa não pode ser nulo");

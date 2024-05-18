@@ -41,15 +41,15 @@ class TaxaDeServicoServiceTest {
 	@Test
 	void getTaxaDeContaInvestimentoAutomaticoEPessoaFisica() {
 		TaxaDeServicoServiceInterface taxaService = new TaxaDeServicoService();
-		assertEquals(TaxaServicoContaInvestimentoAutomatico.TAXA_SERVICO_PF, taxaService.obterTaxa(new ContaInvestimentoAutomatico(0, "",0.0,  new ProdutoRendaFixa(0.0, 0)),
-				new PessoaFisica("", "", new ContaInvestimentoAutomatico(0, "",0.0,  new ProdutoRendaFixa(0.0, 0)), "")) );
+		assertEquals(TaxaServicoContaInvestimentoAutomatico.TAXA_SERVICO_PF, taxaService.obterTaxa(new ContaInvestimentoAutomatico(0, "",0.0,  new ProdutoRendaFixa(0, 0.0, 0)),
+				new PessoaFisica("", "", new ContaInvestimentoAutomatico(0, "",0.0,  new ProdutoRendaFixa(0, 0.0, 0)), "")) );
 	}
 	
 	@Test
 	void getTaxaDeContaInvestimentoAutomaticoEPessoaJuridica() {
 		TaxaDeServicoServiceInterface taxaService = new TaxaDeServicoService();
-		assertEquals(TaxaServicoContaInvestimentoAutomatico.TAXA_SERVICO_PJ, taxaService.obterTaxa(new ContaInvestimentoAutomatico(0, "",0.0,  new ProdutoRendaFixa(0.0, 0)),
-				new PessoaJuridica("", "", new ContaInvestimentoAutomatico(0, "",0.0, new ProdutoRendaFixa(0.0, 0)), "")) );
+		assertEquals(TaxaServicoContaInvestimentoAutomatico.TAXA_SERVICO_PJ, taxaService.obterTaxa(new ContaInvestimentoAutomatico(0, "",0.0,  new ProdutoRendaFixa(0, 0.0, 0)),
+				new PessoaJuridica("", "", new ContaInvestimentoAutomatico(0, "",0.0, new ProdutoRendaFixa(0, 0.0, 0)), "")) );
 	}
 	
 	@Test

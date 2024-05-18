@@ -39,7 +39,7 @@ class PegarTipoDeContaMapTest {
 	void getTaxaIdentificatorPorClasse4() {
 		TipoContaIdentificador identificador = new PegarTipoDeContaMap();
 		assertEquals(TaxaServicoContaInvestimentoAutomatico.class,
-				identificador.getTaxaIdentificator(new ContaInvestimentoAutomatico(0, "",5.0, new ProdutoRendaFixa(0.0, 0))).getClass());
+				identificador.getTaxaIdentificator(new ContaInvestimentoAutomatico(0, "",5.0, new ProdutoRendaFixa(0, 0.0, 0))).getClass());
 	}
 
 	@Test
