@@ -11,20 +11,29 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
 
+@TestInstance(Lifecycle.PER_CLASS)
 class ContaDAOTest {
 	private int DEFAULT_ID_EXISTS = 1;
 	private int DEFAULT_ID_NOT_EXISTS = 1000;
 
 	private ConnectionPostgress iDbConnector = new ConnectionPostgress();
-	private Connection connection = iDbConnector.getConnection("jdbc:postgresql://localhost:5432/dbtest_vcriquinho",
-			"postgres", "gabriel10*");
+	private Connection connection = iDbConnector.getConnection("jdbc:postgresql://localhost:5433/dbtest_vcriquinho",
+			"postgres", "admin");
 
+	@AfterAll
+	void beforeAll() {
+		iDbConnector.closeConnection();
+	}
+	
 	@AfterEach
 	void afterEach() throws SQLException {
 		String procedure = "{ call reset_table_in_conta() }";
@@ -40,7 +49,7 @@ class ContaDAOTest {
 	void findAllTest() {
 		ContaDAO dao = new ContaDAO(connection);
 		var result = dao.findAll();
-
+		
 		assertNotNull(result);
 		assertTrue(result.size() > 0);
 	}
