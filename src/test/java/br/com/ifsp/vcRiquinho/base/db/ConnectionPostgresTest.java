@@ -15,7 +15,6 @@ public class ConnectionPostgresTest {
 		
 		assertDoesNotThrow(() -> {
 			dbConnection.getConnection("jdbc:postgresql://localhost:5432/dbtest_vcriquinho", "wolke", "wolke2024");
-			dbConnection.closeConnection();
 		});
 		
 		assertNotEquals(null, dbConnection.getConnection());

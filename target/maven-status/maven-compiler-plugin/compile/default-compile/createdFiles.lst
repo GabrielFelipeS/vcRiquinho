@@ -28,6 +28,7 @@ br\com\ifsp\vcRiquinho\base\identificators\implementation\tipoContaIdentificator
 br\com\ifsp\vcRiquinho\produto\models\concrete\ProdutoRendaVariavel.class
 br\com\ifsp\vcRiquinho\base\identificators\implementation\taxaIdentificador\TaxaServicoContaInvestimentoAutomatico.class
 br\com\ifsp\vcRiquinho\base\db\implementation\ConnectionPostgress.class
+br\com\ifsp\vcRiquinho\TesteEnv.class
 br\com\ifsp\vcRiquinho\conta\models\concrate\ContaInvestimentoAutomatico.class
 br\com\ifsp\vcRiquinho\pessoa\models\concrate\PessoaJuridica.class
 br\com\ifsp\vcRiquinho\produto\exceptions\DaysCannotByNegativeException.class

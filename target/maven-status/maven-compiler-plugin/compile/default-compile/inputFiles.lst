@@ -22,6 +22,7 @@ D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\pessoa\models\concrate\Pe
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\base\identificators\implementation\taxaIdentificador\TaxaServicoContaCDI.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\conta\dao\ContaDAO.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\TesteHipotese.java
+D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\TesteEnv.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\base\db\exceptions\DbException.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\simulador\models\concrates\SimuladorService.java
 D:\PWE\vcRiquinho\src\main\java\br\com\ifsp\vcRiquinho\base\interfaces\Rentavel.java
