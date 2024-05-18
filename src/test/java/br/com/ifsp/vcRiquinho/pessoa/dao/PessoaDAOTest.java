@@ -126,7 +126,6 @@ class PessoaDAOTest {
 		Optional<DTOPessoa> newDto = dao.updateOptionalBy(dto);
 
 		assertFalse(newDto.isEmpty());
-		//assertEquals(dto.id_produto(), newDto.get().id_produto());
 	}
 
 	@Test

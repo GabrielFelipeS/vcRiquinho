@@ -30,7 +30,7 @@ public class PessoaDAO implements DAO<DTOPessoa, String> {
 
 	@Override
 	public List<DTOPessoa> findAll() {
-		return findWhere("1 = 1");
+		return findWhere("1 = 1 AND ativo = true");
 	}
 
 	@Override
@@ -104,7 +104,6 @@ public class PessoaDAO implements DAO<DTOPessoa, String> {
 			pst.setString(1, id);
 			try (ResultSet rs = pst.executeQuery()) {
 				if (rs.next()) {
-
 					DTOPessoa dto = createDTOPessoa(rs);
 					return dto;
 				}
