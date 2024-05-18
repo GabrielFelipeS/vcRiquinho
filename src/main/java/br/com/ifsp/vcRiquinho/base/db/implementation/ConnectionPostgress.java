@@ -12,22 +12,35 @@ public class ConnectionPostgress implements IDBConnector {
 	private final String VARIAVEL_DE_AMBIENTE_DO_DOCKER = "POSTGRES_DBURL";
 
 	@Override
+	public Connection getConnection(String url, String user, String password) {
+		if (connectionNotOpen()) {
+			setConnection(url, user, password);
+		}
+		
+		return conn;
+	}
+	
+	private boolean connectionNotOpen() {
+		try {
+			return conn == null || conn.isClosed();
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
+	private void setConnection(String url, String user, String password) {
+		try {
+			conn = DriverManager.getConnection(url, user, password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
 	public Connection getConnection() {
 		return getConnectionByDockerOrLocalDataBase();
 	}
 
-	@Override
-	public Connection getConnection(String url, String user, String password) {
-		if (conn == null) {
-			try {
-				// Estabelece a conexão
-				conn = DriverManager.getConnection(url, user, password);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return conn;
-	}
 
 	public Connection getConnectionByDockerOrLocalDataBase() {
 		if (conn == null) {

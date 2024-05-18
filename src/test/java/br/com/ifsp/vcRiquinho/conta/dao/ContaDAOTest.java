@@ -13,12 +13,10 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ContaDAOTest {
 	private int DEFAULT_ID_EXISTS = 1;
 	private int DEFAULT_ID_NOT_EXISTS = 1000;

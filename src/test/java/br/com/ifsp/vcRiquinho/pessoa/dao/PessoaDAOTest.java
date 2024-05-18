@@ -13,12 +13,10 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoa;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PessoaDAOTest {
 	private String DEFAULT_ID_EXISTS = "12345678901";
 	private String DEFAULT_ID_NOT_EXISTS = "99999999999";
