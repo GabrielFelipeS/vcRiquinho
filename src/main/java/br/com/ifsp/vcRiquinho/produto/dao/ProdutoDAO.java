@@ -1,6 +1,5 @@
 package br.com.ifsp.vcRiquinho.produto.dao;
 
-import java.awt.Window.Type;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ifsp.vcRiquinho.base.interfaces.DAO;
-import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoa;
 import br.com.ifsp.vcRiquinho.produto.dto.DTOProduto;
 
 public class ProdutoDAO implements DAO<DTOProduto, Integer> {
@@ -40,14 +38,10 @@ public class ProdutoDAO implements DAO<DTOProduto, Integer> {
 	public List<DTOProduto> findWhere(String where) {
 		List<DTOProduto> list = new ArrayList<DTOProduto>();
 		try (Statement st = conn.createStatement()) {
-			st.execute("SELECT " 
-					+ "pc.id_produto as id_produto, " 
-					+ "pc.carencia as carencia, "
-					+ "	pc.tipo_produto as tipo_produto, " + "	p.nome as nome, " 
-					+ "	p.descricao as descricao,"
+			st.execute("SELECT " + "pc.id_produto as id_produto, " + "pc.carencia as carencia, "
+					+ "	pc.tipo_produto as tipo_produto, " + "	p.nome as nome, " + "	p.descricao as descricao,"
 					+ "	p.rendimento_mensal as rendimento_mensal " + "FROM produto as p "
-					+ "INNER JOIN produto_conta as pc " + "ON p.id_produto = pc.id_produto " 
-					+ "WHERE " + where);
+					+ "INNER JOIN produto_conta as pc " + "ON p.id_produto = pc.id_produto " + "WHERE " + where);
 			try (ResultSet rs = st.getResultSet()) {
 
 				while (rs.next()) {
@@ -79,8 +73,8 @@ public class ProdutoDAO implements DAO<DTOProduto, Integer> {
 				if (generatedKeysProduto.next()) {
 					Integer id_produto = generatedKeysProduto.getInt("id_produto");
 
-					return insertInProdutoConta(id_produto, dto, affectedRows);
-					
+					return insertInProdutoConta(id_produto, dto);
+
 				} else {
 					throw new SQLException("Falha na criação do produto, nenhum ID obtido.");
 				}
@@ -91,18 +85,24 @@ public class ProdutoDAO implements DAO<DTOProduto, Integer> {
 		}
 	}
 
-	private DTOProduto insertInProdutoConta(Integer id_produto, DTOProduto dto, Integer affectedRows) throws SQLException {
+	public DTOProduto insertInProdutoConta(DTOProduto dto) {
+		try {
+			return insertInProdutoConta(dto.id(), dto);
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
+	public DTOProduto insertInProdutoConta(Integer id_produto, DTOProduto dto) throws SQLException {
 		try (PreparedStatement pst2 = conn
-				.prepareStatement(
-						"INSERT INTO produto_conta (id_produto, carencia, tipo_produto)"
-								+ "	VALUES  (?, ?, CAST(? AS TIPO_PRODUTO))",
-						Statement.RETURN_GENERATED_KEYS)) {
+				.prepareStatement("INSERT INTO produto_conta (id_produto, carencia, tipo_produto)"
+						+ "	VALUES  (?, ?, CAST(? AS TIPO_PRODUTO))", Statement.RETURN_GENERATED_KEYS)) {
 
 			pst2.setInt(1, id_produto);
 			pst2.setInt(2, dto.carencia());
 			pst2.setObject(3, dto.tipo_produto(), java.sql.Types.OTHER);
 
-			affectedRows = pst2.executeUpdate();
+			int affectedRows = pst2.executeUpdate();
 			if (affectedRows == 0) {
 				throw new SQLException("Falha na criação do produto, nenhuma linha afetada.");
 			}
@@ -137,16 +137,10 @@ public class ProdutoDAO implements DAO<DTOProduto, Integer> {
 
 	@Override
 	public DTOProduto findBy(Integer id) {
-		try (PreparedStatement pst = conn.prepareStatement("SELECT " 
-				+ "	pc.id_produto as id_produto, "
-				+ "	pc.carencia as carencia, " 
-				+ "	pc.tipo_produto as tipo_produto, " + "	p.nome as nome, "
-				+ "	p.descricao as descricao," 
-				+ "	p.rendimento_mensal as rendimento_mensal " 
-				+ "FROM produto as p "
-				+ "INNER JOIN produto_conta as pc " 
-				+ "ON p.id_produto = pc.id_produto " 
-				+ "WHERE pc.id_produto = ?")) {
+		try (PreparedStatement pst = conn.prepareStatement("SELECT " + "	pc.id_produto as id_produto, "
+				+ "	pc.carencia as carencia, " + "	pc.tipo_produto as tipo_produto, " + "	p.nome as nome, "
+				+ "	p.descricao as descricao," + "	p.rendimento_mensal as rendimento_mensal " + "FROM produto as p "
+				+ "INNER JOIN produto_conta as pc " + "ON p.id_produto = pc.id_produto " + "WHERE pc.id_produto = ?")) {
 
 			pst.setInt(1, id);
 
@@ -167,13 +161,13 @@ public class ProdutoDAO implements DAO<DTOProduto, Integer> {
 	@Override
 	public DTOProduto updateBy(DTOProduto dto) {
 		updateProduto(dto);
-		updateProdutoConta(dto);		
+		updateProdutoConta(dto);
 		return findBy(dto.id());
 	}
 
 	private void updateProduto(DTOProduto dto) {
-		try (PreparedStatement pst = conn
-				.prepareStatement("UPDATE produto SET nome = ?, descricao = ?, rendimento_mensal = ? WHERE id_produto = ? ")) {
+		try (PreparedStatement pst = conn.prepareStatement(
+				"UPDATE produto SET nome = ?, descricao = ?, rendimento_mensal = ? WHERE id_produto = ? ")) {
 
 			pst.setString(1, dto.nome());
 			pst.setString(2, dto.descricao());
@@ -185,11 +179,9 @@ public class ProdutoDAO implements DAO<DTOProduto, Integer> {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
-	
 
 	private void updateProdutoConta(DTOProduto dto) {
-		try (PreparedStatement pst = conn
-				.prepareStatement("UPDATE produto_conta SET carencia = ? WHERE id = ? ")) {
+		try (PreparedStatement pst = conn.prepareStatement("UPDATE produto_conta SET carencia = ? WHERE id = ? ")) {
 
 			pst.setInt(1, dto.carencia());
 			pst.setInt(2, dto.id());
@@ -199,6 +191,5 @@ public class ProdutoDAO implements DAO<DTOProduto, Integer> {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
-	
 
 }

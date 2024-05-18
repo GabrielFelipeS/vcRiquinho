@@ -22,8 +22,9 @@ class ProdutoDAOTest {
 	private Integer DEFAULT_ID_NOT_EXISTS = 999999;
 
 	private ConnectionPostgress iDbConnector = new ConnectionPostgress();
-	private Connection connection = iDbConnector.getConnection("jdbc:postgresql://localhost:5433/dbtest_vcriquinho",
-			"postgres", "admin");
+	private Connection connection = iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST, 
+																ConnectionPostgress.DEFAULT_USER_DBTEST, 
+																ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
 
 	@AfterEach
 	void afterEach() throws SQLException {
@@ -47,20 +48,23 @@ class ProdutoDAOTest {
 	@Test
 	void insertTestSucess() {
 		ProdutoDAO dao = new ProdutoDAO(connection);
-		
-		DTOProduto dto = new DTOProduto(DEFAULT_ID_NOT_EXISTS, 1825, "renda_fixa", "Fundo de Renda Fixa TESTE", "Fundo de investimento em renda fixa com baixo risco", 0.015);
+
+		DTOProduto dto = new DTOProduto(DEFAULT_ID_NOT_EXISTS, 1825, "renda_fixa", "Fundo de Renda Fixa TESTE",
+				"Fundo de investimento em renda fixa com baixo risco", 0.015);
 		assertNotNull(dao.insert(dto));
 	}
 
 	@Test
 	void insertTestFail() {
 		ProdutoDAO dao = new ProdutoDAO(connection);
-		
-		DTOProduto dto = new DTOProduto(DEFAULT_ID_EXISTS, 1825, "renda_fixa", "Fundo de Renda Fixa ABC", "Fundo de investimento em renda fixa com baixo risco", 0.015);
-		
-		assertThrows(RuntimeException.class, () -> dao.insert(dto),  "ERROR: duplicate key value violates unique constraint \"produto_nome_key");
+
+		DTOProduto dto = new DTOProduto(DEFAULT_ID_EXISTS, 1825, "renda_fixa", "Fundo de Renda Fixa ABC",
+				"Fundo de investimento em renda fixa com baixo risco", 0.015);
+
+		assertThrows(RuntimeException.class, () -> dao.insert(dto),
+				"ERROR: duplicate key value violates unique constraint \"produto_nome_key");
 	}
-	
+
 	@Test
 	void deleteByTestSucess() {
 		ProdutoDAO dao = new ProdutoDAO(connection);
@@ -72,7 +76,7 @@ class ProdutoDAOTest {
 	void deleteByTestFail() {
 		ProdutoDAO dao = new ProdutoDAO(connection);
 
-		assertThrows(RuntimeException.class, () ->dao.deleteBy(DEFAULT_ID_NOT_EXISTS));
+		assertThrows(RuntimeException.class, () -> dao.deleteBy(DEFAULT_ID_NOT_EXISTS));
 	}
 
 	@Test
@@ -90,52 +94,20 @@ class ProdutoDAOTest {
 	}
 
 	@Test
-	void findOptioanlByTestNotEmpty() {
-		ProdutoDAO dao = new ProdutoDAO(connection);
-
-		assertFalse(dao.findOptionalBy(DEFAULT_ID_EXISTS).isEmpty());
-	}
-
-	@Test
-	void findOptioanlByTestEmpty() {
-		ProdutoDAO dao = new ProdutoDAO(connection);
-
-		assertTrue(dao.findOptionalBy(DEFAULT_ID_NOT_EXISTS).isEmpty());
-	}
-
-	@Test
 	void updateByTestNotNull() {
 		ProdutoDAO dao = new ProdutoDAO(connection);
-		DTOProduto dto = new DTOProduto(DEFAULT_ID_EXISTS, 1825, "renda_fixa", "Fundo de Renda Fixa ABC", "Fundo de investimento em renda fixa com baixo risco", 0.015);
+		DTOProduto dto = new DTOProduto(DEFAULT_ID_EXISTS, 1825, "renda_fixa", "Fundo de Renda Fixa ABC",
+				"Fundo de investimento em renda fixa com baixo risco", 0.015);
 		assertNotNull(dao.updateBy(dto));
 	}
 
 	@Test
 	void updateByTestNull() {
 		ProdutoDAO dao = new ProdutoDAO(connection);
-		DTOProduto dto = new DTOProduto(DEFAULT_ID_NOT_EXISTS, 1825, "renda_fixa", "Fundo de Renda Fixa ABC", "Fundo de investimento em renda fixa com baixo risco", 0.015);
+		DTOProduto dto = new DTOProduto(DEFAULT_ID_NOT_EXISTS, 1825, "renda_fixa", "Fundo de Renda Fixa ABC",
+				"Fundo de investimento em renda fixa com baixo risco", 0.015);
 		DTOProduto newDto = dao.updateBy(dto);
 		assertNull(newDto);
-	}
-
-	@Test
-	void updateOptioanlByTestNotEmpty() {
-		ProdutoDAO dao = new ProdutoDAO(connection);
-		DTOProduto dto = new DTOProduto(DEFAULT_ID_EXISTS, 1825, "renda_fixa", "Fundo de Renda Fixa ABC", "Fundo de investimento em renda fixa com baixo risco", 0.015);
-
-		Optional<DTOProduto> newDto = dao.updateOptionalBy(dto);
-
-		assertFalse(newDto.isEmpty());
-	}
-
-	@Test
-	void updateOptioanlByTestEmpty() {
-		ProdutoDAO dao = new ProdutoDAO(connection);
-		DTOProduto dto = new DTOProduto(DEFAULT_ID_NOT_EXISTS, 1825, "renda_fixa", "Fundo de Renda Fixa ABC", "Fundo de investimento em renda fixa com baixo risco", 0.015);
-		
-		Optional<DTOProduto> newDto = dao.updateOptionalBy(dto);
-
-		assertTrue(newDto.isEmpty());
 	}
 
 }

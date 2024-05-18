@@ -8,6 +8,10 @@ import br.com.ifsp.vcRiquinho.base.db.exceptions.DbException;
 import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
 
 public class ConnectionPostgress implements IDBConnector {
+	public static final String DEFAULT_URL_DBTEST = "jdbc:postgresql://localhost:5433/dbtest_vcriquinho";
+	public static final String DEFAULT_USER_DBTEST = "postgres";
+	public static final String DEFAULT_PASSWORD_DBTEST = "admin";
+	
 	private String url;
 	private String user;
 	private String password;

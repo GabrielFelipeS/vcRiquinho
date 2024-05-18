@@ -11,12 +11,7 @@ public interface DAO<T,P> {
 	Boolean deleteBy(P id);
 	
 	T findBy(P id);
-	default Optional<T> findOptionalBy(P id) {
-		return Optional.ofNullable(findBy(id));
-	}
 	
 	T updateBy(T dto);
-	default Optional<T> updateOptionalBy(T id) {
-		return Optional.ofNullable(updateBy(id));
-	}
+
 }

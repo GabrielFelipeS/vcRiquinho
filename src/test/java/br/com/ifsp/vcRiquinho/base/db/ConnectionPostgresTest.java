@@ -14,7 +14,7 @@ public class ConnectionPostgresTest {
 		ConnectionPostgress dbConnection = new ConnectionPostgress();
 		
 		assertDoesNotThrow(() -> {
-			dbConnection.getConnection("jdbc:postgresql://localhost:5433/dbtest_vcriquinho", "postgres", "admin");
+			dbConnection.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST, ConnectionPostgress.DEFAULT_USER_DBTEST, ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
 		});
 		
 		assertNotEquals(null, dbConnection.getConnection());

@@ -22,9 +22,9 @@ class PessoaDAOTest {
 	private String DEFAULT_ID_NOT_EXISTS = "99999999999";
 
 	private ConnectionPostgress iDbConnector = new ConnectionPostgress();
-	private Connection connection = iDbConnector.getConnection("jdbc:postgresql://localhost:5433/dbtest_vcriquinho",
-			"postgres", "admin");
-
+	private Connection connection = iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST, 
+																ConnectionPostgress.DEFAULT_USER_DBTEST, 
+																ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
 	@AfterEach
 	void afterEach() throws SQLException {
 		String procedure = "{ call reset_table_in_pessoa() }";
@@ -47,7 +47,7 @@ class PessoaDAOTest {
 	@Test
 	void insertTestSucess() {
 		PessoaDAO dao = new PessoaDAO(connection);
-		
+
 		DTOPessoa dto = new DTOPessoa(0, "12345678989", "Gabriel Felipe", "andrade.gabriel1@email.com", "fisica");
 		assertNotNull(dao.insert(dto));
 	}
@@ -55,10 +55,11 @@ class PessoaDAOTest {
 	@Test
 	void insertTestFail() {
 		PessoaDAO dao = new PessoaDAO(connection);
-		
+
 		DTOPessoa dto = new DTOPessoa(0, "12345678989", "Gabriel Felipe", "andrade.gabriel1@email.com", "fisica");
 		dao.insert(dto);
-		assertThrows(RuntimeException.class, () -> dao.insert(dto), "ERRO: duplicar valor da chave viola a restrição de unicidade \"sem_duplicidade_conta_documento");
+		assertThrows(RuntimeException.class, () -> dao.insert(dto),
+				"ERRO: duplicar valor da chave viola a restrição de unicidade \"sem_duplicidade_conta_documento");
 	}
 
 	@Test
@@ -72,7 +73,7 @@ class PessoaDAOTest {
 	void deleteByTestFail() {
 		PessoaDAO dao = new PessoaDAO(connection);
 
-		assertThrows(RuntimeException.class, () ->dao.deleteBy(DEFAULT_ID_NOT_EXISTS));
+		assertThrows(RuntimeException.class, () -> dao.deleteBy(DEFAULT_ID_NOT_EXISTS));
 	}
 
 	@Test
@@ -90,20 +91,6 @@ class PessoaDAOTest {
 	}
 
 	@Test
-	void findOptioanlByTestNotEmpty() {
-		PessoaDAO dao = new PessoaDAO(connection);
-
-		assertFalse(dao.findOptionalBy(DEFAULT_ID_EXISTS).isEmpty());
-	}
-
-	@Test
-	void findOptioanlByTestEmpty() {
-		PessoaDAO dao = new PessoaDAO(connection);
-
-		assertTrue(dao.findOptionalBy(DEFAULT_ID_NOT_EXISTS).isEmpty());
-	}
-
-	@Test
 	void updateByTestNotNull() {
 		PessoaDAO dao = new PessoaDAO(connection);
 		DTOPessoa dto = new DTOPessoa(0, DEFAULT_ID_EXISTS, "João Silva", "joaosilva@email.com", "fisica");
@@ -116,26 +103,6 @@ class PessoaDAOTest {
 		DTOPessoa dto = new DTOPessoa(0, DEFAULT_ID_NOT_EXISTS, "João Silva", "joaosilva@email.com", "fisica");
 		DTOPessoa newDto = dao.updateBy(dto);
 		assertNull(newDto);
-	}
-
-	@Test
-	void updateOptioanlByTestNotEmpty() {
-		PessoaDAO dao = new PessoaDAO(connection);
-		DTOPessoa dto = new DTOPessoa(0, DEFAULT_ID_EXISTS, "João Silva", "joaosilva@email.com", "fisica");
-
-		Optional<DTOPessoa> newDto = dao.updateOptionalBy(dto);
-
-		assertFalse(newDto.isEmpty());
-	}
-
-	@Test
-	void updateOptioanlByTestEmpty() {
-		PessoaDAO dao = new PessoaDAO(connection);
-		DTOPessoa dto = new DTOPessoa(0, DEFAULT_ID_NOT_EXISTS, "João Silva", "joaosilva@email.com", "fisica");
-
-		Optional<DTOPessoa> newDto = dao.updateOptionalBy(dto);
-
-		assertTrue(newDto.isEmpty());
 	}
 
 }

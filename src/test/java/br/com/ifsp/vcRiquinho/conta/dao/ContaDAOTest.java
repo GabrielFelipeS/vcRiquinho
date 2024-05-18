@@ -1,7 +1,5 @@
 package br.com.ifsp.vcRiquinho.conta.dao;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Optional;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -26,8 +23,9 @@ class ContaDAOTest {
 	private int DEFAULT_ID_NOT_EXISTS = 1000;
 
 	private ConnectionPostgress iDbConnector = new ConnectionPostgress();
-	private Connection connection = iDbConnector.getConnection("jdbc:postgresql://localhost:5433/dbtest_vcriquinho",
-			"postgres", "admin");
+	private Connection connection = iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST, 
+																ConnectionPostgress.DEFAULT_USER_DBTEST, 
+																ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
 
 	@AfterAll
 	void beforeAll() {
@@ -99,19 +97,6 @@ class ContaDAOTest {
 		assertThrows(RuntimeException.class , () -> dao.findBy(DEFAULT_ID_NOT_EXISTS));
 	}
 
-	@Test
-	void findOptioanlByTestNotEmpty() {
-		ContaDAO dao = new ContaDAO(connection);
-
-		assertFalse(dao.findOptionalBy(DEFAULT_ID_EXISTS).isEmpty());
-	}
-
-	@Test
-	void findOptioanlByTestEmpty() {
-		ContaDAO dao = new ContaDAO(connection);
-
-		assertThrows(RuntimeException.class , () -> dao.findOptionalBy(DEFAULT_ID_NOT_EXISTS).isEmpty());
-	}
 
 	@Test
 	void updateByTestNotNull() {
@@ -128,23 +113,6 @@ class ContaDAOTest {
 		assertThrows(RuntimeException.class , () -> dao.updateBy(dto));
 	}
 
-	@Test
-	void updateOptioanlByTestNotEmpty() {
-		ContaDAO dao = new ContaDAO(connection);
-		DTOConta dto = new DTOConta(DEFAULT_ID_EXISTS, "00111222000144", 0.0, 5, 0.065, "invesimento_automatico");
 
-		Optional<DTOConta> newDto = dao.updateOptionalBy(dto);
-
-		assertFalse(newDto.isEmpty());
-		assertEquals(dto.id_produto(), newDto.get().id_produto());
-	}
-
-	@Test
-	void updateOptioanlByTestEmpty() {
-		ContaDAO dao = new ContaDAO(connection);
-		DTOConta dto = new DTOConta(DEFAULT_ID_NOT_EXISTS, "00111222000144", 0.0, 5, 0.065, "invesimento_automatico");
-
-		assertThrows(RuntimeException.class , () ->  dao.updateOptionalBy(dto));
-	}
 
 }
