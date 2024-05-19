@@ -56,7 +56,7 @@ class ContaDAOTest {
 	void insertTestSucess() {
 		ContaDAO dao = new ContaDAO(connection);
 
-		DTOConta dto = new DTOConta(0, "00111222000144", 0.0, 0, 0.065, "corrente");
+		DTOConta dto = new DTOConta(0, "00111222000144", 0.0, null, 0.065, "corrente");
 		assertNotNull(dao.insert(dto));
 	}
 
@@ -64,7 +64,7 @@ class ContaDAOTest {
 	void insertTestFail() {
 		ContaDAO dao = new ContaDAO(connection);
 
-		DTOConta dto = new DTOConta(0, "00111222000144", 0.0, 0, 0.065, "cdi");
+		DTOConta dto = new DTOConta(0, "00111222000144", 0.0, null, 0.065, "cdi");
 		dao.insert(dto);
 		assertThrows(RuntimeException.class, () -> dao.insert(dto), "ERRO: duplicar valor da chave viola a restrição de unicidade \"sem_duplicidade_conta_documento");
 	}
@@ -101,7 +101,7 @@ class ContaDAOTest {
 	@Test
 	void updateByTestNotNull() {
 		ContaDAO dao = new ContaDAO(connection);
-		DTOConta dto = new DTOConta(DEFAULT_ID_EXISTS, "00111222000144", 0.0, 0, 0.065, "invesimento_automatico");
+		DTOConta dto = new DTOConta(DEFAULT_ID_EXISTS, "00111222000144", 0.0, null, 0.065, "invesimento_automatico");
 		assertNotNull(dao.updateBy(dto));
 	}
 

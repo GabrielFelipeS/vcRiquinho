@@ -1,6 +1,5 @@
 package br.com.ifsp.vcRiquinho.produto.dao;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +26,7 @@ class ProdutoDAOTest {
 
 	@AfterEach
 	void afterEach() throws SQLException {
-		String procedure = "{ call reset_table_in_produto_and_produto_conta() }";
+		String procedure = "{ call reset_table_in_produto_and_conta() }";
 		try (CallableStatement proc = connection.prepareCall(procedure)) {
 			proc.execute();
 		} catch (SQLException ex) {

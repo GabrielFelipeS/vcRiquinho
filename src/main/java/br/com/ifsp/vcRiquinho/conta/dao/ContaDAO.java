@@ -22,13 +22,21 @@ public class ContaDAO implements DAO<DTOConta, Integer> {
 		Integer id = rs.getInt("id");
 		String documentoTitular = rs.getString("documento_titular");
 		Double montanteFinanceiro = rs.getDouble("montante_financeiro");
-		Integer id_produto = rs.getInt("id_produto_conta");
+		Integer id_produto = rs.getInt("id_produto");
 		Double cdi = rs.getDouble("cdi");
 		String tipo_conta = rs.getString("tipo_conta");
 		
 		return new DTOConta(id, documentoTitular, montanteFinanceiro, id_produto, cdi, tipo_conta);
 	}
 
+	private void setIntOrNull(PreparedStatement pst, int index, Integer integer) throws SQLException {
+		if(integer == null) {
+			pst.setNull(index, java.sql.Types.INTEGER);
+		} else {				
+			pst.setInt(index, integer);
+		}
+	}
+	
 	@Override
 	public List<DTOConta> findAll() {
 		return findWhere("1 = 1");
@@ -56,11 +64,12 @@ public class ContaDAO implements DAO<DTOConta, Integer> {
 	@Override
 	public DTOConta insert(DTOConta dto) {
 		try (PreparedStatement pst = conn.prepareStatement(
-				"INSERT INTO conta (documento_titular, montante_financeiro, id_produto_conta, cdi, tipo_conta) "
+				"INSERT INTO conta (documento_titular, montante_financeiro, id_produto, cdi, tipo_conta) "
 						+ "VALUES (?, ?, ?, ?, CAST(? as TIPO_CONTA))", Statement.RETURN_GENERATED_KEYS)) {
 			pst.setString(1, dto.documentoTitular());
 			pst.setDouble(2, dto.montanteFinanceiro());
-			pst.setInt(3, dto.id_produto());
+			this.setIntOrNull(pst, 3, dto.id_produto());
+			
 			pst.setDouble(4, dto.cdi());
 			pst.setObject(5, dto.tipo_conta(), java.sql.Types.OTHER);
 
@@ -124,9 +133,11 @@ public class ContaDAO implements DAO<DTOConta, Integer> {
 	@Override
 	public DTOConta updateBy(DTOConta dto) {
 		try (PreparedStatement pst = conn
-				.prepareStatement("UPDATE conta SET " + "id_produto_conta = ?, cdi = ? WHERE id = ? ")) {
-
-			pst.setInt(1, dto.id_produto());
+				.prepareStatement("UPDATE conta SET " + "id_produto = ?, cdi = ? WHERE id = ? ")) {
+			
+			this.setIntOrNull(pst, 1, dto.id_produto());
+			
+			
 			pst.setDouble(2, dto.cdi());
 			pst.setInt(3, dto.id());
 
@@ -142,5 +153,7 @@ public class ContaDAO implements DAO<DTOConta, Integer> {
 		}
 
 	}
+
+	
 
 }
