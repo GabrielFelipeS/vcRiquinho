@@ -1,0 +1,13 @@
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\conta\dao\ContaDAOTest.java
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\pessoa\dao\PessoaDAOTest.java
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\base\identificators\implementation\taxaIdentificador\SemTaxaServicoTest.java
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\conta\models\concrate\ContaTest.java
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\produto\models\concrete\ProdutoRendaVariavelTest.java
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\base\taxaDeServicoService\implementation\TaxaDeServicoServiceTest.java
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\base\identificators\implementation\taxaIdentificador\TaxaServicoContaInvestimentoAutomaticoTest.java
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\base\identificators\implementation\tipoContaIdentificador\PegarTipoDeContaMapTest.java
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\base\db\ConnectionPostgresTest.java
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\produto\models\concrete\ProdutoRendaFixaTest.java
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\produto\dao\ProdutoDAOTest.java
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\base\identificators\implementation\taxaIdentificador\TaxaServicoContaCDITest.java
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\pessoa\models\concrate\PessoaTest.java
