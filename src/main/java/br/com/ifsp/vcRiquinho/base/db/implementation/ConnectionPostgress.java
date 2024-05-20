@@ -12,7 +12,6 @@ public class ConnectionPostgress implements IDBConnector {
 	public static final String DEFAULT_USER_DBTEST = "postgres";
 	public static final String DEFAULT_PASSWORD_DBTEST = "admin";
 	
-	@SuppressWarnings("unused")
 	private String url;
 	private String user;
 	private String password;

@@ -1,12 +1,12 @@
-package br.com.ifsp.vcRiquinho.conta.factory;
+package br.com.ifsp.vcRiquinho.conta.factory.concrate;
 
-import br.com.ifsp.vcRiquinho.base.interfaces.Factory;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
+import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryConta;
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaInvestimentoAutomatico;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
 
-public class ContaInvestimentoAutomaticoFactory implements Factory<DTOConta, Conta> {
+public class ContaInvestimentoAutomaticoFactory implements IFactoryConta {
 	private Produto produto;
 	
 	public ContaInvestimentoAutomaticoFactory(Produto produto) {

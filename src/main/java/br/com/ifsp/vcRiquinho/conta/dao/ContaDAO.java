@@ -8,10 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.ifsp.vcRiquinho.base.interfaces.DAO;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
 
-public class ContaDAO implements DAO<DTOConta, Integer> {
+public class ContaDAO implements IContaDAO{
 	private Connection conn;
 
 	public ContaDAO(Connection conn) {

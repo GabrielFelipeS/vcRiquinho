@@ -11,7 +11,7 @@ import java.util.List;
 import br.com.ifsp.vcRiquinho.base.interfaces.DAO;
 import br.com.ifsp.vcRiquinho.produto.dto.DTOProduto;
 
-public class ProdutoDAO implements DAO<DTOProduto, Integer> {
+public class ProdutoDAO implements IProdutoDAO {
 	private Connection conn;
 
 	public ProdutoDAO(Connection conn) {
@@ -110,6 +110,8 @@ public class ProdutoDAO implements DAO<DTOProduto, Integer> {
 
 	@Override
 	public DTOProduto findBy(Integer id) {
+		if(id == null) return null;
+		
 		try (PreparedStatement pst = conn.prepareStatement("SELECT id_produto, carencia, tipo_produto, nome, "
 				+ "descricao, rendimento_mensal " + "FROM produto " + "WHERE id_produto = ?")) {
 

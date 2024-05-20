@@ -1,24 +1,26 @@
-package br.com.ifsp.vcRiquinho.conta.factory;
+package br.com.ifsp.vcRiquinho.conta.factory.concrate;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import br.com.ifsp.vcRiquinho.base.interfaces.Factory;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
+import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryConta;
+import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryContaCreator;
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
 
-public class FactoryCreator implements Factory<String, Factory<DTOConta, Conta>> {
+public class FactoryContaCreator implements IFactoryContaCreator{
 	private Produto produto;
-	private Map<String, Factory<DTOConta, Conta>> map;
+	private Map<String, IFactoryConta> map;
 
-	public FactoryCreator(Produto produto) {
+	public FactoryContaCreator(Produto produto) {
 		this.produto = produto;
 		this.map = createMap();
 	}
 
-	private Map<String, Factory<DTOConta, Conta>> createMap() {
-		Map<String, Factory<DTOConta, Conta>> map = new HashMap<>();
+	private Map<String, IFactoryConta> createMap() {
+		Map<String, IFactoryConta> map = new HashMap<>();
 		map.put("cdi", new ContaCdiFactory());
 		map.put("corrente", new ContaCorrenteFactory());
 		map.put("invesimento_automatico", new ContaInvestimentoAutomaticoFactory(produto));
@@ -26,13 +28,15 @@ public class FactoryCreator implements Factory<String, Factory<DTOConta, Conta>>
 	}
 
 	@Override
-	public Factory<DTOConta, Conta> createBy(String str) {		
+	public IFactoryConta createBy(String str) {		
 		return map.getOrDefault(str, new ContaCorrenteFactory());
 	}
 
+
 	@Override
-	public String convert(Factory<DTOConta, Conta> obj) {
-		return obj.toString();
+	public String convert(IFactoryConta obj) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
