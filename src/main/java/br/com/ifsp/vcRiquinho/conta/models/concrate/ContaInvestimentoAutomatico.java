@@ -18,8 +18,17 @@ public class ContaInvestimentoAutomatico extends Conta {
 		return Math.pow(1.0 + produto.getRendimentoMensal()/100.0, dias) * getMontanteFinanceiro(); 
 	}
 	
+	public Integer getProdutoId() {
+		return produto.getId();
+	}
+	
 	public Produto getProduto() {
 		return produto;
+	}
+
+	@Override
+	public String tipoConta() {
+		return "invesimento_automatico";
 	}
 
 }

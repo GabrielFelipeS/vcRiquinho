@@ -1,5 +1,6 @@
 package br.com.ifsp.vcRiquinho;
 
+import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCDI;
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCorrente;
@@ -16,14 +17,30 @@ public class TesteHipotese {
 		
 
 		Conta conta3 = new ContaCorrente(0, "", 0.0);
-		ContaCorrente c3 = get(conta3);
-		c3.renderPorDias(0);
-
+		//ContaCorrente c3 = get(conta2);
+		
+		//c3.renderPorDias(0);
+	
+		
+		DTOConta dto = new DTOConta(c);
+		System.out.println(	dto.toString());
 	}
 	
-    public static <T extends Conta> T get(Conta conta) {
+    private static void teste(ContaCorrente c) {
+		System.out.println(c.getClass());
+	}
+    
+    private static void teste(ContaInvestimentoAutomatico c) {
+    	System.out.println(c.getClass());
+ 	}
+    
+    private static void teste(ContaCDI c) {
+    	System.out.println(c.getClass());
+ 	}
+
+	public static <T extends Conta> T get(Conta conta) {
     	var result = (T) conta;
-    	System.out.println(result.getClass());
+    //	System.out.println(result.getClass());
         return  result;
     }
 }

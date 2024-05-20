@@ -15,10 +15,21 @@ public abstract class Conta implements Rentavel {
 		this.montanteFinanceiro = Objects.requireNonNull(montanteFinanceiro, "O montante financeiro da conta não pode ser nulo");
 	}
 
+	public Integer getNumConta() {
+		return numConta;
+	}
+	
+	public String getDocumentoTitular() {
+		return documentoTitular;
+	}
+	
+	
 	public Double getMontanteFinanceiro() {
 		return montanteFinanceiro;
 	}
 
+	public abstract String tipoConta();
+	
 	@Override
 	public int hashCode() {
 		return 0;

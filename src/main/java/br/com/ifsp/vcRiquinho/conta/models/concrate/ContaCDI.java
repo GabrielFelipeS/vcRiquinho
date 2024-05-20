@@ -12,9 +12,18 @@ public class ContaCDI extends Conta {
 		this.cdi = Objects.requireNonNull(cdi, "O cdi não pode ser vazio");
 	}
 
+	public Double getCdi() {
+		return cdi;
+	}
+	
 	@Override
 	public Double renderPorDias(int dias) {
 		return Math.pow(getMontanteFinanceiro() * (1.0 + (cdi/30.0)), dias);
+	}
+
+	@Override
+	public String tipoConta() {
+		return "cdi";
 	}
 
 }

@@ -13,4 +13,9 @@ public class ContaCorrente extends Conta {
 	public Double renderPorDias(int dias) {
 		return SEM_RENDIMENTO_PARA_CONTA_CORRENTE;
 	}
+
+	@Override
+	public String tipoConta() {
+		return "corrente";
+	}
 }

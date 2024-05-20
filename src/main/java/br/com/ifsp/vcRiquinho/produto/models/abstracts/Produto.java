@@ -14,13 +14,16 @@ public abstract class Produto {
 	}
 
 	public abstract Double getRendimentoMensal();
-	
+
 	// TODO talvez código inutil, verificar
 	public abstract Integer getCarencia();
-	
+
 	public abstract Boolean isInGracePeriodIn(int days);
-	
-	
+
+	public Integer getId() {
+		return id;
+	}
+
 	public String getNome() {
 		return nome;
 	}
