@@ -10,20 +10,26 @@ import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryContaCreator;
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.produto.dao.IProdutoDAO;
 import br.com.ifsp.vcRiquinho.produto.dto.DTOProduto;
+import br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator;
+import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryProduto;
+import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryProdutoCreator;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
 
 public class RepositoryConta implements IRepositoryConta{
 	private IContaDAO contaDAO;
 	private IProdutoDAO produtoDAO;
+	private IFactoryProdutoCreator factoryProdutoCreator;
 	
 	public RepositoryConta(IContaDAO contaDAO, IProdutoDAO produtoDAO) {
-		this(contaDAO, produtoDAO, new FactoryProduto());
+		this(contaDAO, produtoDAO, new FactoryProdutoCreator());
 	}
 
-	public RepositoryConta(IContaDAO contaDAO, IProdutoDAO produtoDAO, IFactoryProduto factoryProduto) {
+	public RepositoryConta(IContaDAO contaDAO, IProdutoDAO produtoDAO, IFactoryProdutoCreator factoryProdutoCreator) {
 		this.contaDAO = contaDAO;
 		this.produtoDAO = produtoDAO;
+		this.factoryProdutoCreator = factoryProdutoCreator;
 	}
+	
 	
 	@Override
 	public Conta add(DTOConta obj) {
@@ -42,11 +48,12 @@ public class RepositoryConta implements IRepositoryConta{
 		try {
 			DTOConta dtoConta = contaDAO.findBy(id);
 			DTOProduto dtoProduto = produtoDAO.findBy(dtoConta.id_produto());
+		
+			IFactoryProduto factoryProduto = factoryProdutoCreator.createBy(dtoProduto.tipo_produto());
+			Produto produto = factoryProduto.createBy(dtoProduto);
 			
-			Produto produto = null;
-			
-			IFactoryContaCreator factoryCreator = new FactoryContaCreator(produto);
-			IFactoryConta factory = factoryCreator.createBy(dtoConta.tipo_conta());
+			IFactoryContaCreator factoryContaCreator = new FactoryContaCreator(produto);
+			IFactoryConta factory = factoryContaCreator.createBy(dtoConta.tipo_conta());
 			
 			return factory.createBy(dtoConta);
 			

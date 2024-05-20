@@ -35,8 +35,12 @@ public class FactoryContaCreator implements IFactoryContaCreator{
 
 	@Override
 	public String convert(IFactoryConta obj) {
-		// TODO Auto-generated method stub
-		return null;
+		return obj.toString();
 	}
 
+	
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+		map.put("invesimento_automatico", new ContaInvestimentoAutomaticoFactory(produto));
+	}
 }

@@ -20,6 +20,8 @@ public abstract class Produto {
 
 	public abstract Boolean isInGracePeriodIn(int days);
 
+	public abstract String tipoProduto();
+	
 	public Integer getId() {
 		return id;
 	}
@@ -32,4 +34,5 @@ public abstract class Produto {
 		return descricao;
 	}
 
+	
 }
