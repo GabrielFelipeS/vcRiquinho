@@ -1,5 +1,6 @@
 D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\conta\dao\ContaDAOTest.java
 D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\pessoa\dao\PessoaDAOTest.java
+D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\base\db\PostgresTestContainer.java
 D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\base\identificators\implementation\taxaIdentificador\SemTaxaServicoTest.java
 D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\conta\models\concrate\ContaTest.java
 D:\PWE\vcRiquinho\src\test\java\br\com\ifsp\vcRiquinho\produto\models\concrete\ProdutoRendaVariavelTest.java

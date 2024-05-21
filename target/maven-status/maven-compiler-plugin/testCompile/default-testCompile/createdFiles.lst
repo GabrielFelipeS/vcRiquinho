@@ -1,5 +1,6 @@
 br\com\ifsp\vcRiquinho\base\db\ConnectionPostgresTest.class
 br\com\ifsp\vcRiquinho\pessoa\models\concrate\PessoaTest.class
+br\com\ifsp\vcRiquinho\base\db\PostgresTestContainer.class
 br\com\ifsp\vcRiquinho\produto\dao\ProdutoDAOTest.class
 br\com\ifsp\vcRiquinho\pessoa\dao\PessoaDAOTest.class
 br\com\ifsp\vcRiquinho\conta\dao\ContaDAOTest.class
