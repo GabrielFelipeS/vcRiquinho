@@ -5,13 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.nio.file.Paths;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.utility.MountableFile;
 
+import br.com.ifsp.vcRiquinho.base.db.PostgresTestContainer;
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.produto.dto.DTOProduto;
 
@@ -19,10 +26,23 @@ class ProdutoDAOTest {
 	private Integer DEFAULT_ID_EXISTS = 1;
 	private Integer DEFAULT_ID_NOT_EXISTS = 999999;
 
-	private ConnectionPostgress iDbConnector = new ConnectionPostgress();
-	private Connection connection = iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST, 
-																ConnectionPostgress.DEFAULT_USER_DBTEST, 
-																ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
+	private static ConnectionPostgress iDbConnector = new ConnectionPostgress();
+	private static Connection connection;
+
+	
+	
+	/**
+	 * O método setUp utiliza a dependencia TestContainer 
+	 * Para criar uma conexão com o banco de dados do container criado no momento de rodar os testes
+	 * 
+	 * caso queira testar utilizando o 
+	 */
+	@BeforeAll
+	public static void setUp() {
+		connection = PostgresTestContainer.connectInNewContainer(iDbConnector);
+		
+		//iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST, ConnectionPostgress.DEFAULT_USER_DBTEST, ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
+	}
 
 	@AfterEach
 	void afterEach() throws SQLException {
@@ -107,5 +127,4 @@ class ProdutoDAOTest {
 		DTOProduto newDto = dao.updateBy(dto);
 		assertNull(newDto);
 	}
-
 }

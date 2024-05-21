@@ -10,10 +10,12 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
+import br.com.ifsp.vcRiquinho.base.db.PostgresTestContainer;
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
 
@@ -22,11 +24,21 @@ class ContaDAOTest {
 	private int DEFAULT_ID_EXISTS = 1;
 	private int DEFAULT_ID_NOT_EXISTS = 1000;
 
-	private ConnectionPostgress iDbConnector = new ConnectionPostgress();
-	private Connection connection = iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST, 
-																ConnectionPostgress.DEFAULT_USER_DBTEST, 
-																ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
-
+	private static ConnectionPostgress iDbConnector = new ConnectionPostgress();
+	private static Connection connection;
+	
+	
+	/**
+	 * O método setUp utiliza a dependencia TestContainer 
+	 * Para criar uma conexão com o banco de dados do container criado no momento de rodar os testes
+	 */
+	@BeforeAll
+	public static void setUp() {
+		connection = PostgresTestContainer.connectInNewContainer(iDbConnector);
+		
+		//iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST, ConnectionPostgress.DEFAULT_USER_DBTEST, ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
+	}
+	
 	@AfterAll
 	void beforeAll() {
 		iDbConnector.closeConnection();
@@ -112,7 +124,4 @@ class ContaDAOTest {
 
 		assertThrows(RuntimeException.class , () -> dao.updateBy(dto));
 	}
-
-
-
 }

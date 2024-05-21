@@ -17,7 +17,9 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.MountableFile;
 
-@Disabled
+import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
+
+//@Disabled
 @Testcontainers
 public class PostgresTestContainer {
 
@@ -28,6 +30,16 @@ public class PostgresTestContainer {
             .withExposedPorts(5432)
     		.withCopyFileToContainer(MountableFile.forHostPath(Paths.get("scripts", "init.sql").toAbsolutePath().toString()), "/docker-entrypoint-initdb.d/init.sql");
 
+    
+	public static Connection connectInNewContainer(ConnectionPostgress iDbConnector) {
+		PostgresTestContainer.postgresContainer.start();
+
+		return iDbConnector.getConnection(
+				String.format("jdbc:postgresql://localhost:%d/dbtest_vcriquinho", PostgresTestContainer.postgresContainer.getMappedPort(5432)),
+				PostgresTestContainer.postgresContainer.getUsername(),
+				PostgresTestContainer.postgresContainer.getPassword());
+	}
+    
     @BeforeAll
     public static void setUp() {
         postgresContainer.start();
@@ -61,4 +73,6 @@ public class PostgresTestContainer {
     public static void tearDown() {
         postgresContainer.stop();
     }
+
+
 }
