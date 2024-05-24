@@ -28,7 +28,7 @@ CREATE TABLE pessoa (
   data_modificacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TYPE TIPO_CONTA AS ENUM ('cdi', 'corrente', 'invesimento_automatico');
+CREATE TYPE TIPO_CONTA AS ENUM ('cdi', 'corrente', 'investimento_automatico');
 CREATE TABLE conta (
   id SERIAL PRIMARY KEY,
   documento_titular VARCHAR(30) REFERENCES pessoa(documento_titular),
@@ -101,36 +101,36 @@ INSERT INTO pessoa (documento_titular, nome, email, tipo_pessoa)
 
 INSERT INTO conta (documento_titular, montante_financeiro, id_produto, cdi, tipo_conta)
 	VALUES 
-	('00111222000144', 15000.00, 1, NULL, 'invesimento_automatico'),
+	('00111222000144', 15000.00, 1, NULL, 'investimento_automatico'),
 	('11223344000155', 10000.00, NULL, 0.065, 'cdi'),
-	('11223344000155', 15000.00, 2, NULL, 'invesimento_automatico'),
+	('11223344000155', 15000.00, 2, NULL, 'investimento_automatico'),
 	('11122233344', 15000.00, NULL, 0.065, 'cdi'),
 	('11122233344', 20000.00, NULL, NULL, 'corrente'),
-	('11122233344', 25000.00, 3, NULL, 'invesimento_automatico'),
+	('11122233344', 25000.00, 3, NULL, 'investimento_automatico'),
 	('12345678000190', 10000.00, NULL, 0.065, 'cdi'),
-	('12345678000190', 15000.00, 4, NULL, 'invesimento_automatico'),
+	('12345678000190', 15000.00, 4, NULL, 'investimento_automatico'),
 	('12345678901', 10000.00, NULL, 0.065, 'cdi'),
 	('12345678901', 20000.00, NULL, NULL, 'corrente'),
-	('12345678901', 25000.00, 5, NULL, 'invesimento_automatico'),
-	('22333444000177', 12000.00, 6, NULL, 'invesimento_automatico'),
-	('33344455566', 8000.00, 7, NULL, 'invesimento_automatico'),
+	('12345678901', 25000.00, 5, NULL, 'investimento_automatico'),
+	('22333444000177', 12000.00, 6, NULL, 'investimento_automatico'),
+	('33344455566', 8000.00, 7, NULL, 'investimento_automatico'),
 	('33344455566', 10000.00, NULL, 0.065, 'cdi'),
-	('44555666000133', 14000.00, 8, NULL, 'invesimento_automatico'),
+	('44555666000133', 14000.00, 8, NULL, 'investimento_automatico'),
 	('55566677788', 2000.00, NULL, NULL, 'corrente'),
 	('55566677788', 10000.00, NULL, 0.065, 'cdi'),
-	('55566677788', 15000.00, 9, NULL, 'invesimento_automatico'),
-	('66777888000199', 11000.00, 10, NULL, 'invesimento_automatico'),
+	('55566677788', 15000.00, 9, NULL, 'investimento_automatico'),
+	('66777888000199', 11000.00, 10, NULL, 'investimento_automatico'),
 	('77788899900', 20000.00, NULL, NULL, 'corrente'),
-	('77788899900', 25000.00, 1, NULL, 'invesimento_automatico'),
-	('88999000000111', 13000.00, 2, NULL, 'invesimento_automatico'),
+	('77788899900', 25000.00, 1, NULL, 'investimento_automatico'),
+	('88999000000111', 13000.00, 2, NULL, 'investimento_automatico'),
 	('98765432100', 5000.00, NULL, NULL, 'corrente'),
 	('98765432100', 10000.00, NULL, 0.065, 'cdi'),
-	('98765432100', 15000.00, 3, NULL, 'invesimento_automatico'),
+	('98765432100', 15000.00, 3, NULL, 'investimento_automatico'),
 	('98765432000110', 20000.00, NULL, NULL, 'corrente'),
-	('98765432000110', 25000.00, 4, NULL, 'invesimento_automatico'),
+	('98765432000110', 25000.00, 4, NULL, 'investimento_automatico'),
 	('99900011122', 12000.00, NULL, 0.065, 'cdi'),
 	('99900011122', 20000.00, NULL, NULL, 'corrente'),
-	('99900011122', 25000.00, 5, NULL, 'invesimento_automatico');
+	('99900011122', 25000.00, 5, NULL, 'investimento_automatico');
 
 
 create database dbtest_vcriquinho;
@@ -163,7 +163,7 @@ CREATE TABLE pessoa (
   data_modificacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TYPE TIPO_CONTA AS ENUM ('cdi', 'corrente', 'invesimento_automatico');
+CREATE TYPE TIPO_CONTA AS ENUM ('cdi', 'corrente', 'investimento_automatico');
 CREATE TABLE conta (
   id SERIAL PRIMARY KEY,
   documento_titular VARCHAR(30) REFERENCES pessoa(documento_titular),
@@ -236,36 +236,36 @@ INSERT INTO produto (nome, descricao, carencia, rendimento_mensal, tipo_produto)
 
 INSERT INTO conta (documento_titular, montante_financeiro, id_produto, cdi, tipo_conta)
 		VALUES 
-		('00111222000144', 15000.00, 1, NULL, 'invesimento_automatico'),
+		('00111222000144', 15000.00, 1, NULL, 'investimento_automatico'),
 		('11223344000155', 10000.00, NULL, 0.065, 'cdi'),
-		('11223344000155', 15000.00, 2, NULL, 'invesimento_automatico'),
+		('11223344000155', 15000.00, 2, NULL, 'investimento_automatico'),
 		('11122233344', 15000.00, NULL, 0.065, 'cdi'),
 		('11122233344', 20000.00, NULL, NULL, 'corrente'),
-		('11122233344', 25000.00, 3, NULL, 'invesimento_automatico'),
+		('11122233344', 25000.00, 3, NULL, 'investimento_automatico'),
 		('12345678000190', 10000.00, NULL, 0.065, 'cdi'),
-		('12345678000190', 15000.00, 4, NULL, 'invesimento_automatico'),
+		('12345678000190', 15000.00, 4, NULL, 'investimento_automatico'),
 		('12345678901', 10000.00, NULL, 0.065, 'cdi'),
 		('12345678901', 20000.00, NULL, NULL, 'corrente'),
-		('12345678901', 25000.00, 5, NULL, 'invesimento_automatico'),
-		('22333444000177', 12000.00, 6, NULL, 'invesimento_automatico'),
-		('33344455566', 8000.00, 7, NULL, 'invesimento_automatico'),
+		('12345678901', 25000.00, 5, NULL, 'investimento_automatico'),
+		('22333444000177', 12000.00, 6, NULL, 'investimento_automatico'),
+		('33344455566', 8000.00, 7, NULL, 'investimento_automatico'),
 		('33344455566', 10000.00, NULL, 0.065, 'cdi'),
-		('44555666000133', 14000.00, 8, NULL, 'invesimento_automatico'),
+		('44555666000133', 14000.00, 8, NULL, 'investimento_automatico'),
 		('55566677788', 2000.00, NULL, NULL, 'corrente'),
 		('55566677788', 10000.00, NULL, 0.065, 'cdi'),
-		('55566677788', 15000.00, 9, NULL, 'invesimento_automatico'),
-		('66777888000199', 11000.00, 10, NULL, 'invesimento_automatico'),
+		('55566677788', 15000.00, 9, NULL, 'investimento_automatico'),
+		('66777888000199', 11000.00, 10, NULL, 'investimento_automatico'),
 		('77788899900', 20000.00, NULL, NULL, 'corrente'),
-		('77788899900', 25000.00, 1, NULL, 'invesimento_automatico'),
-		('88999000000111', 13000.00, 2, NULL, 'invesimento_automatico'),
+		('77788899900', 25000.00, 1, NULL, 'investimento_automatico'),
+		('88999000000111', 13000.00, 2, NULL, 'investimento_automatico'),
 		('98765432100', 5000.00, NULL, NULL, 'corrente'),
 		('98765432100', 10000.00, NULL, 0.065, 'cdi'),
-		('98765432100', 15000.00, 3, NULL, 'invesimento_automatico'),
+		('98765432100', 15000.00, 3, NULL, 'investimento_automatico'),
 		('98765432000110', 20000.00, NULL, NULL, 'corrente'),
-		('98765432000110', 25000.00, 4, NULL, 'invesimento_automatico'),
+		('98765432000110', 25000.00, 4, NULL, 'investimento_automatico'),
 		('99900011122', 12000.00, NULL, 0.065, 'cdi'),
 		('99900011122', 20000.00, NULL, NULL, 'corrente'),
-		('99900011122', 25000.00, 5, NULL, 'invesimento_automatico');
+		('99900011122', 25000.00, 5, NULL, 'investimento_automatico');
 
 
 
@@ -331,36 +331,36 @@ BEGIN
 
 	INSERT INTO conta (documento_titular, montante_financeiro, id_produto, cdi, tipo_conta)
 		VALUES 
-		('00111222000144', 15000.00, 1, NULL, 'invesimento_automatico'),
+		('00111222000144', 15000.00, 1, NULL, 'investimento_automatico'),
 		('11223344000155', 10000.00, NULL, 0.065, 'cdi'),
-		('11223344000155', 15000.00, 2, NULL, 'invesimento_automatico'),
+		('11223344000155', 15000.00, 2, NULL, 'investimento_automatico'),
 		('11122233344', 15000.00, NULL, 0.065, 'cdi'),
 		('11122233344', 20000.00, NULL, NULL, 'corrente'),
-		('11122233344', 25000.00, 3, NULL, 'invesimento_automatico'),
+		('11122233344', 25000.00, 3, NULL, 'investimento_automatico'),
 		('12345678000190', 10000.00, NULL, 0.065, 'cdi'),
-		('12345678000190', 15000.00, 4, NULL, 'invesimento_automatico'),
+		('12345678000190', 15000.00, 4, NULL, 'investimento_automatico'),
 		('12345678901', 10000.00, NULL, 0.065, 'cdi'),
 		('12345678901', 20000.00, NULL, NULL, 'corrente'),
-		('12345678901', 25000.00, 5, NULL, 'invesimento_automatico'),
-		('22333444000177', 12000.00, 6, NULL, 'invesimento_automatico'),
-		('33344455566', 8000.00, 7, NULL, 'invesimento_automatico'),
+		('12345678901', 25000.00, 5, NULL, 'investimento_automatico'),
+		('22333444000177', 12000.00, 6, NULL, 'investimento_automatico'),
+		('33344455566', 8000.00, 7, NULL, 'investimento_automatico'),
 		('33344455566', 10000.00, NULL, 0.065, 'cdi'),
-		('44555666000133', 14000.00, 8, NULL, 'invesimento_automatico'),
+		('44555666000133', 14000.00, 8, NULL, 'investimento_automatico'),
 		('55566677788', 2000.00, NULL, NULL, 'corrente'),
 		('55566677788', 10000.00, NULL, 0.065, 'cdi'),
-		('55566677788', 15000.00, 9, NULL, 'invesimento_automatico'),
-		('66777888000199', 11000.00, 10, NULL, 'invesimento_automatico'),
+		('55566677788', 15000.00, 9, NULL, 'investimento_automatico'),
+		('66777888000199', 11000.00, 10, NULL, 'investimento_automatico'),
 		('77788899900', 20000.00, NULL, NULL, 'corrente'),
-		('77788899900', 25000.00, 1, NULL, 'invesimento_automatico'),
-		('88999000000111', 13000.00, 2, NULL, 'invesimento_automatico'),
+		('77788899900', 25000.00, 1, NULL, 'investimento_automatico'),
+		('88999000000111', 13000.00, 2, NULL, 'investimento_automatico'),
 		('98765432100', 5000.00, NULL, NULL, 'corrente'),
 		('98765432100', 10000.00, NULL, 0.065, 'cdi'),
-		('98765432100', 15000.00, 3, NULL, 'invesimento_automatico'),
+		('98765432100', 15000.00, 3, NULL, 'investimento_automatico'),
 		('98765432000110', 20000.00, NULL, NULL, 'corrente'),
-		('98765432000110', 25000.00, 4, NULL, 'invesimento_automatico'),
+		('98765432000110', 25000.00, 4, NULL, 'investimento_automatico'),
 		('99900011122', 12000.00, NULL, 0.065, 'cdi'),
 		('99900011122', 20000.00, NULL, NULL, 'corrente'),
-		('99900011122', 25000.00, 5, NULL, 'invesimento_automatico');
+		('99900011122', 25000.00, 5, NULL, 'investimento_automatico');
 	
   RETURN TRUE;
 END;
