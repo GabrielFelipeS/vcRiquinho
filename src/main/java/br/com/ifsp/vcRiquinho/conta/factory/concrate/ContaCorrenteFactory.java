@@ -9,7 +9,7 @@ public class ContaCorrenteFactory implements IFactoryConta {
 
 	@Override
 	public Conta createBy(DTOConta dto) {
-		return new ContaCorrente(dto.id(), dto.documentoTitular(), dto.montanteFinanceiro());
+		return new ContaCorrente(dto.numConta(), dto.documentoTitular(), dto.montanteFinanceiro());
 	}
 
 	@Override

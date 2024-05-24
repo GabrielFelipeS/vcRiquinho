@@ -15,7 +15,7 @@ public class ContaInvestimentoAutomaticoFactory implements IFactoryConta {
 	
 	@Override
 	public Conta createBy(DTOConta dto) {
-		return new ContaInvestimentoAutomatico(dto.id(), dto.documentoTitular(), dto.montanteFinanceiro(), produto);
+		return new ContaInvestimentoAutomatico(dto.numConta(), dto.documentoTitular(), dto.montanteFinanceiro(), produto);
 	}
 
 	@Override

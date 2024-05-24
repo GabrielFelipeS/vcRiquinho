@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import br.com.ifsp.vcRiquinho.produto.dto.DTOProduto;
+import br.com.ifsp.vcRiquinho.produto.dto.NullObjectDTOProdtuo;
 
 public class ProdutoDAO implements IProdutoDAO {
 	private Connection conn;
@@ -104,8 +105,8 @@ public class ProdutoDAO implements IProdutoDAO {
 
 	@Override
 	public DTOProduto findBy(Integer id) {
-		if (id == null)
-			return null;
+		if (id == 0)
+			return NullObjectDTOProdtuo.create();
 
 		try (PreparedStatement pst = conn.prepareStatement("SELECT id_produto, carencia, tipo_produto, nome, "
 				+ "descricao, rendimento_mensal " + "FROM produto " + "WHERE id_produto = ?")) {
@@ -118,7 +119,7 @@ public class ProdutoDAO implements IProdutoDAO {
 					return dto;
 				}
 
-				return null;
+				throw new SQLException("Falha na busca do produto, nenhuma produto com o id expecificado encontrado.");
 			}
 
 		} catch (SQLException e) {

@@ -7,17 +7,18 @@ import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryProduto;
 import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryProdutoCreator;
 
 public class FactoryProdutoCreator implements IFactoryProdutoCreator {
-	private static Map<String, IFactoryProduto> map;
+	private static Map<String, IFactoryProduto> map = createMap();
 
-	static {
+	private static  Map<String, IFactoryProduto> createMap() {
 		Map<String, IFactoryProduto> map = new HashMap<>();
 		map.put("renda_variavel", new ProdutoRendaVariavelFactory());
 		map.put("renda_fixa", new ProdutoRendaFixaFactory());
+		return map;
 	}
 
 	@Override
 	public IFactoryProduto createBy(String str) {
-		return map.get(str);
+		return map.getOrDefault(str, new NullObjectProtudoFactory());
 	}
 
 	@Override

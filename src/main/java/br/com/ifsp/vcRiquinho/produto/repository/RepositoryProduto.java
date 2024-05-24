@@ -62,7 +62,7 @@ public class RepositoryProduto implements IRepositoryProduto {
 	}
 
 	@Override
-	public List<Produto> getAll() {
+	public List<Produto> findAll() {
 		try {
 			List<Produto> produtos = new LinkedList<>();
 			List<DTOProduto> dtoProdutos = produtoDAO.findAll();

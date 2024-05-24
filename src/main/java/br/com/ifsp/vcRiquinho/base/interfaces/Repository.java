@@ -7,5 +7,5 @@ public interface Repository<ReturnType, IdType, ValueType> {
 	ReturnType update(ValueType v);
 	ReturnType findBy(IdType id);
 	void deleteBy(IdType id);
-	List<ReturnType> getAll();
+	List<ReturnType> findAll();
 }

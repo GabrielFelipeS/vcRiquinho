@@ -70,7 +70,7 @@ public class RepositoryConta implements IRepositoryConta {
 	}
 
 	@Override
-	public List<Conta> getAll() {
+	public List<Conta> findAll() {
 		try {
 			List<Conta> contas = new LinkedList<>();
 
@@ -78,8 +78,9 @@ public class RepositoryConta implements IRepositoryConta {
 
 			for (DTOConta dto : dtosContas) {
 				Produto produto = repositoryProduto.findBy(dto.id_produto());
+				
 				Conta conta = createContaBy(dto, produto);
-
+				
 				contas.add(conta);
 			}
 

@@ -9,7 +9,7 @@ public class ContaCdiFactory implements IFactoryConta {
 
 	@Override
 	public Conta createBy(DTOConta dto) {
-		return new ContaCDI(dto.id(), dto.documentoTitular(), dto.montanteFinanceiro(), dto.cdi());
+		return new ContaCDI(dto.numConta(), dto.documentoTitular(), dto.montanteFinanceiro(), dto.cdi());
 	}
 
 	@Override

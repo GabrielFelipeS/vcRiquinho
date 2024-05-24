@@ -10,14 +10,13 @@ import java.sql.Statement;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.MountableFile;
 
-import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
+import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
 
 //@Disabled
 @Testcontainers
@@ -31,7 +30,7 @@ public class PostgresTestContainer {
     		.withCopyFileToContainer(MountableFile.forHostPath(Paths.get("scripts", "init.sql").toAbsolutePath().toString()), "/docker-entrypoint-initdb.d/init.sql");
 
     
-	public static Connection connectInNewContainer(ConnectionPostgress iDbConnector) {
+	public static Connection connectInNewContainer(IDBConnector iDbConnector) {
 		PostgresTestContainer.postgresContainer.start();
 
 		return iDbConnector.getConnection(

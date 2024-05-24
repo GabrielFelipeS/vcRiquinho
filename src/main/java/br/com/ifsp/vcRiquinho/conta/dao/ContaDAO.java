@@ -37,6 +37,25 @@ public class ContaDAO implements IContaDAO{
 	}
 	
 	@Override
+	public DTOConta findBy(Integer id) {
+
+		try (PreparedStatement pst = conn.prepareStatement("SELECT * FROM conta WHERE id = ? ")) {
+			pst.setInt(1, id);
+
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next()) {
+					DTOConta dto = createDTOConta(rs);
+					return dto;
+				}
+				throw new SQLException("Falha na busca de contas, nenhuma conta encontrada.");
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+	
+	@Override
 	public List<DTOConta> findAll() {
 		List<DTOConta> list = new LinkedList<DTOConta>();
 
@@ -68,11 +87,7 @@ public class ContaDAO implements IContaDAO{
 			pst.setDouble(4, dto.cdi());
 			pst.setObject(5, dto.tipo_conta(), java.sql.Types.OTHER);
 
-			int affectedRows = pst.executeUpdate();
-
-			if (affectedRows == 0) {
-				throw new SQLException("Falha na criação da conta, nenhuma linha afetada.");
-			}
+			pst.executeUpdate();
 
 			try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
@@ -86,7 +101,6 @@ public class ContaDAO implements IContaDAO{
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		}
-
 	}
 
 	@Override
@@ -106,24 +120,7 @@ public class ContaDAO implements IContaDAO{
 		}
 	}
 
-	@Override
-	public DTOConta findBy(Integer id) {
 
-		try (PreparedStatement pst = conn.prepareStatement("SELECT * FROM conta WHERE id = ? ")) {
-			pst.setInt(1, id);
-
-			try (ResultSet rs = pst.executeQuery()) {
-				if (rs.next()) {
-					DTOConta dto = createDTOConta(rs);
-					return dto;
-				}
-				throw new SQLException("Falha na busca de contas, nenhuma conta encontrada.");
-			}
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e.getMessage());
-		}
-	}
 
 	@Override
 	public DTOConta update(DTOConta dto) {
@@ -134,7 +131,7 @@ public class ContaDAO implements IContaDAO{
 			
 			
 			pst.setDouble(2, dto.cdi());
-			pst.setInt(3, dto.id());
+			pst.setInt(3, dto.numConta());
 
 			int affectedRows = pst.executeUpdate();
 			
@@ -142,7 +139,7 @@ public class ContaDAO implements IContaDAO{
 				throw new SQLException("Falha na atualização da conta, nenhuma linha afetada.");
 			}
 			
-			return findBy(dto.id());
+			return findBy(dto.numConta());
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		}

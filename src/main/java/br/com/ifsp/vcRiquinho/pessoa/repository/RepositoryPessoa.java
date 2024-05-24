@@ -62,7 +62,7 @@ public class RepositoryPessoa implements IRepositoryPessoa {
 	}
 
 	@Override
-	public List<Pessoa> getAll() {
+	public List<Pessoa> findAll() {
 		try {
 			List<Pessoa> pessoas = new LinkedList<>();
 			List<DTOPessoa> DTOPessoas = pessoaDAO.findAll();

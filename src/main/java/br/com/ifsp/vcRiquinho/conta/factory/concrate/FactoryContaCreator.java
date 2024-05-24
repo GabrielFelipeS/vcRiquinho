@@ -23,7 +23,7 @@ public class FactoryContaCreator implements IFactoryContaCreator{
 		Map<String, IFactoryConta> map = new HashMap<>();
 		map.put("cdi", new ContaCdiFactory());
 		map.put("corrente", new ContaCorrenteFactory());
-		map.put("invesimento_automatico", new ContaInvestimentoAutomaticoFactory(produto));
+		map.put("investimento_automatico", new ContaInvestimentoAutomaticoFactory(produto));
 		return map;
 	}
 
