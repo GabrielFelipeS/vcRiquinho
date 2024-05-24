@@ -114,7 +114,7 @@ class ContaDAOTest {
 	void updateByTestNotNull() {
 		ContaDAO dao = new ContaDAO(connection);
 		DTOConta dto = new DTOConta(DEFAULT_ID_EXISTS, "00111222000144", 0.0, null, 0.065, "invesimento_automatico");
-		assertNotNull(dao.updateBy(dto));
+		assertNotNull(dao.update(dto));
 	}
 
 	@Test
@@ -122,6 +122,6 @@ class ContaDAOTest {
 		ContaDAO dao = new ContaDAO(connection);
 		DTOConta dto = new DTOConta(DEFAULT_ID_NOT_EXISTS, "00111222000144", 0.0, 5, 0.065, "invesimento_automatico");
 
-		assertThrows(RuntimeException.class , () -> dao.updateBy(dto));
+		assertThrows(RuntimeException.class , () -> dao.update(dto));
 	}
 }

@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
@@ -38,15 +38,10 @@ public class ContaDAO implements IContaDAO{
 	
 	@Override
 	public List<DTOConta> findAll() {
-		return findWhere("1 = 1");
-	}
-
-	@Override
-	public List<DTOConta> findWhere(String where) {
-		List<DTOConta> list = new ArrayList<DTOConta>();
+		List<DTOConta> list = new LinkedList<DTOConta>();
 
 		try (Statement st = conn.createStatement()) {
-			st.execute("SELECT * FROM conta WHERE " + where);
+			st.execute("SELECT * FROM conta");
 			try (ResultSet rs = st.getResultSet()) {
 
 				while (rs.next()) {
@@ -65,6 +60,7 @@ public class ContaDAO implements IContaDAO{
 		try (PreparedStatement pst = conn.prepareStatement(
 				"INSERT INTO conta (documento_titular, montante_financeiro, id_produto, cdi, tipo_conta) "
 						+ "VALUES (?, ?, ?, ?, CAST(? as TIPO_CONTA))", Statement.RETURN_GENERATED_KEYS)) {
+			
 			pst.setString(1, dto.documentoTitular());
 			pst.setDouble(2, dto.montanteFinanceiro());
 			this.setIntOrNull(pst, 3, dto.id_produto());
@@ -130,7 +126,7 @@ public class ContaDAO implements IContaDAO{
 	}
 
 	@Override
-	public DTOConta updateBy(DTOConta dto) {
+	public DTOConta update(DTOConta dto) {
 		try (PreparedStatement pst = conn
 				.prepareStatement("UPDATE conta SET " + "id_produto = ?, cdi = ? WHERE id = ? ")) {
 			

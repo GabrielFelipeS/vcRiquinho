@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-import br.com.ifsp.vcRiquinho.base.interfaces.DAO;
 import br.com.ifsp.vcRiquinho.produto.dto.DTOProduto;
 
 public class ProdutoDAO implements IProdutoDAO {
@@ -39,15 +39,9 @@ public class ProdutoDAO implements IProdutoDAO {
 
 	@Override
 	public List<DTOProduto> findAll() {
-		return findWhere("1=1");
-	}
-
-	@Override
-	public List<DTOProduto> findWhere(String where) {
-		List<DTOProduto> list = new ArrayList<DTOProduto>();
+		List<DTOProduto> list = new LinkedList<DTOProduto>();
 		try (Statement st = conn.createStatement()) {
-			st.execute("SELECT id_produto, carencia, tipo_produto, nome, descricao, rendimento_mensal FROM produto "
-					+ "WHERE " + where);
+			st.execute("SELECT id_produto, carencia, tipo_produto, nome, descricao, rendimento_mensal FROM produto");
 			try (ResultSet rs = st.getResultSet()) {
 
 				while (rs.next()) {
@@ -110,8 +104,9 @@ public class ProdutoDAO implements IProdutoDAO {
 
 	@Override
 	public DTOProduto findBy(Integer id) {
-		if(id == null) return null;
-		
+		if (id == null)
+			return null;
+
 		try (PreparedStatement pst = conn.prepareStatement("SELECT id_produto, carencia, tipo_produto, nome, "
 				+ "descricao, rendimento_mensal " + "FROM produto " + "WHERE id_produto = ?")) {
 
@@ -132,7 +127,7 @@ public class ProdutoDAO implements IProdutoDAO {
 	}
 
 	@Override
-	public DTOProduto updateBy(DTOProduto dto) {
+	public DTOProduto update(DTOProduto dto) {
 		try (PreparedStatement pst = conn.prepareStatement(
 				"UPDATE produto SET nome = ?, descricao = ?, rendimento_mensal = ?, carencia = ? WHERE id_produto = ? ")) {
 

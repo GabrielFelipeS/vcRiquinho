@@ -5,7 +5,7 @@ import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryProduto;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
 import br.com.ifsp.vcRiquinho.produto.models.concrete.ProdutoRendaVariavel;
 
-public class ProdutoRendaVariavelactory implements IFactoryProduto {
+public class ProdutoRendaVariavelFactory implements IFactoryProduto {
 
 	@Override
 	public Produto createBy(DTOProduto dto) {

@@ -11,7 +11,7 @@ public class FactoryProdutoCreator implements IFactoryProdutoCreator {
 
 	static {
 		Map<String, IFactoryProduto> map = new HashMap<>();
-		map.put("renda_variavel", new ProdutoRendaVariavelactory());
+		map.put("renda_variavel", new ProdutoRendaVariavelFactory());
 		map.put("renda_fixa", new ProdutoRendaFixaFactory());
 	}
 

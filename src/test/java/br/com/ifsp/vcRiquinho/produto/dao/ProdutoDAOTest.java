@@ -116,7 +116,7 @@ class ProdutoDAOTest {
 		ProdutoDAO dao = new ProdutoDAO(connection);
 		DTOProduto dto = new DTOProduto(DEFAULT_ID_EXISTS, 1825, "renda_fixa", "Fundo de Renda Fixa ABC",
 				"Fundo de investimento em renda fixa com baixo risco", 0.015);
-		assertNotNull(dao.updateBy(dto));
+		assertNotNull(dao.update(dto));
 	}
 
 	@Test
@@ -124,7 +124,7 @@ class ProdutoDAOTest {
 		ProdutoDAO dao = new ProdutoDAO(connection);
 		DTOProduto dto = new DTOProduto(DEFAULT_ID_NOT_EXISTS, 1825, "renda_fixa", "Fundo de Renda Fixa ABC",
 				"Fundo de investimento em renda fixa com baixo risco", 0.015);
-		DTOProduto newDto = dao.updateBy(dto);
+		DTOProduto newDto = dao.update(dto);
 		assertNull(newDto);
 	}
 }

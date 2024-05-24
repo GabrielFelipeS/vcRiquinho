@@ -1,79 +1,103 @@
 package br.com.ifsp.vcRiquinho.conta.repository;
 
+import java.util.LinkedList;
 import java.util.List;
 
+import br.com.ifsp.vcRiquinho.conta.dao.ContaDAO;
 import br.com.ifsp.vcRiquinho.conta.dao.IContaDAO;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
-import br.com.ifsp.vcRiquinho.conta.factory.concrate.FactoryContaCreator;
 import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryConta;
 import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryContaCreator;
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
-import br.com.ifsp.vcRiquinho.produto.dao.IProdutoDAO;
-import br.com.ifsp.vcRiquinho.produto.dto.DTOProduto;
-import br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator;
-import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryProduto;
-import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryProdutoCreator;
+import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryContaCreatorProvider;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
+import br.com.ifsp.vcRiquinho.produto.repository.IRepositoryProduto;
 
-public class RepositoryConta implements IRepositoryConta{
+public class RepositoryConta implements IRepositoryConta {
 	private IContaDAO contaDAO;
-	private IProdutoDAO produtoDAO;
-	private IFactoryProdutoCreator factoryProdutoCreator;
-	
-	public RepositoryConta(IContaDAO contaDAO, IProdutoDAO produtoDAO) {
-		this(contaDAO, produtoDAO, new FactoryProdutoCreator());
-	}
+	private IRepositoryProduto repositoryProduto;
+	private IFactoryContaCreatorProvider factoryContaCreatorProvider;
 
-	public RepositoryConta(IContaDAO contaDAO, IProdutoDAO produtoDAO, IFactoryProdutoCreator factoryProdutoCreator) {
+	public RepositoryConta(IContaDAO contaDAO, IRepositoryProduto repositoryProduto,
+			IFactoryContaCreatorProvider factoryContaCreatorProvider) {
 		this.contaDAO = contaDAO;
-		this.produtoDAO = produtoDAO;
-		this.factoryProdutoCreator = factoryProdutoCreator;
-	}
-	
-	
-	@Override
-	public Conta add(DTOConta obj) {
-		// TODO Auto-generated method stub
-		return null;
+		this.repositoryProduto = repositoryProduto;
+		this.factoryContaCreatorProvider = factoryContaCreatorProvider;
 	}
 
 	@Override
-	public Conta update(DTOConta obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public Conta insert(DTOConta dto) {
+		try {
+			dto = contaDAO.insert(dto);
+
+			return createContaBy(dto);
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override
-	public Conta get(Integer id) {
+	public Conta update(DTOConta dto) {
+		try {
+			dto = contaDAO.update(dto);
+
+			return createContaBy(dto);
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
+	@Override
+	public Conta findBy(Integer id) {
 		try {
 			DTOConta dtoConta = contaDAO.findBy(id);
-			DTOProduto dtoProduto = produtoDAO.findBy(dtoConta.id_produto());
-		
-			IFactoryProduto factoryProduto = factoryProdutoCreator.createBy(dtoProduto.tipo_produto());
-			Produto produto = factoryProduto.createBy(dtoProduto);
-			
-			IFactoryContaCreator factoryContaCreator = new FactoryContaCreator(produto);
-			IFactoryConta factory = factoryContaCreator.createBy(dtoConta.tipo_conta());
-			
-			return factory.createBy(dtoConta);
-			
-		} catch(RuntimeException e) {
-			
+			Produto produto = repositoryProduto.findBy(dtoConta.id_produto());
+
+			return createContaBy(dtoConta, produto);
+
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
 		}
-		
-		
-		return null;
 	}
 
 	@Override
-	public Conta delete(Integer obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public void deleteBy(Integer id) {
+		try {
+			contaDAO.deleteBy(id);
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Conta> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			List<Conta> contas = new LinkedList<>();
+
+			List<DTOConta> dtosContas = contaDAO.findAll();
+
+			for (DTOConta dto : dtosContas) {
+				Produto produto = repositoryProduto.findBy(dto.id_produto());
+				Conta conta = createContaBy(dto, produto);
+
+				contas.add(conta);
+			}
+
+			return contas;
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
+
+	private Conta createContaBy(DTOConta dtoConta, Produto produto) {
+		IFactoryContaCreator factoryContaCreator = factoryContaCreatorProvider.create(produto);
+		IFactoryConta factory = factoryContaCreator.createBy(dtoConta.tipo_conta());
+
+		return factory.createBy(dtoConta);
+	}
+
+	private Conta createContaBy(DTOConta dtoConta) {
+		return createContaBy(dtoConta, null);
+	}
+
 }

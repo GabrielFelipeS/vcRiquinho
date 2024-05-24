@@ -107,14 +107,14 @@ class PessoaDAOTest {
 	void updateByTestNotNull() {
 		PessoaDAO dao = new PessoaDAO(connection);
 		DTOPessoa dto = new DTOPessoa(0, DEFAULT_ID_EXISTS, "João Silva", "joaosilva@email.com", "fisica");
-		assertNotNull(dao.updateBy(dto));
+		assertNotNull(dao.update(dto));
 	}
 
 	@Test
 	void updateByTestNull() {
 		PessoaDAO dao = new PessoaDAO(connection);
 		DTOPessoa dto = new DTOPessoa(0, DEFAULT_ID_NOT_EXISTS, "João Silva", "joaosilva@email.com", "fisica");
-		DTOPessoa newDto = dao.updateBy(dto);
+		DTOPessoa newDto = dao.update(dto);
 		assertNull(newDto);
 	}
 }
