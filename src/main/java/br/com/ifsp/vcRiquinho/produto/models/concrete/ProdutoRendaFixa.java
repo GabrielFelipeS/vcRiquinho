@@ -49,6 +49,11 @@ public class ProdutoRendaFixa extends Produto {
 		return dataComCarencia.isAfter(dataAtualAposOsDias) || dataComCarencia.equals(dataAtualAposOsDias);
 	}
 
+	@Override
+	public String tipoProduto() {
+		return "renda_fixa";
+	}
+
 
 
 }

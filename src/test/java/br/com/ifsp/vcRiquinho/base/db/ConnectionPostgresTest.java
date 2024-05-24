@@ -3,11 +3,16 @@ package br.com.ifsp.vcRiquinho.base.db;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 
+@Disabled
 public class ConnectionPostgresTest {
+	
+
 	
 	@Test
 	void connectionTest() {

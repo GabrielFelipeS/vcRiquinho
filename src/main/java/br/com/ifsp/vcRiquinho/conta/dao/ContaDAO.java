@@ -5,13 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-import br.com.ifsp.vcRiquinho.base.interfaces.DAO;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
 
-public class ContaDAO implements DAO<DTOConta, Integer> {
+public class ContaDAO implements IContaDAO{
 	private Connection conn;
 
 	public ContaDAO(Connection conn) {
@@ -38,16 +37,30 @@ public class ContaDAO implements DAO<DTOConta, Integer> {
 	}
 	
 	@Override
-	public List<DTOConta> findAll() {
-		return findWhere("1 = 1");
-	}
+	public DTOConta findBy(Integer id) {
 
+		try (PreparedStatement pst = conn.prepareStatement("SELECT * FROM conta WHERE id = ? ")) {
+			pst.setInt(1, id);
+
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next()) {
+					DTOConta dto = createDTOConta(rs);
+					return dto;
+				}
+				throw new SQLException("Falha na busca de contas, nenhuma conta encontrada.");
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+	
 	@Override
-	public List<DTOConta> findWhere(String where) {
-		List<DTOConta> list = new ArrayList<DTOConta>();
+	public List<DTOConta> findAll() {
+		List<DTOConta> list = new LinkedList<DTOConta>();
 
 		try (Statement st = conn.createStatement()) {
-			st.execute("SELECT * FROM conta WHERE " + where);
+			st.execute("SELECT * FROM conta");
 			try (ResultSet rs = st.getResultSet()) {
 
 				while (rs.next()) {
@@ -66,6 +79,7 @@ public class ContaDAO implements DAO<DTOConta, Integer> {
 		try (PreparedStatement pst = conn.prepareStatement(
 				"INSERT INTO conta (documento_titular, montante_financeiro, id_produto, cdi, tipo_conta) "
 						+ "VALUES (?, ?, ?, ?, CAST(? as TIPO_CONTA))", Statement.RETURN_GENERATED_KEYS)) {
+			
 			pst.setString(1, dto.documentoTitular());
 			pst.setDouble(2, dto.montanteFinanceiro());
 			this.setIntOrNull(pst, 3, dto.id_produto());
@@ -73,11 +87,7 @@ public class ContaDAO implements DAO<DTOConta, Integer> {
 			pst.setDouble(4, dto.cdi());
 			pst.setObject(5, dto.tipo_conta(), java.sql.Types.OTHER);
 
-			int affectedRows = pst.executeUpdate();
-
-			if (affectedRows == 0) {
-				throw new SQLException("Falha na criação da conta, nenhuma linha afetada.");
-			}
+			pst.executeUpdate();
 
 			try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
@@ -91,7 +101,6 @@ public class ContaDAO implements DAO<DTOConta, Integer> {
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		}
-
 	}
 
 	@Override
@@ -111,27 +120,10 @@ public class ContaDAO implements DAO<DTOConta, Integer> {
 		}
 	}
 
-	@Override
-	public DTOConta findBy(Integer id) {
 
-		try (PreparedStatement pst = conn.prepareStatement("SELECT * FROM conta WHERE id = ? ")) {
-			pst.setInt(1, id);
-
-			try (ResultSet rs = pst.executeQuery()) {
-				if (rs.next()) {
-					DTOConta dto = createDTOConta(rs);
-					return dto;
-				}
-				throw new SQLException("Falha na busca de contas, nenhuma conta encontrada.");
-			}
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e.getMessage());
-		}
-	}
 
 	@Override
-	public DTOConta updateBy(DTOConta dto) {
+	public DTOConta update(DTOConta dto) {
 		try (PreparedStatement pst = conn
 				.prepareStatement("UPDATE conta SET " + "id_produto = ?, cdi = ? WHERE id = ? ")) {
 			
@@ -139,7 +131,7 @@ public class ContaDAO implements DAO<DTOConta, Integer> {
 			
 			
 			pst.setDouble(2, dto.cdi());
-			pst.setInt(3, dto.id());
+			pst.setInt(3, dto.numConta());
 
 			int affectedRows = pst.executeUpdate();
 			
@@ -147,7 +139,7 @@ public class ContaDAO implements DAO<DTOConta, Integer> {
 				throw new SQLException("Falha na atualização da conta, nenhuma linha afetada.");
 			}
 			
-			return findBy(dto.id());
+			return findBy(dto.numConta());
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		}

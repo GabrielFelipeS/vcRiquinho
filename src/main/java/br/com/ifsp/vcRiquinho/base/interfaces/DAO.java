@@ -3,15 +3,14 @@ package br.com.ifsp.vcRiquinho.base.interfaces;
 import java.util.List;
 import java.util.Optional;
 
-public interface DAO<T,P> {
-	List<T> findAll();
-	List<T> findWhere(String where);
+public interface DAO<ReturnType, IdType> {
+	List<ReturnType> findAll();
 	
-	T insert(T dto);
-	Boolean deleteBy(P id);
+	ReturnType insert(ReturnType dto);
+	Boolean deleteBy(IdType id);
 	
-	T findBy(P id);
+	ReturnType findBy(IdType id);
 	
-	T updateBy(T dto);
+	ReturnType update(ReturnType dto);
 
 }

@@ -5,13 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import br.com.ifsp.vcRiquinho.base.interfaces.DAO;
 import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoa;
 
-public class PessoaDAO implements DAO<DTOPessoa, String> {
+public class PessoaDAO implements IPessoaDAO{
 	private Connection conn;
 
 	public PessoaDAO(Connection conn) {
@@ -30,14 +30,9 @@ public class PessoaDAO implements DAO<DTOPessoa, String> {
 
 	@Override
 	public List<DTOPessoa> findAll() {
-		return findWhere("1 = 1 AND ativo = true");
-	}
-
-	@Override
-	public List<DTOPessoa> findWhere(String where) {
-		List<DTOPessoa> list = new ArrayList<DTOPessoa>();
+		List<DTOPessoa> list = new LinkedList<DTOPessoa>();
 		try (Statement st = conn.createStatement()) {
-			st.execute("SELECT * FROM pessoa WHERE " + where);
+			st.execute("SELECT * FROM pessoa");
 			try (ResultSet rs = st.getResultSet()) {
 
 				while (rs.next()) {
@@ -117,7 +112,7 @@ public class PessoaDAO implements DAO<DTOPessoa, String> {
 	}
 
 	@Override
-	public DTOPessoa updateBy(DTOPessoa dto) {
+	public DTOPessoa update(DTOPessoa dto) {
 		try (PreparedStatement pst = conn
 				.prepareStatement("UPDATE pessoa SET nome = ?, email = ? WHERE documento_titular = ? ")) {
 

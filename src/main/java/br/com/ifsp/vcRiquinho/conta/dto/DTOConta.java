@@ -4,7 +4,8 @@ import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCDI;
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCorrente;
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaInvestimentoAutomatico;
 
-public record DTOConta(Integer id, String documentoTitular, Double montanteFinanceiro, Integer id_produto, Double cdi,
+public record DTOConta(Integer numConta, String documentoTitular, 
+		Double montanteFinanceiro, Integer id_produto, Double cdi,
 		String tipo_conta) {
 
 	public DTOConta(ContaCorrente conta) {

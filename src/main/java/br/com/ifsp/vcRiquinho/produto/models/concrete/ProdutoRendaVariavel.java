@@ -36,4 +36,9 @@ public class ProdutoRendaVariavel extends Produto {
 		return false;
 	}
 
+	@Override
+	public String tipoProduto() {
+		return "renda_variavel";
+	}
+
 }
