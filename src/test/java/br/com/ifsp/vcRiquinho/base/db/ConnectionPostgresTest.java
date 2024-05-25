@@ -1,28 +1,32 @@
 package br.com.ifsp.vcRiquinho.base.db;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
+import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
 
-@Disabled
+//@Disabled
 public class ConnectionPostgresTest {
+	private static IDBConnector iDbConnector = new ConnectionPostgress();
+	private static Connection connection;
 	
-
+	
+	@BeforeAll
+	public static void setUp() {
+		connection = PostgresTestContainer.connectInNewContainer(iDbConnector);
+	}
 	
 	@Test
-	void connectionTest() {
-		ConnectionPostgress dbConnection = new ConnectionPostgress();
-		
-		assertDoesNotThrow(() -> {
-			dbConnection.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST, ConnectionPostgress.DEFAULT_USER_DBTEST, ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
-		});
-		
-		assertNotEquals(null, dbConnection.getConnection());
+	void connectionTest() throws SQLException {
+		assertFalse(connection.isClosed());
+		assertNotEquals(null, iDbConnector.getConnection());
 		
 	}
 	

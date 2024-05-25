@@ -52,11 +52,11 @@ public class RepositoryPessoaTest {
 	/**
 	 * O método setUp utiliza a dependencia TestContainer Para criar uma conexão com
 	 * o banco de dados do container criado no momento de rodar os testes
+	 * @throws SQLException 
 	 */
 	@BeforeAll
-	public static void setUp() {
+	public static void setUp() throws SQLException {
 		connection = PostgresTestContainer.connectInNewContainer(iDbConnector);
-
 		// iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST,
 		// ConnectionPostgress.DEFAULT_USER_DBTEST,
 		// ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
@@ -73,8 +73,7 @@ public class RepositoryPessoaTest {
 	}
 
 	@Test
-	void findByIdExistenteEntaoSemLançamentoDeExceção() {
-
+	void findByIdExistenteEntaoSemLançamentoDeExceção() throws SQLException {
 		assertDoesNotThrow(() -> repository.findBy(DOCUMENT_EXISTS));
 	}
 
@@ -88,16 +87,14 @@ public class RepositoryPessoaTest {
 		assertDoesNotThrow(() -> repository.findAll());
 	}
 
-
-
 	@Test
 	void insertTestCriacaoBemSucedida() {
 		DTOPessoa dtoPessoa = new DTOPessoa(0, "11111111111", "Gabriel", "andrade.gabriel1@gmail.com", "juridica");
 		DTOConta dtoConta = new DTOConta(1, "11111111111", 0.0, null, 0.065, "investimento_automatico");
 		DTOPessoaConta dto = new DTOPessoaConta(dtoPessoa, Set.of(dtoConta));
-		
+
 		Pessoa pessoa = repository.insert(dto);
-		System.out.println(pessoa);
+
 		assertEquals(dtoPessoa.nome(), pessoa.getNome());
 		assertNotEquals(dtoPessoa.id(), pessoa.getId());
 	}
@@ -107,7 +104,7 @@ public class RepositoryPessoaTest {
 		DTOPessoa dtoPessoa = new DTOPessoa(0, "11111111111", "Gabriel", "andrade.gabriel1@gmail.com", "fisica");
 		DTOConta dtoConta = new DTOConta(1, "11111111111", 0.0, null, 0.065, "investimento_automatico");
 		DTOPessoaConta dto = new DTOPessoaConta(dtoPessoa, Set.of(dtoConta));
-		
+
 		repository.insert(dto);
 		assertThrows(RuntimeException.class, () -> repository.insert(dto));
 	}
@@ -117,7 +114,7 @@ public class RepositoryPessoaTest {
 		DTOPessoa dtoPessoa = new DTOPessoa(0, DOCUMENT_EXISTS, "Gabriel", "andrade.gabriel1@gmail.com", "juridica");
 		DTOConta dtoConta = new DTOConta(1, "00111222000144", 0.0, null, 0.065, "investimento_automatico");
 		DTOPessoaConta dto = new DTOPessoaConta(dtoPessoa, Set.of(dtoConta));
-		
+
 		Pessoa pessoa = repository.update(dto);
 
 		assertEquals(dtoPessoa.documento_titular(), pessoa.getDocumentoTitular());
@@ -127,10 +124,11 @@ public class RepositoryPessoaTest {
 
 	@Test
 	void updateTestFalhaNumContaNaoExisteNenhumaLinhaAfetada() {
-		DTOPessoa dtoPessoa = new DTOPessoa(0, DOCUMENT_NOT_EXISTS, "Gabriel Felipe", "andrade.gabriel1@gmail.com","fisica");
+		DTOPessoa dtoPessoa = new DTOPessoa(0, DOCUMENT_NOT_EXISTS, "Gabriel Felipe", "andrade.gabriel1@gmail.com",
+				"fisica");
 		DTOConta dtoConta = new DTOConta(1, "00111222000144", 0.0, null, 0.065, "investimento_automatico");
 		DTOPessoaConta dto = new DTOPessoaConta(dtoPessoa, Set.of(dtoConta));
-		
+
 		assertThrows(RuntimeException.class, () -> repository.update(dto));
 	}
 

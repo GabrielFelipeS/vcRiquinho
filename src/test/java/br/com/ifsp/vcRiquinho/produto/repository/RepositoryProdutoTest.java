@@ -2,7 +2,6 @@ package br.com.ifsp.vcRiquinho.produto.repository;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.sql.CallableStatement;
@@ -16,18 +15,12 @@ import org.junit.jupiter.api.Test;
 import br.com.ifsp.vcRiquinho.base.db.PostgresTestContainer;
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
-import br.com.ifsp.vcRiquinho.conta.dao.ContaDAO;
-import br.com.ifsp.vcRiquinho.conta.dao.IContaDAO;
-import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
-import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.produto.dao.IProdutoDAO;
 import br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO;
 import br.com.ifsp.vcRiquinho.produto.dto.DTOProduto;
 import br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator;
 import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryProdutoCreator;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
-import br.com.ifsp.vcRiquinho.produto.repository.IRepositoryProduto;
-import br.com.ifsp.vcRiquinho.produto.repository.RepositoryProduto;
 
 public class RepositoryProdutoTest {
 	private static IDBConnector iDbConnector = new ConnectionPostgress();
