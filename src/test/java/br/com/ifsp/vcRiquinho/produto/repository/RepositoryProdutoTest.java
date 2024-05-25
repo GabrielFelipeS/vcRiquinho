@@ -34,7 +34,7 @@ public class RepositoryProdutoTest {
 	private int ID_NOT_EXISTS = 1000;
 
 	/**
-	 * O método setUp utiliza a dependencia TestContainer Para criar uma conexão com
+	 * O metodo setUp utiliza a dependencia TestContainer Para criar uma conexão com
 	 * o banco de dados do container criado no momento de rodar os testes
 	 */
 	@BeforeAll
@@ -47,7 +47,7 @@ public class RepositoryProdutoTest {
 	}
 
 	@AfterEach
-	void afterEach() throws SQLException {
+	void afterEach() {
 		String procedure = "{ call reset_table_in_produto_and_conta() }";
 		try (CallableStatement proc = connection.prepareCall(procedure)) {
 			proc.execute();
@@ -57,12 +57,12 @@ public class RepositoryProdutoTest {
 	}
 
 	@Test
-	void findByIdExistenteEntaoSemLançamentoDeExceção() {
+	void findByIdExistenteEntaoSemLancamentoDeExcecao() {
 		assertDoesNotThrow(() -> repository.findBy(ID_EXISTS));
 	}
 
 	@Test
-	void findByIdNaoExistenteEntaoLancaDeExceção() {
+	void findByIdNaoExistenteEntaoLancaDeExcecao() {
 		assertThrows(RuntimeException.class, () -> repository.findBy(ID_NOT_EXISTS));
 	}
 

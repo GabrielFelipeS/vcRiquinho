@@ -53,5 +53,4 @@ public class FactoryPessoaCreatorTest {
 
 		assertEquals("PessoaJuridicaFactory", factoryCreator.convert(factory));
 	}
-
 }

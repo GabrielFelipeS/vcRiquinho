@@ -16,18 +16,17 @@ import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
 public class ConnectionPostgresTest {
 	private static IDBConnector iDbConnector = new ConnectionPostgress();
 	private static Connection connection;
-	
-	
+
 	@BeforeAll
 	public static void setUp() {
 		connection = PostgresTestContainer.connectInContainer(iDbConnector);
 	}
-	
+
 	@Test
 	void connectionTest() throws SQLException {
 		assertFalse(connection.isClosed());
 		assertNotEquals(null, iDbConnector.getConnection());
-		
+
 	}
-	
+
 }

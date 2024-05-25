@@ -16,65 +16,61 @@ class ProdutoRendaVariavelTest {
 
 	@Test
 	void isInGracePeriodTestisInGracePeriodInTrue1() {
-		Produto produto = new ProdutoRendaFixa(0, "nome","descricao", 0.0, 10, LocalDate.now());
+		Produto produto = new ProdutoRendaFixa(0, "nome", "descricao", 0.0, 10, LocalDate.now());
 		assertTrue(produto.isInGracePeriodIn(0));
 	}
-	
+
 	@Test
 	void isInGracePeriodTestisInGracePeriodInTrue2() {
-		Produto produto = new ProdutoRendaFixa(0, "nome","descricao", 0.0, 10, LocalDate.now());
+		Produto produto = new ProdutoRendaFixa(0, "nome", "descricao", 0.0, 10, LocalDate.now());
 		assertTrue(produto.isInGracePeriodIn(9));
 	}
-	
-	
+
 	@Test
 	void isInGracePeriodTestisInGracePeriodInTrue3() {
-		Produto produto = new ProdutoRendaFixa(0, "nome","descricao", 0.0, 10, LocalDate.now());
+		Produto produto = new ProdutoRendaFixa(0, "nome", "descricao", 0.0, 10, LocalDate.now());
 		assertTrue(produto.isInGracePeriodIn(10));
 	}
-	
+
 	@Test
 	void isInGracePeriodTestisInGracePeriodInTrue4() {
 		Produto produto = new ProdutoRendaFixa(0, 0.0, 10);
 		assertTrue(produto.isInGracePeriodIn(10));
 	}
-	
-	
-	
+
 	@Test
 	void isInGracePeriodTestisInGracePeriodInFalse1() {
-		Produto produto = new ProdutoRendaFixa(0, "nome","descricao", 0.0, 10, LocalDate.now());
+		Produto produto = new ProdutoRendaFixa(0, "nome", "descricao", 0.0, 10, LocalDate.now());
 		assertFalse(produto.isInGracePeriodIn(11));
 	}
-	
-	
+
 	@Test
 	void isInGracePeriodTestisInGracePeriodInFalse2() {
-		Produto produto = new ProdutoRendaFixa(0, "nome","descricao", 0.0, 10, LocalDate.now());
+		Produto produto = new ProdutoRendaFixa(0, "nome", "descricao", 0.0, 10, LocalDate.now());
 		assertFalse(produto.isInGracePeriodIn(50));
 	}
-	
+
 	@Test
 	void isInGracePeriodTestNegativeDays1() {
-		Produto produto = new ProdutoRendaFixa(0, "nome","descricao", 0.0, 10, LocalDate.now());
+		Produto produto = new ProdutoRendaFixa(0, "nome", "descricao", 0.0, 10, LocalDate.now());
 		assertThrows(DaysCannotByNegativeException.class, () -> produto.isInGracePeriodIn(-1));
 	}
-	
+
 	@Test
 	void isInGracePeriodTestNegativeDays2() {
-		Produto produto = new ProdutoRendaFixa(0, "nome","descricao", 0.0, 10, LocalDate.now());
+		Produto produto = new ProdutoRendaFixa(0, "nome", "descricao", 0.0, 10, LocalDate.now());
 		assertThrows(DaysCannotByNegativeException.class, () -> produto.isInGracePeriodIn(-50));
 	}
-	
+
 	@Test
 	void isInGracePeriodTestNoNegativeDays1() {
-		Produto produto = new ProdutoRendaFixa(0, "nome","descricao", 0.0, 10, LocalDate.now());
+		Produto produto = new ProdutoRendaFixa(0, "nome", "descricao", 0.0, 10, LocalDate.now());
 		assertDoesNotThrow(() -> produto.isInGracePeriodIn(0));
 	}
-	
+
 	@Test
 	void isInGracePeriodTestNoNegativeDays2() {
-		Produto produto = new ProdutoRendaFixa(0, "nome","descricao", 0.0, 10, LocalDate.now());
+		Produto produto = new ProdutoRendaFixa(0, "nome", "descricao", 0.0, 10, LocalDate.now());
 		assertDoesNotThrow(() -> produto.isInGracePeriodIn(1));
 	}
 }

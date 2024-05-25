@@ -21,7 +21,7 @@ class TaxaServicoContaCDITest {
 	void getTaxaIdentificatorPorClassePessoaFisica2() {
 		TaxaIdentificator identificador = new TaxaServicoContaCDI();
 		assertEquals(TaxaServicoContaCDI.TAXA_SERVICO_PF,
-				identificador.getTaxa(new PessoaFisica(0, "", "", new ContaCDI(0, "",0.0, 0.0), "")));
+				identificador.getTaxa(new PessoaFisica(0, "", "", new ContaCDI(0, "", 0.0, 0.0), "")));
 	}
 
 	@Test
@@ -34,7 +34,7 @@ class TaxaServicoContaCDITest {
 	void getTaxaIdentificatorPorClassePessoaJuridica2() {
 		TaxaIdentificator identificador = new TaxaServicoContaCDI();
 		assertEquals(TaxaServicoContaCDI.TAXA_SERVICO_PJ,
-				identificador.getTaxa(new PessoaJuridica(0, "", "", new ContaCDI(0, "",0.0, 0.0), "")));
+				identificador.getTaxa(new PessoaJuridica(0, "", "", new ContaCDI(0, "", 0.0, 0.0), "")));
 	}
 
 }

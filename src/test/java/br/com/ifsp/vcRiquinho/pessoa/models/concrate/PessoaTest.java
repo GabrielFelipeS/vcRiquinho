@@ -1,6 +1,5 @@
 package br.com.ifsp.vcRiquinho.pessoa.models.concrate;
 
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,7 +30,7 @@ class PessoaTest {
 		assertThrows(NullPointerException.class,
 				() -> new PessoaFisica(null, "", "", new ContaCDI(0, "", 0.0, 0.0), ""));
 	}
-	
+
 	@Test
 	void validarRequerimentoDeNaoNuloPessoa2() {
 		assertThrows(NullPointerException.class,
@@ -63,8 +62,8 @@ class PessoaTest {
 
 	@Test
 	void createPessoaFisicaTest2() {
-		assertDoesNotThrow(
-				() -> new PessoaFisica(0, "", "", new HashSet<Conta>(Arrays.asList(new ContaCDI(0, "", 0.0, 0.0))), ""));
+		assertDoesNotThrow(() -> new PessoaFisica(0, "", "",
+				new HashSet<Conta>(Arrays.asList(new ContaCDI(0, "", 0.0, 0.0))), ""));
 	}
 
 	@Test
@@ -74,8 +73,8 @@ class PessoaTest {
 
 	@Test
 	void createPessoaJuridicaTest2() {
-		assertDoesNotThrow(
-				() -> new PessoaJuridica(0, "", "", new HashSet<Conta>(Arrays.asList(new ContaCDI(0, "", 0.0, 0.0))), ""));
+		assertDoesNotThrow(() -> new PessoaJuridica(0, "", "",
+				new HashSet<Conta>(Arrays.asList(new ContaCDI(0, "", 0.0, 0.0))), ""));
 	}
 
 	@Test

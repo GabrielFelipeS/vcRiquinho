@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.MountableFile;
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
@@ -20,17 +19,16 @@ import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
 //@Disabled
 //@Testcontainers
 public class PostgresTestContainer {
+	 
 	private static Connection connection;
-
 	@Container
 	public static PostgreSQLContainer<?> postgresContainer = new PostgreSQLContainer<>("postgres:16")
 			.withUsername("postgres")
 			.withPassword("admin")
 			.withExposedPorts(5432)
 			.withCopyFileToContainer(
-					MountableFile.forHostPath(
-							Paths.get("scripts", "init.sql").toAbsolutePath().toString()),
-							"/docker-entrypoint-initdb.d/init.sql");
+					MountableFile.forHostPath(Paths.get("scripts", "init.sql").toAbsolutePath().toString()),
+					"/docker-entrypoint-initdb.d/init.sql");
 
 	@BeforeAll
 	public static void setUp() {
@@ -51,14 +49,14 @@ public class PostgresTestContainer {
 		assertTrue(postgresContainer.isCreated());
 		assertTrue(postgresContainer.isRunning());
 	}
-	
+
 	public static Connection connectInContainer(IDBConnector iDbConnector) {
 		PostgresTestContainer.postgresContainer.start();
 
 		return iDbConnector.getConnection(
-				String.format("jdbc:postgresql://localhost:%d/dbtest_vcriquinho", PostgresTestContainer.postgresContainer.getMappedPort(5432)),
+				String.format("jdbc:postgresql://localhost:%d/dbtest_vcriquinho",
+						PostgresTestContainer.postgresContainer.getMappedPort(5432)),
 				PostgresTestContainer.postgresContainer.getUsername(),
 				PostgresTestContainer.postgresContainer.getPassword());
 	}
-
 }

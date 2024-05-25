@@ -50,9 +50,10 @@ public class RepositoryPessoaTest {
 	private String DOCUMENT_NOT_EXISTS = "00000000000";
 
 	/**
-	 * O método setUp utiliza a dependencia TestContainer Para criar uma conexão com
+	 * O metodo setUp utiliza a dependencia TestContainer Para criar uma conexão com
 	 * o banco de dados do container criado no momento de rodar os testes
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@BeforeAll
 	public static void setUp() throws SQLException {
@@ -73,12 +74,12 @@ public class RepositoryPessoaTest {
 	}
 
 	@Test
-	void findByIdExistenteEntaoSemLançamentoDeExceção() throws SQLException {
+	void findByIdExistenteEntaoSemLancamentoDeExcecao() throws SQLException {
 		assertDoesNotThrow(() -> repository.findBy(DOCUMENT_EXISTS));
 	}
 
 	@Test
-	void findByIdNaoExistenteEntaoLancaDeExceção() {
+	void findByIdNaoExistenteEntaoLancaDeExcecao() {
 		assertThrows(RuntimeException.class, () -> repository.findBy(DOCUMENT_NOT_EXISTS));
 	}
 

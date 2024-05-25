@@ -116,21 +116,20 @@ class ContaDAOTest {
 		assertThrows(RuntimeException.class, () -> dao.deleteBy(ID_NOT_EXISTS));
 	}
 
-	
 	@Test
 	void findByTestContsaEncontradasParaDocumentoTitularExistente() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		assertDoesNotThrow(() -> dao.findBy("00111222000144"));
 	}
-	
+
 	@Test
 	void findByTestContsaEncontradasParaDocumentoTitularInexistente() {
 		ContaDAO dao = new ContaDAO(connection);
 
-		assertThrows(RuntimeException.class ,() -> dao.findBy("12345678955"));
+		assertThrows(RuntimeException.class, () -> dao.findBy("12345678955"));
 	}
-	
+
 	@Test
 	void findByTestContaEncontradaComIDExistente() {
 		ContaDAO dao = new ContaDAO(connection);

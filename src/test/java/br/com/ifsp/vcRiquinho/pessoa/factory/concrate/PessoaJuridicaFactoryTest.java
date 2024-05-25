@@ -51,5 +51,4 @@ public class PessoaJuridicaFactoryTest {
 
 		assertEquals(pessoa.getId(), factory.convert(pessoa).id());
 	}
-
 }

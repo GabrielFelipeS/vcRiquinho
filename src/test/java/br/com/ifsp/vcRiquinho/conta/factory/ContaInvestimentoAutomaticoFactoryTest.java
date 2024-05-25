@@ -36,12 +36,12 @@ public class ContaInvestimentoAutomaticoFactoryTest {
 
 		assertThrows(RuntimeException.class, () -> factory.createBy(new DTOConta(0, null, 0.0, 0, 0.0, "")));
 	}
-	
+
 	@Test
 	void convertContaInvestimentoAutomatico() {
 		IFactoryConta factory = new ContaInvestimentoAutomaticoFactory(new NullObjectProduto());
 
-		Conta conta= new ContaInvestimentoAutomatico(0, "", 0.0, new NullObjectProduto());
+		Conta conta = new ContaInvestimentoAutomatico(0, "", 0.0, new NullObjectProduto());
 
 		assertEquals(conta.getNumConta(), factory.convert(conta).numConta());
 	}

@@ -21,19 +21,18 @@ public class ContaCDIFactoryTest {
 		assertEquals(ContaCDI.class, conta.getClass());
 	}
 
-
 	@Test
 	void createContaCDIAlgumValorNulo() {
 		IFactoryConta factory = new ContaCdiFactory();
 
 		assertThrows(RuntimeException.class, () -> factory.createBy(new DTOConta(0, null, 0.0, 0, 0.0, "")));
 	}
-	
+
 	@Test
 	void convertContaCDI() {
 		IFactoryConta factory = new ContaCdiFactory();
 
-		Conta conta= new ContaCDI(0, "", 0.0, 0.0);
+		Conta conta = new ContaCDI(0, "", 0.0, 0.0);
 
 		assertEquals(conta.getNumConta(), factory.convert(conta).numConta());
 	}

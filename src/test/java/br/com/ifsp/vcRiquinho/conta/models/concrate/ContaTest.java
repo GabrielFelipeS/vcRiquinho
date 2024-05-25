@@ -11,20 +11,17 @@ public class ContaTest {
 
 	@Test
 	void validarRequerimentoDeNuloCDI1() {
-		assertThrows(NullPointerException.class,
-				() -> new ContaCDI(null, "", 0.0, 0.0));
+		assertThrows(NullPointerException.class, () -> new ContaCDI(null, "", 0.0, 0.0));
 	}
 
 	@Test
 	void validarRequerimentoDeNuloCDI2() {
-		assertThrows(NullPointerException.class,
-				() -> new ContaCDI(0, null, 0.0, 0.0));
+		assertThrows(NullPointerException.class, () -> new ContaCDI(0, null, 0.0, 0.0));
 	}
 
 	@Test
 	void validarRequerimentoDeNuloCDI3() {
-		assertThrows( NullPointerException.class,
-				() -> new ContaCDI(0, "", null, 0.0));
+		assertThrows(NullPointerException.class, () -> new ContaCDI(0, "", null, 0.0));
 	}
 
 	@Test
@@ -39,20 +36,17 @@ public class ContaTest {
 
 	@Test
 	void validarRequerimentoDeNuloCorrrente1() {
-		assertThrows(NullPointerException.class,
-				() -> new ContaCorrente(null, "", 0.0));
+		assertThrows(NullPointerException.class, () -> new ContaCorrente(null, "", 0.0));
 	}
 
 	@Test
 	void validarRequerimentoDeNuloCorrrente2() {
-		assertThrows(NullPointerException.class,
-				() -> new ContaCorrente(0, null, 0.0));
+		assertThrows(NullPointerException.class, () -> new ContaCorrente(0, null, 0.0));
 	}
 
 	@Test
 	void validarRequerimentoDeNuloCorrrente3() {
-		assertThrows(NullPointerException.class,
-				() -> new ContaCorrente(0, "", null));
+		assertThrows(NullPointerException.class, () -> new ContaCorrente(0, "", null));
 	}
 
 	@Test
@@ -80,7 +74,6 @@ public class ContaTest {
 
 	@Test
 	void validarRequerimentoDeNaoNuloInvestimentoAutomatico() {
-		assertThrows(NullPointerException.class,
-				() -> new ContaInvestimentoAutomatico(0, "", 0.0, null));
+		assertThrows(NullPointerException.class, () -> new ContaInvestimentoAutomatico(0, "", 0.0, null));
 	}
 }

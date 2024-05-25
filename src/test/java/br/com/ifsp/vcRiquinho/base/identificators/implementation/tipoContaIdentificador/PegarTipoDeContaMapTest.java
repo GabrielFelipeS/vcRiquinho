@@ -25,7 +25,8 @@ class PegarTipoDeContaMapTest {
 	@Test
 	void getTaxaIdentificatorPorClasse2() {
 		TipoContaIdentificador identificador = new PegarTipoDeContaMap();
-		assertEquals(TaxaServicoContaCDI.class, identificador.getTaxaIdentificator(new ContaCDI(0, "",0.0, 0.0)).getClass());
+		assertEquals(TaxaServicoContaCDI.class,
+				identificador.getTaxaIdentificator(new ContaCDI(0, "", 0.0, 0.0)).getClass());
 	}
 
 	@Test
@@ -39,7 +40,10 @@ class PegarTipoDeContaMapTest {
 	void getTaxaIdentificatorPorClasse4() {
 		TipoContaIdentificador identificador = new PegarTipoDeContaMap();
 		assertEquals(TaxaServicoContaInvestimentoAutomatico.class,
-				identificador.getTaxaIdentificator(new ContaInvestimentoAutomatico(0, "",5.0, new ProdutoRendaFixa(0, 0.0, 0))).getClass());
+				identificador
+						.getTaxaIdentificator(
+								new ContaInvestimentoAutomatico(0, "", 5.0, new ProdutoRendaFixa(0, 0.0, 0)))
+						.getClass());
 	}
 
 	@Test
@@ -51,7 +55,8 @@ class PegarTipoDeContaMapTest {
 	@Test
 	void getTaxaIdentificatorPorClasse6() {
 		TipoContaIdentificador identificador = new PegarTipoDeContaMap();
-		assertEquals(SemTaxaServico.class, identificador.getTaxaIdentificator(new ContaCorrente(0, "",5.0)).getClass());
+		assertEquals(SemTaxaServico.class,
+				identificador.getTaxaIdentificator(new ContaCorrente(0, "", 5.0)).getClass());
 	}
 
 }

@@ -32,7 +32,7 @@ public class FactoryContaCreatorTest {
 		IFactoryConta factory = factoryCreator.createBy("corrente");
 		assertEquals(ContaCorrenteFactory.class, factory.getClass());
 	}
-	
+
 	@Test
 	void createByContaInvestimentoAutomaticoFactory() {
 		IFactoryContaCreator factoryCreator = new FactoryContaCreator(new NullObjectProduto());
@@ -57,7 +57,7 @@ public class FactoryContaCreatorTest {
 
 		assertEquals("ContaCdiFactory", factoryCreator.convert(factory));
 	}
-	
+
 	@Test
 	void convertContaCorrenteFactory() {
 		IFactoryContaCreator factoryCreator = new FactoryContaCreator(new NullObjectProduto());
@@ -67,7 +67,6 @@ public class FactoryContaCreatorTest {
 		assertEquals("ContaCorrenteFactory", factoryCreator.convert(factory));
 	}
 
-	
 	@Test
 	void convertContaInvestimentoAutomaticoFactory() {
 		IFactoryContaCreator factoryCreator = new FactoryContaCreator(new NullObjectProduto());

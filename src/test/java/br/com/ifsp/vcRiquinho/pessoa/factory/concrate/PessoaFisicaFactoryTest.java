@@ -50,5 +50,4 @@ public class PessoaFisicaFactoryTest {
 
 		assertEquals(pessoa.getId(), factory.convert(pessoa).id());
 	}
-
 }
