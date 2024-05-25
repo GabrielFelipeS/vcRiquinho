@@ -138,7 +138,12 @@ public class ProdutoDAO implements IProdutoDAO {
 			pst.setInt(4, dto.carencia());
 			pst.setInt(5, dto.id());
 
-			pst.executeUpdate();
+			int affectedRows = pst.executeUpdate();
+			
+			if (affectedRows == 0) {
+				throw new SQLException("Falha na atualização da conta, nenhuma linha afetada.");
+			}
+			
 			return findBy(dto.id());
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

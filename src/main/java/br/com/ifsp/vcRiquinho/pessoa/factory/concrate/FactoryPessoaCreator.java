@@ -19,8 +19,8 @@ public class FactoryPessoaCreator implements IFactoryPessoaCreator {
 	
 	private Map<String, IFactoryPessoa> createMap() {
 		Map<String, IFactoryPessoa> map = new HashMap<>();
-		map.put("cdi", new PessoaFisicaFactory(contas));
-		map.put("corrente", new PessoaJuridicaFactory(contas));
+		map.put("fisica", new PessoaFisicaFactory(contas));
+		map.put("juridica", new PessoaJuridicaFactory(contas));
 		return map;
 	}
 

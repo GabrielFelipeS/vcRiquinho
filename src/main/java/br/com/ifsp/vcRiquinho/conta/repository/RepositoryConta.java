@@ -1,9 +1,10 @@
 package br.com.ifsp.vcRiquinho.conta.repository;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
-import br.com.ifsp.vcRiquinho.conta.dao.ContaDAO;
 import br.com.ifsp.vcRiquinho.conta.dao.IContaDAO;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
 import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryConta;
@@ -29,8 +30,9 @@ public class RepositoryConta implements IRepositoryConta {
 	public Conta insert(DTOConta dto) {
 		try {
 			dto = contaDAO.insert(dto);
+			Produto produto = repositoryProduto.findBy(dto.id_produto());
 
-			return createContaBy(dto);
+			return createContaBy(dto, produto);
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -40,8 +42,9 @@ public class RepositoryConta implements IRepositoryConta {
 	public Conta update(DTOConta dto) {
 		try {
 			dto = contaDAO.update(dto);
+			Produto produto = repositoryProduto.findBy(dto.id_produto());
 
-			return createContaBy(dto);
+			return createContaBy(dto, produto);
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -55,6 +58,24 @@ public class RepositoryConta implements IRepositoryConta {
 
 			return createContaBy(dtoConta, produto);
 
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
+	@Override
+	public Set<Conta> findBy(String documentoTitular) {
+		try {
+			Set<Conta> contas = new HashSet<>();
+
+			Set<DTOConta> dtoContas = contaDAO.findBy(documentoTitular);
+			for (DTOConta dto : dtoContas) {
+				Produto produto = repositoryProduto.findBy(dto.id_produto());
+				Conta conta = createContaBy(dto, produto);
+				contas.add(conta);
+			}
+			
+			return contas;
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -78,9 +99,9 @@ public class RepositoryConta implements IRepositoryConta {
 
 			for (DTOConta dto : dtosContas) {
 				Produto produto = repositoryProduto.findBy(dto.id_produto());
-				
+
 				Conta conta = createContaBy(dto, produto);
-				
+
 				contas.add(conta);
 			}
 
@@ -96,9 +117,4 @@ public class RepositoryConta implements IRepositoryConta {
 
 		return factory.createBy(dtoConta);
 	}
-
-	private Conta createContaBy(DTOConta dtoConta) {
-		return createContaBy(dtoConta, null);
-	}
-
 }

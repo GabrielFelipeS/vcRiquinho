@@ -28,7 +28,7 @@ public class ContaInvestimentoAutomatico extends Conta {
 
 	@Override
 	public String tipoConta() {
-		return "invesimento_automatico";
+		return "investimento_automatico";
 	}
 
 }

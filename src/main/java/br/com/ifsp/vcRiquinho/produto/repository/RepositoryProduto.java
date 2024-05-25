@@ -3,6 +3,7 @@ package br.com.ifsp.vcRiquinho.produto.repository;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.ifsp.vcRiquinho.produto.dao.IProdutoDAO;
 import br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO;
 import br.com.ifsp.vcRiquinho.produto.dto.DTOProduto;
 import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryProduto;
@@ -10,10 +11,10 @@ import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryProdutoCreator;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
 
 public class RepositoryProduto implements IRepositoryProduto {
-	private ProdutoDAO produtoDAO;
+	private IProdutoDAO produtoDAO;
 	private IFactoryProdutoCreator factoryProdutoCreator;
 
-	public RepositoryProduto(ProdutoDAO produtoDAO, IFactoryProdutoCreator factoryProdutoCreator) {
+	public RepositoryProduto(IProdutoDAO produtoDAO, IFactoryProdutoCreator factoryProdutoCreator) {
 		this.produtoDAO = produtoDAO;
 		this.factoryProdutoCreator = factoryProdutoCreator;
 	}
@@ -45,7 +46,7 @@ public class RepositoryProduto implements IRepositoryProduto {
 		try {
 			DTOProduto dtoProduto = produtoDAO.findBy(id);
 			Produto produto = createBy(dtoProduto);
-
+			
 			return produto;
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());

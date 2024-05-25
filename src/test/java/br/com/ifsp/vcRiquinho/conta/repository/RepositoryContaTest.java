@@ -84,7 +84,6 @@ class RepositoryContaTest {
 		assertThrows(RuntimeException.class ,() -> repository.findAll());
 	}
 	
-	
 	@Test
 	void insertTestCriacaoBemSucedida() {		
 		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
