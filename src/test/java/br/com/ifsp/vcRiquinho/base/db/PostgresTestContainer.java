@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.MountableFile;
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
@@ -33,7 +34,7 @@ public class PostgresTestContainer {
 
 	@BeforeAll
 	public static void setUp() {
-		connection = connectInNewContainer(new ConnectionPostgress());
+		connection = connectInContainer(new ConnectionPostgress());
 	}
 
 	@Test
@@ -51,12 +52,11 @@ public class PostgresTestContainer {
 		assertTrue(postgresContainer.isRunning());
 	}
 	
-	public static Connection connectInNewContainer(IDBConnector iDbConnector) {
+	public static Connection connectInContainer(IDBConnector iDbConnector) {
 		PostgresTestContainer.postgresContainer.start();
 
 		return iDbConnector.getConnection(
-				String.format("jdbc:postgresql://localhost:%d/dbtest_vcriquinho",
-						PostgresTestContainer.postgresContainer.getMappedPort(5432)),
+				String.format("jdbc:postgresql://localhost:%d/dbtest_vcriquinho", PostgresTestContainer.postgresContainer.getMappedPort(5432)),
 				PostgresTestContainer.postgresContainer.getUsername(),
 				PostgresTestContainer.postgresContainer.getPassword());
 	}

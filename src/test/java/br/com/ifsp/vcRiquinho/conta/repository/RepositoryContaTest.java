@@ -49,7 +49,7 @@ class RepositoryContaTest {
 	}
 	
 	private static Connection getConnection(IDBConnector iDbConnector2) {
-		return 	PostgresTestContainer.connectInNewContainer(iDbConnector);
+		return 	PostgresTestContainer.connectInContainer(iDbConnector);
 	}
 
 	@Test

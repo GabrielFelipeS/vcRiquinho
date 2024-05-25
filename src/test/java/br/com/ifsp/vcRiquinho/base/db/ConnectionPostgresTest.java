@@ -20,7 +20,7 @@ public class ConnectionPostgresTest {
 	
 	@BeforeAll
 	public static void setUp() {
-		connection = PostgresTestContainer.connectInNewContainer(iDbConnector);
+		connection = PostgresTestContainer.connectInContainer(iDbConnector);
 	}
 	
 	@Test

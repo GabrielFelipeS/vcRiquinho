@@ -34,13 +34,7 @@ public class FactoryContaCreator implements IFactoryContaCreator{
 
 
 	@Override
-	public String convert(IFactoryConta obj) {
-		return obj.toString();
-	}
-
-	
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-		map.put("invesimento_automatico", new ContaInvestimentoAutomaticoFactory(produto));
+	public String convert(IFactoryConta factry) {
+		return factry.toString();
 	}
 }

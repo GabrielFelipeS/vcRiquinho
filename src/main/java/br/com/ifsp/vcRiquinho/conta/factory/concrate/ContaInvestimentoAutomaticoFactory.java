@@ -23,4 +23,9 @@ public class ContaInvestimentoAutomaticoFactory implements IFactoryConta {
 		ContaInvestimentoAutomatico conta = (ContaInvestimentoAutomatico) contaToConvert;
 		return new DTOConta(conta);
 	}
+	
+	@Override
+	public String toString() {
+		return "ContaInvestimentoAutomaticoFactory";
+	}
 }

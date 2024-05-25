@@ -56,7 +56,7 @@ public class RepositoryPessoaTest {
 	 */
 	@BeforeAll
 	public static void setUp() throws SQLException {
-		connection = PostgresTestContainer.connectInNewContainer(iDbConnector);
+		connection = PostgresTestContainer.connectInContainer(iDbConnector);
 		// iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST,
 		// ConnectionPostgress.DEFAULT_USER_DBTEST,
 		// ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
