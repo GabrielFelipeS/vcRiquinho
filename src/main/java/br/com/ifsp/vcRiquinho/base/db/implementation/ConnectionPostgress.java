@@ -8,24 +8,14 @@ import br.com.ifsp.vcRiquinho.base.db.exceptions.DbException;
 import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
 
 public class ConnectionPostgress implements IDBConnector {
-	public static final String DEFAULT_URL_DBTEST = "jdbc:postgresql://localhost:5433/dbtest_vcriquinho";
+	public static final String DEFAULT_URL_DBTEST = "jdbc:postgresql://localhost:5433/vcriquinho";
 	public static final String DEFAULT_USER_DBTEST = "postgres";
 	public static final String DEFAULT_PASSWORD_DBTEST = "admin";
-	
-	private String url;
-	private String user;
-	private String password;
 	
 	private static Connection conn;
 	
 	public ConnectionPostgress() {
 		
-	}
-	
-	public ConnectionPostgress(String url, String user, String password) {
-		this.url = url;
-		this.user = user;
-		this.password = password;
 	}
 
 	public Connection getConnection(String url, String user, String password) {
@@ -59,12 +49,13 @@ public class ConnectionPostgress implements IDBConnector {
 	
 	public Connection tryConnectionByDockerOrLocalDataBase() {
 		try {
+			System.out.println("A");
 			//System.out.println(System.getenv("DOCKER_POSTGRES_USER"));
 			return getConnection(System.getenv("DOCKER_POSTGRES_URL"), System.getenv("DOCKER_POSTGRES_USER"), System.getenv("DOCKER_POSTGRES_PASSWORD"));
 		} catch(RuntimeException e) {
 			//System.out.println(System.getenv("LOCAL_POSTGRES_USER"));
-
-			return getConnection(System.getenv("LOCAL_POSTGRES_URL"), System.getenv("LOCAL_POSTGRES_USER"), System.getenv("LOCAL_POSTGRES_PASSWORD"));
+			System.out.println("B");
+			return getConnection(DEFAULT_URL_DBTEST, DEFAULT_USER_DBTEST, DEFAULT_PASSWORD_DBTEST);
 		}
 	}
 

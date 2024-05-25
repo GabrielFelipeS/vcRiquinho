@@ -24,4 +24,15 @@
 		<servlet-name>HomeServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>ContaServlet</servlet-name>
+		<servlet-class>br.com.ifsp.vcRiquinho.conta.servlet.ContaServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ContaServlet</servlet-name>
+		<url-pattern>/teste</url-pattern>
+	</servlet-mapping>
 </web-app>
