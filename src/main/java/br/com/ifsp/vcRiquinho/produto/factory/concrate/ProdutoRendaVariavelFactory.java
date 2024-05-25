@@ -18,4 +18,8 @@ public class ProdutoRendaVariavelFactory implements IFactoryProduto {
 				produto.getDescricao(), produto.getRendimentoMensal());
 	}
 
+	@Override
+	public String toString() {
+		return "ProdutoRendaVariavelFactory";
+	}
 }

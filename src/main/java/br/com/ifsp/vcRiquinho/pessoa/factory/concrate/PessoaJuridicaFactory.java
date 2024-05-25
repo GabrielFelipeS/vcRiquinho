@@ -22,7 +22,12 @@ public class PessoaJuridicaFactory implements IFactoryPessoa {
 
 	@Override
 	public DTOPessoa convert(Pessoa pessoa) {
-		return null;
+		return new DTOPessoa(pessoa.getId(), pessoa.getDocumentoTitular(), pessoa.getNome(), pessoa.getEmail(), pessoa.tipo());
+	}
+	
+	@Override
+	public String toString() {
+		return "PessoaJuridicaFactory";
 	}
 
 }

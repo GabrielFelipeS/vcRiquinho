@@ -19,6 +19,7 @@ import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
 import br.com.ifsp.vcRiquinho.conta.dao.ContaDAO;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
+import br.com.ifsp.vcRiquinho.conta.factory.concrate.FactoryContaCreatorProvider;
 import br.com.ifsp.vcRiquinho.conta.repository.IRepositoryConta;
 import br.com.ifsp.vcRiquinho.conta.repository.RepositoryConta;
 import br.com.ifsp.vcRiquinho.pessoa.dao.IPessoaDAO;
@@ -29,7 +30,6 @@ import br.com.ifsp.vcRiquinho.pessoa.factory.concrate.FactoryPessoaCreatorProvid
 import br.com.ifsp.vcRiquinho.pessoa.factory.interfaces.IFactoryPessoaCreatorProvider;
 import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 import br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO;
-import br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryContaCreatorProvider;
 import br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator;
 import br.com.ifsp.vcRiquinho.produto.repository.RepositoryProduto;
 
