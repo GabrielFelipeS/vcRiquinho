@@ -17,9 +17,9 @@ import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
 import br.com.ifsp.vcRiquinho.conta.dao.ContaDAO;
 import br.com.ifsp.vcRiquinho.conta.dao.IContaDAO;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
+import br.com.ifsp.vcRiquinho.conta.factory.concrate.FactoryContaCreatorProvider;
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO;
-import br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryContaCreatorProvider;
 import br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator;
 import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryContaCreatorProvider;
 import br.com.ifsp.vcRiquinho.produto.repository.IRepositoryProduto;
@@ -49,7 +49,7 @@ class RepositoryContaTest {
 	}
 	
 	private static Connection getConnection(IDBConnector iDbConnector2) {
-		return 	PostgresTestContainer.connectInNewContainer(iDbConnector);
+		return 	PostgresTestContainer.connectInContainer(iDbConnector);
 	}
 
 	@Test
@@ -83,7 +83,6 @@ class RepositoryContaTest {
 		
 		assertThrows(RuntimeException.class ,() -> repository.findAll());
 	}
-	
 	
 	@Test
 	void insertTestCriacaoBemSucedida() {		

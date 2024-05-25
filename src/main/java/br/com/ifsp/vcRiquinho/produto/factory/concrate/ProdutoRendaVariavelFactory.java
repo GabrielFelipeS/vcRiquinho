@@ -9,7 +9,7 @@ public class ProdutoRendaVariavelFactory implements IFactoryProduto {
 
 	@Override
 	public Produto createBy(DTOProduto dto) {
-		return new ProdutoRendaVariavel(dto.id(), dto.rendimentoMensal());
+		return new ProdutoRendaVariavel(dto.id(), dto.nome(), dto.descricao(), dto.rendimentoMensal());
 	}
 
 	@Override
@@ -18,4 +18,8 @@ public class ProdutoRendaVariavelFactory implements IFactoryProduto {
 				produto.getDescricao(), produto.getRendimentoMensal());
 	}
 
+	@Override
+	public String toString() {
+		return "ProdutoRendaVariavelFactory";
+	}
 }

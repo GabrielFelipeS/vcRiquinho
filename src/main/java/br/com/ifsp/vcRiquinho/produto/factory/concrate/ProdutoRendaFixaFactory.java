@@ -17,5 +17,9 @@ public class ProdutoRendaFixaFactory implements IFactoryProduto {
 		return new DTOProduto(produto.getId(), produto.getCarencia(), produto.tipoProduto(), produto.getNome(),
 				produto.getDescricao(), produto.getRendimentoMensal());
 	}
-
+	
+	@Override
+	public String toString() {
+		return "ProdutoRendaFixaFactory";
+	}
 }

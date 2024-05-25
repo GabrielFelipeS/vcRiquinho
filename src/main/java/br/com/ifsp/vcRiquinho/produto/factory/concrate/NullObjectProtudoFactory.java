@@ -17,6 +17,9 @@ public class NullObjectProtudoFactory implements IFactoryProduto {
 		return new DTOProduto(obj.getId(), obj.getCarencia(), obj.tipoProduto() ,obj.getNome(), obj.getDescricao(), obj.getRendimentoMensal());
 	}
 
-	
+	@Override
+	public String toString() {
+		return "NullObjectProtudoFactory";
+	}
 
 }

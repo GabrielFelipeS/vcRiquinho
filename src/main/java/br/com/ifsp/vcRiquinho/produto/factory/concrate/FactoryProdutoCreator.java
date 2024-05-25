@@ -13,6 +13,7 @@ public class FactoryProdutoCreator implements IFactoryProdutoCreator {
 		Map<String, IFactoryProduto> map = new HashMap<>();
 		map.put("renda_variavel", new ProdutoRendaVariavelFactory());
 		map.put("renda_fixa", new ProdutoRendaFixaFactory());
+		map.put("null_object", new NullObjectProtudoFactory());
 		return map;
 	}
 

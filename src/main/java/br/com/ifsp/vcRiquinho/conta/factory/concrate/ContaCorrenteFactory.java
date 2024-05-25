@@ -17,4 +17,9 @@ public class ContaCorrenteFactory implements IFactoryConta {
 		ContaCorrente conta = (ContaCorrente) contaToConvert;
 		return new DTOConta(conta);
 	}
+	
+	@Override
+	public String toString() {
+		return "ContaCorrenteFactory";
+	}
 }

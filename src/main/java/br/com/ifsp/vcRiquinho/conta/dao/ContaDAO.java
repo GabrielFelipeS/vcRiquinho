@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
 
@@ -36,6 +39,33 @@ public class ContaDAO implements IContaDAO{
 		}
 	}
 	
+
+	@Override
+	public Set<DTOConta> findBy(String documentoTitular) {
+		try (PreparedStatement pst = conn.prepareStatement("SELECT * FROM conta WHERE documento_titular = ? ")) {
+			pst.setString(1, documentoTitular);
+
+			try (ResultSet rs = pst.executeQuery()) {
+				
+				if (rs.next()) {
+					Set<DTOConta> list = new HashSet<>(Arrays.asList(createDTOConta(rs)));
+					
+					while(rs.next()) {
+						DTOConta dto = createDTOConta(rs);
+						list.add(dto);
+					}
+					
+					return list;
+				}
+				
+				throw new SQLException("Falha na busca de contas, nenhuma conta encontrada.");
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
 	@Override
 	public DTOConta findBy(Integer id) {
 
@@ -86,7 +116,6 @@ public class ContaDAO implements IContaDAO{
 			
 			pst.setDouble(4, dto.cdi());
 			pst.setObject(5, dto.tipo_conta(), java.sql.Types.OTHER);
-
 			pst.executeUpdate();
 
 			try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
@@ -145,7 +174,4 @@ public class ContaDAO implements IContaDAO{
 		}
 
 	}
-
-	
-
 }

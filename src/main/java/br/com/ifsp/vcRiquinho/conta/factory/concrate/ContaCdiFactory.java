@@ -17,4 +17,9 @@ public class ContaCdiFactory implements IFactoryConta {
 		ContaCDI conta = (ContaCDI) contaToConvert;
 		return new DTOConta(conta);
 	}
+	
+	@Override
+	public String toString() {
+		return "ContaCdiFactory";
+	}
 }

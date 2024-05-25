@@ -12,25 +12,4 @@ public interface IDBConnector {
 	Connection getConnection(String url, String user, String password);
 	
 	void closeConnection();
-
-	default void closeStatement(Statement st) {
-		if (st != null) {
-			try {
-				st.close();
-			} catch (SQLException e) {
-				throw new DbException(e.getMessage());
-			}
-		}
-	}
-
-	default void closeResultSet(ResultSet rs) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				throw new DbException(e.getMessage());
-			}
-		}
-	}
-
 }

@@ -24,5 +24,10 @@ public class PessoaFisicaFactory implements IFactoryPessoa {
 	public DTOPessoa convert(Pessoa pessoa) {
 		return new DTOPessoa(pessoa.getId(), pessoa.getDocumentoTitular(), pessoa.getNome(), pessoa.getEmail(), pessoa.tipo());
 	}
+	
+	@Override
+	public String toString() {
+		return "PessoaFisicaFactory";
+	}
 
 }

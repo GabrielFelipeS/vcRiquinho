@@ -39,7 +39,7 @@ class ContaDAOTest {
 	 */
 	@BeforeAll
 	public static void setUp() {
-		connection = PostgresTestContainer.connectInNewContainer(iDbConnector);
+		connection = PostgresTestContainer.connectInContainer(iDbConnector);
 
 		// iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST,
 		// ConnectionPostgress.DEFAULT_USER_DBTEST,
@@ -116,15 +116,30 @@ class ContaDAOTest {
 		assertThrows(RuntimeException.class, () -> dao.deleteBy(ID_NOT_EXISTS));
 	}
 
+	
 	@Test
-	void findByTestNotNull() {
+	void findByTestContsaEncontradasParaDocumentoTitularExistente() {
+		ContaDAO dao = new ContaDAO(connection);
+
+		assertDoesNotThrow(() -> dao.findBy("00111222000144"));
+	}
+	
+	@Test
+	void findByTestContsaEncontradasParaDocumentoTitularInexistente() {
+		ContaDAO dao = new ContaDAO(connection);
+
+		assertThrows(RuntimeException.class ,() -> dao.findBy("12345678955"));
+	}
+	
+	@Test
+	void findByTestContaEncontradaComIDExistente() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		assertNotNull(dao.findBy(ID_EXISTS));
 	}
 
 	@Test
-	void findByTestNull() {
+	void findByTestContaNaoEncontradaIDInexistenteExistente() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		assertThrows(RuntimeException.class, () -> dao.findBy(ID_NOT_EXISTS));
