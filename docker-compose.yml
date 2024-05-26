@@ -24,6 +24,8 @@ services:
     build: .
     ports:
       - 8080:8080
+    networks: 
+      - banco
     environment:
       JAVA_POSTGRES_USER: postgres
       JAVA_POSTGRES_PASSWORD: admin
