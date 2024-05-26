@@ -11,7 +11,10 @@ public class ConnectionPostgress implements IDBConnector {
 	public static final String DEFAULT_URL_DBTEST = "jdbc:postgresql://localhost:5433/vcriquinho";
 	public static final String DEFAULT_USER_DBTEST = "postgres";
 	public static final String DEFAULT_PASSWORD_DBTEST = "admin";
-	
+//	public static final String DEFAULT_URL_DBTEST = "jdbc:mysql://localhost:3306/wolke?useTimezone=true&serverTimezone=UTC";
+//	public static final String DEFAULT_USER_DBTEST = "root";
+//	public static final String DEFAULT_PASSWORD_DBTEST = "gabriel10";
+//	
 	private static Connection conn;
 	
 	public ConnectionPostgress() {
@@ -36,9 +39,14 @@ public class ConnectionPostgress implements IDBConnector {
 
 	private void setConnection(String url, String user, String password) {
 		try {
+			//Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("org.postgresql.Driver");
 			conn = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -50,10 +58,8 @@ public class ConnectionPostgress implements IDBConnector {
 	public Connection tryConnectionByDockerOrLocalDataBase() {
 		try {
 			System.out.println("A");
-			//System.out.println(System.getenv("DOCKER_POSTGRES_USER"));
 			return getConnection(System.getenv("DOCKER_POSTGRES_URL"), System.getenv("DOCKER_POSTGRES_USER"), System.getenv("DOCKER_POSTGRES_PASSWORD"));
 		} catch(RuntimeException e) {
-			//System.out.println(System.getenv("LOCAL_POSTGRES_USER"));
 			System.out.println("B");
 			return getConnection(DEFAULT_URL_DBTEST, DEFAULT_USER_DBTEST, DEFAULT_PASSWORD_DBTEST);
 		}
