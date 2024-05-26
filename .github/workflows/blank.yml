@@ -19,3 +19,15 @@ jobs:
 
       - name: Executar mvn package install
         run: mvn package install
+
+      - name: Executar testes
+        run: mvn package install
+
+      - name: Commit e push dos arquivos gerados
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add /target
+          git commit -m "Adiciona arquivos gerados" -a
+          git push
+
