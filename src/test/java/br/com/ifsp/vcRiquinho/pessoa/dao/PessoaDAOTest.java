@@ -66,7 +66,7 @@ class PessoaDAOTest {
 	}
 
 	@Test
-	void insertTestFail() {
+	void insertTestDuplicacaoContaPorDocumento() {
 		PessoaDAO dao = new PessoaDAO(connection);
 
 		DTOPessoa dto = new DTOPessoa(0, "12345678989", "Gabriel Felipe", "andrade.gabriel1@email.com", "fisica");
