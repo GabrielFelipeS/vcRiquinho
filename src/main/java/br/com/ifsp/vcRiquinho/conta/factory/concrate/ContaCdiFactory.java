@@ -15,7 +15,7 @@ public class ContaCdiFactory implements IFactoryConta {
 	@Override
 	public DTOConta convert(Conta contaToConvert) {
 		ContaCDI conta = (ContaCDI) contaToConvert;
-		return new DTOConta(conta);
+		return new DTOConta(conta.getNumConta(), conta.getDocumentoTitular(), conta.getMontanteFinanceiro(), null, conta.getCdi(),conta.tipoConta());
 	}
 	
 	@Override

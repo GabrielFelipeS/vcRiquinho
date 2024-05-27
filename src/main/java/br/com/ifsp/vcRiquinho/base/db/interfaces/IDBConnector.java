@@ -12,4 +12,6 @@ public interface IDBConnector {
 	Connection getConnection(String url, String user, String password);
 	
 	void closeConnection();
+	void commit();
+	void rollback();
 }

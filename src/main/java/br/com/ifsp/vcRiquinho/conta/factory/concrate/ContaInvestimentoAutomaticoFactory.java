@@ -21,7 +21,7 @@ public class ContaInvestimentoAutomaticoFactory implements IFactoryConta {
 	@Override
 	public DTOConta convert(Conta contaToConvert) {
 		ContaInvestimentoAutomatico conta = (ContaInvestimentoAutomatico) contaToConvert;
-		return new DTOConta(conta);
+		return new DTOConta(conta.getNumConta(), conta.getDocumentoTitular(), conta.getMontanteFinanceiro(), conta.getProdutoId(),null, conta.tipoConta());
 	}
 	
 	@Override

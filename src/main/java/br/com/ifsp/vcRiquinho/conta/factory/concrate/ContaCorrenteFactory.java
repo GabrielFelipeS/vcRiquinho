@@ -15,7 +15,8 @@ public class ContaCorrenteFactory implements IFactoryConta {
 	@Override
 	public DTOConta convert(Conta contaToConvert) {
 		ContaCorrente conta = (ContaCorrente) contaToConvert;
-		return new DTOConta(conta);
+		return new DTOConta(conta.getNumConta(), conta.getDocumentoTitular(), 
+				conta.getMontanteFinanceiro(), null, null,conta.tipoConta());
 	}
 	
 	@Override

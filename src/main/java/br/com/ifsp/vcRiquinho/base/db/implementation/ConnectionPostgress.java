@@ -15,11 +15,8 @@ public class ConnectionPostgress implements IDBConnector {
 //	public static final String DEFAULT_USER_DBTEST = "root";
 //	public static final String DEFAULT_PASSWORD_DBTEST = "gabriel10";
 //	
-	private static Connection conn;
+	private Connection conn;
 	
-	public ConnectionPostgress() {
-		
-	}
 
 	public Connection getConnection(String url, String user, String password) {
 		if (connectionNotOpen()) {
@@ -49,7 +46,7 @@ public class ConnectionPostgress implements IDBConnector {
 			e.printStackTrace();
 		}
 	}
-	
+	 
 	@Override
 	public Connection getConnection() {
 		return tryConnectionByDockerOrLocalDataBase();
@@ -57,11 +54,9 @@ public class ConnectionPostgress implements IDBConnector {
 	
 	public Connection tryConnectionByDockerOrLocalDataBase() {
 		try {
-			System.out.println("A");
-			return getConnection("jdbc:postgresql://db:5432/vcriquinho", System.getenv("DOCKER_POSTGRES_USER"), System.getenv("DOCKER_POSTGRES_PASSWORD"));
+			return getConnection("jdbc:postgresql://db:5432/vcriquinho", System.getenv("POSTGRES_USER"), System.getenv("POSTGRES_PASSWORD"));
 		} catch(RuntimeException e) {
-			System.out.println("B");
-			return getConnection("jdbc:postgresql://db:5432/vcriquinho", DEFAULT_USER_DBTEST, DEFAULT_PASSWORD_DBTEST);
+			return getConnection("jdbc:postgresql://localhost:5433/vcriquinho", DEFAULT_USER_DBTEST, DEFAULT_PASSWORD_DBTEST);
 		}
 	}
 
@@ -75,5 +70,25 @@ public class ConnectionPostgress implements IDBConnector {
 			}
 		}
 	}
+	
+	@Override
+	public void commit() {
+		try {
+			conn.commit();
+		} catch (SQLException e) {
+			new RuntimeException(e.getMessage());
+		}
+	}
+
+	@Override
+	public void rollback() {
+		try {
+			conn.rollback();
+		} catch (SQLException e) {
+			new RuntimeException(e.getMessage());
+		}
+	}
+
+
 
 }
