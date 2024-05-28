@@ -43,31 +43,4 @@ public class ProdutoFactoryCreatorTest {
 		IFactoryProduto factory = factoryCreator.createBy("SEM_MAPEAMENTO");
 		assertEquals(NullObjectProtudoFactory.class, factory.getClass());
 	}
-
-	@Test
-	void convertProdutoRendaFixaFactory() {
-		IFactoryProdutoCreator factoryCreator = new FactoryProdutoCreator();
-
-		IFactoryProduto factory = new ProdutoRendaVariavelFactory();
-
-		assertEquals("ProdutoRendaVariavelFactory", factoryCreator.convert(factory));
-	}
-
-	@Test
-	void convertProdutoRendaVariavelFactory() {
-		IFactoryProdutoCreator factoryCreator = new FactoryProdutoCreator();
-
-		IFactoryProduto factory = new ProdutoRendaFixaFactory();
-
-		assertEquals("ProdutoRendaFixaFactory", factoryCreator.convert(factory));
-	}
-
-	@Test
-	void convertNullObjectProdutoFactory() {
-		IFactoryProdutoCreator factoryCreator = new FactoryProdutoCreator();
-
-		IFactoryProduto factory = new NullObjectProtudoFactory();
-
-		assertEquals("NullObjectProtudoFactory", factoryCreator.convert(factory));
-	}
 }

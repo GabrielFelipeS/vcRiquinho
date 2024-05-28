@@ -98,7 +98,7 @@ public class RepositoryPessoa implements IRepositoryPessoa {
 	}
 
 	private Pessoa createBy(DTOPessoa dto, Set<Conta> contas) {
-		IFactoryPessoaCreator factoryCreator = factoryPessoaCreatorProvider.create(contas);
+		IFactoryPessoaCreator factoryCreator = factoryPessoaCreatorProvider.createBy(contas);
 		IFactoryPessoa factory = factoryCreator.createBy(dto.tipo_pessoa());
 		return factory.createBy(dto);
 	}

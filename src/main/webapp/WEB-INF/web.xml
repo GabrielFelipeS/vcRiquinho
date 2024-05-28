@@ -73,4 +73,24 @@
 		<servlet-name>LogoutServlet</servlet-name>
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ProdutoViewServlet</servlet-name>
+		<servlet-class>br.com.ifsp.vcRiquinho.produto.servlet.ProdutoViewServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProdutoViewServlet</servlet-name>
+		<url-pattern>/painelProduto</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ProdutoDatabaseServlet</servlet-name>
+		<servlet-class>br.com.ifsp.vcRiquinho.produto.servlet.ProdutoDatabaseServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProdutoDatabaseServlet</servlet-name>
+		<url-pattern>/produto</url-pattern>
+	</servlet-mapping>
 </web-app>

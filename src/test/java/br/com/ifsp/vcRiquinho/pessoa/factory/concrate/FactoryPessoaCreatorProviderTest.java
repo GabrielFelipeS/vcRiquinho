@@ -15,7 +15,7 @@ public class FactoryPessoaCreatorProviderTest {
 	void createByFactoryPessoaCreator() {
 		IFactoryPessoaCreatorProvider factoryProvider = new FactoryPessoaCreatorProvider();
 
-		IFactoryPessoaCreator factory = factoryProvider.create(new HashSet<>());
+		IFactoryPessoaCreator factory = factoryProvider.createBy(new HashSet<>());
 		assertEquals(FactoryPessoaCreator.class, factory.getClass());
 	}
 }
