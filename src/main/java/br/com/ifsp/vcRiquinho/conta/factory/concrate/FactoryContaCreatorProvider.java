@@ -7,7 +7,7 @@ import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
 public class FactoryContaCreatorProvider implements IFactoryContaCreatorProvider {
 
 	@Override
-	public IFactoryContaCreator create(Produto produto) {
+	public IFactoryContaCreator createBy(Produto produto) {
 		return new FactoryContaCreator(produto);
 	}
 

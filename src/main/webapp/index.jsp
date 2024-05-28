@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>Seja bem vindo ao vcRiquinho</h1>
+	<%= session.getAttribute("logado") %>
 </body>
 </html>

@@ -7,7 +7,6 @@ import java.util.Set;
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.pessoa.factory.interfaces.IFactoryPessoa;
 import br.com.ifsp.vcRiquinho.pessoa.factory.interfaces.IFactoryPessoaCreator;
-import br.com.ifsp.vcRiquinho.pessoa.models.concrate.PessoaJuridica;
 
 public class FactoryPessoaCreator implements IFactoryPessoaCreator {
 	private Set<Conta> contas;
@@ -30,9 +29,6 @@ public class FactoryPessoaCreator implements IFactoryPessoaCreator {
 		return map.get(str);
 	}
 
-	@Override
-	public String convert(IFactoryPessoa factory) {
-		return factory.toString();
-	}
+
 
 }

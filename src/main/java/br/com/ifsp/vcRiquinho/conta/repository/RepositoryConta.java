@@ -112,7 +112,7 @@ public class RepositoryConta implements IRepositoryConta {
 	}
 
 	private Conta createContaBy(DTOConta dtoConta, Produto produto) {
-		IFactoryContaCreator factoryContaCreator = factoryContaCreatorProvider.create(produto);
+		IFactoryContaCreator factoryContaCreator = factoryContaCreatorProvider.createBy(produto);
 		IFactoryConta factory = factoryContaCreator.createBy(dtoConta.tipo_conta());
 
 		return factory.createBy(dtoConta);

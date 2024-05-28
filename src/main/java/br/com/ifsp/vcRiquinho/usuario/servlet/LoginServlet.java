@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final int TEMPO_PARA_EXPIRACAO_15MIN = 15 * 60;
@@ -28,12 +27,14 @@ public class LoginServlet extends HttpServlet {
 
 		if (password.equals("admin123")) {
 			HttpSession session = request.getSession();
+			session.setAttribute("logado", true);
 			session.setMaxInactiveInterval(TEMPO_PARA_EXPIRACAO_15MIN);
-
+			
 			Cookie ck = new Cookie("idSession", session.getId());
 			ck.setMaxAge(TEMPO_PARA_EXPIRACAO_15MIN);
-
 			response.addCookie(ck);
+			
+			 request.getRequestDispatcher("index.jsp").include(request, response);  
 		} else {
 			request.getRequestDispatcher("login.html").include(request, response);
 		}

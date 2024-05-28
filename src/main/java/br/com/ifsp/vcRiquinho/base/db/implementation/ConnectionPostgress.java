@@ -89,6 +89,15 @@ public class ConnectionPostgress implements IDBConnector {
 		}
 	}
 
+	@Override
+	public void disableAutoCommit() {
+		try {
+			conn.setAutoCommit(false);
+		} catch (SQLException e) {
+			new RuntimeException(e.getMessage());
+		}
+	}
+
 
 
 }

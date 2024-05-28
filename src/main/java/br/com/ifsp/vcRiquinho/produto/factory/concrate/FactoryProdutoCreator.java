@@ -21,10 +21,4 @@ public class FactoryProdutoCreator implements IFactoryProdutoCreator {
 	public IFactoryProduto createBy(String str) {
 		return map.getOrDefault(str, new NullObjectProtudoFactory());
 	}
-
-	@Override
-	public String convert(IFactoryProduto factory) {
-		return factory.toString();
-	}
-
 }

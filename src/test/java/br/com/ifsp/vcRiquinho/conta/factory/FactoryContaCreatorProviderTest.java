@@ -16,7 +16,7 @@ public class FactoryContaCreatorProviderTest {
 	void createByFactoryContaCreator() {
 		IFactoryContaCreatorProvider factoryProvider = new FactoryContaCreatorProvider();
 
-		IFactoryContaCreator factory = factoryProvider.create(new NullObjectProduto());
+		IFactoryContaCreator factory = factoryProvider.createBy(new NullObjectProduto());
 		assertEquals(FactoryContaCreator.class, factory.getClass());
 	}
  

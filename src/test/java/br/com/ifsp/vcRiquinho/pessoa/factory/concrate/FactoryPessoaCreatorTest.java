@@ -35,22 +35,4 @@ public class FactoryPessoaCreatorTest {
 		IFactoryPessoa factory = factoryCreator.createBy("TIPO_NAO_EXISTE");
 		assertNull(factory);
 	}
-
-	@Test
-	void convertPessoaFisicaFactory() {
-		IFactoryPessoaCreator factoryCreator = new FactoryPessoaCreator(new HashSet<>());
-
-		IFactoryPessoa factory = new PessoaFisicaFactory(new HashSet<>());
-
-		assertEquals("PessoaFisicaFactory", factoryCreator.convert(factory));
-	}
-
-	@Test
-	void convertPessoaJuridicaFactory() {
-		IFactoryPessoaCreator factoryCreator = new FactoryPessoaCreator(new HashSet<>());
-
-		IFactoryPessoa factory = new PessoaJuridicaFactory(new HashSet<>());
-
-		assertEquals("PessoaJuridicaFactory", factoryCreator.convert(factory));
-	}
 }
