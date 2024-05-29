@@ -20,27 +20,27 @@ import br.com.ifsp.vcRiquinho.usuario.dao.UserDAO;
 import br.com.ifsp.vcRiquinho.usuario.dto.DTOUser;
 
 public class CadastroPessoaService {
-	 private static final Logger logger = LoggerFactory.getLogger(CadastroPessoaService.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(CadastroPessoaService.class);
+
 	public void cadastrar(HttpServletRequest request) throws Exception {
 		DTOUser userDTO = new DTOUser(request.getParameter("email"), request.getParameter("email"));
-		
+
 		IDTOPessoaContaFactory dtoFactory = new DTOPessoaContaFactory();
 		DTOPessoaConta dto = dtoFactory.createBy(request);
 
 		IDBConnector connector = new ConnectionPostgress();
 
-		try (Connection conn = connector.getConnection()){
+		try (Connection conn = connector.getConnection()) {
 			connector.disableAutoCommit();
-			
+
 			IPessoaRepositoryFactory factoryRepository = new PessoaRepositoryFactory();
 			IRepositoryPessoa repository = factoryRepository.createBy(conn);
-			
+
 			repository.insert(dto);
-			
+
 			UserDAO userDAO = new UserDAO(conn);
 			userDAO.insert(userDTO);
-			
+
 			connector.commit();
 		} catch (RuntimeException | SQLException e) {
 			connector.rollback();

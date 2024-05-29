@@ -1,6 +1,6 @@
 package br.com.ifsp.vcRiquinho.conta.factory;
 
-import static org.junit.Assert.assertNull;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -11,8 +11,6 @@ import br.com.ifsp.vcRiquinho.conta.factory.concrate.ContaInvestimentoAutomatico
 import br.com.ifsp.vcRiquinho.conta.factory.concrate.FactoryContaCreator;
 import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryConta;
 import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryContaCreator;
-import br.com.ifsp.vcRiquinho.pessoa.factory.concrate.PessoaFisicaFactory;
-import br.com.ifsp.vcRiquinho.pessoa.factory.concrate.PessoaJuridicaFactory;
 import br.com.ifsp.vcRiquinho.produto.models.concrete.NullObjectProduto;
 
 public class FactoryContaCreatorTest {
