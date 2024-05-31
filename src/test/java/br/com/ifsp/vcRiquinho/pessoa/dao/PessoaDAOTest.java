@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import br.com.ifsp.vcRiquinho.base.db.PostgresTestContainer;
@@ -31,16 +32,10 @@ class PessoaDAOTest {
 	@BeforeAll
 	public static void setUp() {
 		connection = PostgresTestContainer.connectInContainer(iDbConnector);
-
-		// iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST,
-		// ConnectionPostgress.DEFAULT_USER_DBTEST,
-		// ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
 	}
-	/**
-	 * Reseta a tabela pessoa, limpando os dados e inserindo novamente
-	 * 
-	 * @throws SQLException
-	 */
+	
+
+	@DisplayName("Reset database after each test")
 	@AfterEach
 	void afterEach() throws SQLException {
 		String procedure = "{ call reset_table_in_pessoa() }";
@@ -52,7 +47,7 @@ class PessoaDAOTest {
 	}
 
 	@Test
-	void findAllTest() {
+	void givenAllPessoas() {
 		PessoaDAO dao = new PessoaDAO(connection);
 		var result = dao.findAll();
 
@@ -61,7 +56,7 @@ class PessoaDAOTest {
 	}
 
 	@Test
-	void insertTestSucess() {
+	void insertSuccess() {
 		PessoaDAO dao = new PessoaDAO(connection);
 
 		DTOPessoa dto = new DTOPessoa(0, "12345678989", "Gabriel Felipe", "andrade.gabriel1@email.com", "fisica");
@@ -69,7 +64,7 @@ class PessoaDAOTest {
 	}
 
 	@Test
-	void insertTestDuplicacaoContaPorDocumento() {
+	void givenInsertDuplicacaoContaPorDocumento() {
 		PessoaDAO dao = new PessoaDAO(connection);
 
 		DTOPessoa dto = new DTOPessoa(0, "12345678989", "Gabriel Felipe", "andrade.gabriel1@email.com", "fisica");
@@ -79,7 +74,7 @@ class PessoaDAOTest {
 	}
 
 	@Test
-	void deleteByTestSucess() {
+	void givenDeleteByTestSucess() {
 		PessoaDAO dao = new PessoaDAO(connection);
 
 		assertTrue(dao.deleteBy(DEFAULT_ID_EXISTS));

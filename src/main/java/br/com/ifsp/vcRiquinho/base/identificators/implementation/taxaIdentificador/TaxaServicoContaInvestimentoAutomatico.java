@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.com.ifsp.vcRiquinho.base.identificators.interfaces.TaxaIdentificator;
-import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCDI;
-import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaInvestimentoAutomatico;
 import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 import br.com.ifsp.vcRiquinho.pessoa.models.concrate.PessoaFisica;
 import br.com.ifsp.vcRiquinho.pessoa.models.concrate.PessoaJuridica;
@@ -25,13 +23,8 @@ public class TaxaServicoContaInvestimentoAutomatico implements TaxaIdentificator
 	}
 
 	@Override
-	public Double getTaxa(Class<? extends Pessoa> pessoa) {
-		return map.getOrDefault(pessoa, SEM_TAXA_SERVICO);
-	}
-
-	@Override
 	public Double getTaxa(Pessoa pessoa) {
-		return getTaxa(pessoa.getClass());
+		return  map.getOrDefault(pessoa.getClass(), SEM_TAXA_SERVICO);
 	}
 	
 }

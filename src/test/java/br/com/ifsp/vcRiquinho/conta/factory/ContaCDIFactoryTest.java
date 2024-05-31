@@ -14,7 +14,7 @@ import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCDI;
 public class ContaCDIFactoryTest {
 
 	@Test
-	void createContaCDI() {
+	void givencreateBy_whenDTOContaHasNoNullParameters_thenReturnContaCDI() {
 		IFactoryConta factory = new ContaCdiFactory();
 
 		Conta conta = factory.createBy(new DTOConta(0, "", 0.0, 0, 0.0, ""));

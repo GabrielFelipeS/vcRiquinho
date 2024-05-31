@@ -22,14 +22,10 @@ public class TaxaServicoContaCDI implements TaxaIdentificator {
 		map.put(PessoaJuridica.class, TAXA_SERVICO_PJ);
 	}
 
-	@Override
-	public Double getTaxa(Class<? extends Pessoa> pessoa) {
-		return map.getOrDefault(pessoa, SEM_TAXA_SERVICO);
-	}
 	
 	@Override
 	public Double getTaxa(Pessoa pessoa) {
-		return getTaxa(pessoa.getClass());
+		return map.getOrDefault(pessoa.getClass(), SEM_TAXA_SERVICO);
 	}
 
 }
