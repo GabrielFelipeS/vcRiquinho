@@ -62,7 +62,7 @@ class RepositoryContaTest {
 	}
 
 	@Test
-	void findByIdNaoExistenteEntaoLancaDeExcecao() {
+	void findByIdNaoExistenteEntaoLancaExcecao() {
 		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
 
 		assertThrows(RuntimeException.class, () -> repository.findBy(ID_NOT_EXISTS));

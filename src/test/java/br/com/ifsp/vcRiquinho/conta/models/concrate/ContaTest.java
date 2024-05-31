@@ -9,7 +9,7 @@ import br.com.ifsp.vcRiquinho.produto.models.concrete.ProdutoRendaFixa;
 public class ContaTest {
 
 	@Test
-	void validarRequerimentoDeNuloCDI() {
+	void validarRequerimentoDeNaoNuloCDI() {
 		assertThrows(NullPointerException.class, () -> new ContaCDI(null, "", 0.0, 0.0));
 		assertThrows(NullPointerException.class, () -> new ContaCDI(0, null, 0.0, 0.0));
 		assertThrows(NullPointerException.class, () -> new ContaCDI(0, "", null, 0.0));
@@ -17,14 +17,14 @@ public class ContaTest {
 	}
 
 	@Test
-	void validarRequerimentoDeNuloCorrrente() {
+	void validarRequerimentoDeNaoNuloCorrrente() {
 		assertThrows(NullPointerException.class, () -> new ContaCorrente(null, "", 0.0));
 		assertThrows(NullPointerException.class, () -> new ContaCorrente(0, null, 0.0));
 		assertThrows(NullPointerException.class, () -> new ContaCorrente(0, "", null));
 	}
 
 	@Test
-	void validarRequerimentoDeNaoNuloCorrrente() {
+	void validarRequerimentoDeNaoNuloInvestimentoAutomatico() {
 		assertThrows(NullPointerException.class,
 				() -> new ContaInvestimentoAutomatico(null, "", 0.0, new ProdutoRendaFixa(0, 0.0, 0)));
 		assertThrows(NullPointerException.class,
