@@ -27,8 +27,8 @@ services:
     networks: 
       - banco
     environment:
-      JAVA_POSTGRES_USER: postgres
-      JAVA_POSTGRES_PASSWORD: admin
-      JAVA_POSTGRES_DB: vcRiquinho
+      POSTGRES_URL: jdbc:postgresql://db:5433/vcriquinho
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
     depends_on:
       - db

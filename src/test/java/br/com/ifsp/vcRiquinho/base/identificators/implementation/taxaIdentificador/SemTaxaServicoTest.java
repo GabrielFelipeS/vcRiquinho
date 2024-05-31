@@ -12,27 +12,19 @@ import br.com.ifsp.vcRiquinho.pessoa.models.concrate.PessoaJuridica;
 class SemTaxaServicoTest {
 
 	@Test
-	void getTaxaIdentificatorPorClassePessoaFisica() {
+	void getTaxaIdentificatorPassandoAClasse() {
 		TaxaIdentificator identificador = new SemTaxaServico();
+		
 		assertEquals(SemTaxaServico.SEM_TAXA_SERVICO, identificador.getTaxa(PessoaFisica.class));
-	}
-
-	@Test
-	void getTaxaIdentificatorPorClassePessoaFisica2() {
-		TaxaIdentificator identificador = new SemTaxaServico();
-		assertEquals(SemTaxaServico.SEM_TAXA_SERVICO,
-				identificador.getTaxa(new PessoaFisica(0, "", "", new ContaCDI(0, "", 0.0, 0.0), "")));
-	}
-
-	@Test
-	void getTaxaIdentificatorPorClassePessoaJuridica() {
-		TaxaIdentificator identificador = new SemTaxaServico();
 		assertEquals(SemTaxaServico.SEM_TAXA_SERVICO, identificador.getTaxa(PessoaJuridica.class));
 	}
 
 	@Test
-	void getTaxaIdentificatorPorClassePessoaJuridica2() {
+	void getTaxaIdentificatorPassandoOObjecto() {
 		TaxaIdentificator identificador = new SemTaxaServico();
+		
+		assertEquals(SemTaxaServico.SEM_TAXA_SERVICO,
+				identificador.getTaxa(new PessoaFisica(0, "", "", new ContaCDI(0, "", 0.0, 0.0), "")));
 		assertEquals(SemTaxaServico.SEM_TAXA_SERVICO,
 				identificador.getTaxa(new PessoaJuridica(0, "", "", new ContaCDI(0, "", 0.0, 0.0), "")));
 	}

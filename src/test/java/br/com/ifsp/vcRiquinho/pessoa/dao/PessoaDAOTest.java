@@ -36,7 +36,11 @@ class PessoaDAOTest {
 		// ConnectionPostgress.DEFAULT_USER_DBTEST,
 		// ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
 	}
-
+	/**
+	 * Reseta a tabela pessoa, limpando os dados e inserindo novamente
+	 * 
+	 * @throws SQLException
+	 */
 	@AfterEach
 	void afterEach() throws SQLException {
 		String procedure = "{ call reset_table_in_pessoa() }";

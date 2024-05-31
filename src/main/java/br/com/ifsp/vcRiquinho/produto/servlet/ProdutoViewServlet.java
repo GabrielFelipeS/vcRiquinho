@@ -12,8 +12,7 @@ public class ProdutoViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/WEB-INF/views/ProdutoPanelControll.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/ProdutoPanelControll.jsp");
 		dispatcher.forward(request, response);
 		
 		response.getWriter().append("Served at: "+ " ProdutoViewServlet ").append(request.getContextPath());
