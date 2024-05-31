@@ -9,13 +9,8 @@ public class SemTaxaServico implements TaxaIdentificator {
 	public static final double TAXA_SERVICO_PJ = SEM_TAXA_SERVICO;
 	
 	@Override
-	public Double getTaxa(Class<? extends Pessoa> pessoa) {
-		return SEM_TAXA_SERVICO;
-	}
-
-	@Override
 	public Double getTaxa(Pessoa pessoa) {
-		return getTaxa(pessoa.getClass());
+		return  SEM_TAXA_SERVICO;
 	}
 
 }

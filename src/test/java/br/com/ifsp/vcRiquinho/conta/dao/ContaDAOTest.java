@@ -11,7 +11,6 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -21,9 +20,6 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import br.com.ifsp.vcRiquinho.base.db.PostgresTestContainer;
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
-import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
-import br.com.ifsp.vcRiquinho.conta.repository.IRepositoryConta;
-import br.com.ifsp.vcRiquinho.conta.repository.RepositoryConta;
 
 @TestInstance(Lifecycle.PER_CLASS)
 class ContaDAOTest {
@@ -40,15 +36,6 @@ class ContaDAOTest {
 	@BeforeAll
 	public static void setUp() {
 		connection = PostgresTestContainer.connectInContainer(iDbConnector);
-
-		// iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST,
-		// ConnectionPostgress.DEFAULT_USER_DBTEST,
-		// ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
-	}
-
-	@AfterAll
-	void beforeAll() {
-		iDbConnector.closeConnection();
 	}
 
 	@AfterEach
@@ -62,8 +49,9 @@ class ContaDAOTest {
 	}
 
 	@Test
-	void findAllTest() {
+	void givenFindAll_whenConnectionDoesNotCloseAndDatabaseExists_thenReturnAllContas() {
 		ContaDAO dao = new ContaDAO(connection);
+		
 		var result = dao.findAll();
 
 		assertNotNull(result);
@@ -71,20 +59,21 @@ class ContaDAOTest {
 	}
 
 	@Test
-	void insertTestSucess() {
+	void givenInsert_whenAccountNotExists_thenInsertSuccess() {
 		ContaDAO dao = new ContaDAO(connection);
-
 		DTOConta dto = new DTOConta(0, "00111222000144", 0.0, null, 0.065, "corrente");
+
 
 		assertDoesNotThrow(() -> {
 			DTOConta dtoReturned = dao.insert(dto);
+			
 			assertEquals("00111222000144", dtoReturned.documentoTitular());
 			assertNotEquals(dto.numConta(), dtoReturned.numConta());
 		});
 	}
 
 	@Test
-	void insertTestFalhaNaCriacaoTipoDeContaJaExisteParaDocumento() {
+	void givenInsert_whenAccountAlreadyExistsForDocument_thenRuntimeException() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		DTOConta dto = new DTOConta(0, "00111222000144", 0.0, null, 0.065, "cdi");
@@ -94,7 +83,7 @@ class ContaDAOTest {
 	}
 
 	@Test
-	void insertTestFalhaNaCriacaoDocumentoNaoExiste() {
+	void givenInsert_whenDocumentDoesNotExist_thenRuntimeException() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		DTOConta dto = new DTOConta(0, "00000000000000", 0.0, null, 0.065, "cdi");
@@ -103,49 +92,57 @@ class ContaDAOTest {
 	}
 
 	@Test
-	void deleteByTestSucess() {
+	void givenDeleteBy_whenIdExists_thenTrue() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		assertTrue(dao.deleteBy(ID_EXISTS));
 	}
 
 	@Test
-	void deleteByTestFailIdNaoExiste() {
+	void givenDeleteBy_whenIdNotExists_thenThrowRuntimeException() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		assertThrows(RuntimeException.class, () -> dao.deleteBy(ID_NOT_EXISTS));
 	}
 
-	@Test
-	void findByDocumentTestContaEncontradasParaDocumentoTitularExistente() {
+	@Test 
+	void givenFindByDocument_whenDocumentExists_thenGivenThreeAccount() {
+		final int QUANTIDADE_CONTAS_DA_PESSOA=3;
 		ContaDAO dao = new ContaDAO(connection);
 
-		assertDoesNotThrow(() -> dao.findByDocument("00111222000144"));
+		String documentExists = "11122233344";
+		
+		
+		var list = dao.findByDocument(documentExists);
+		
+		assertEquals(QUANTIDADE_CONTAS_DA_PESSOA, list.size());
 	}
 
 	@Test
-	void findByDocumentTestContaNaoEncontradaParaDocumentoTitularInexistente() {
+	void givenFindByDocument_whenDocumentDoesNotExist_thenThrowRuntimeException() {
 		ContaDAO dao = new ContaDAO(connection);
 
-		assertThrows(RuntimeException.class, () -> dao.findByDocument("12345678955"));
+		String documentDoesNotExist = "12345678955";
+		
+		assertThrows(RuntimeException.class, () -> dao.findByDocument(documentDoesNotExist));
 	}
 
 	@Test
-	void findByTestContaEncontradaComIDExistente() {
+	void givenFindBy_whenDocumentExists_thenReurnNotNull() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		assertNotNull(dao.findBy(ID_EXISTS));
 	}
 
 	@Test
-	void findByTestContaNaoEncontradaIDInexistenteExistente() {
+	void givenFindBy_whenContaNaoEncontrada_thenIDInexistenteExistente() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		assertThrows(RuntimeException.class, () -> dao.findBy(ID_NOT_EXISTS));
 	}
 
 	@Test
-	void updateByTestNotNull() {
+	void givenUpdate_whenIdExists_thenReturnNotNull() {
 		ContaDAO dao = new ContaDAO(connection);
 		DTOConta dto = new DTOConta(ID_EXISTS, "00111222000144", 0.0, null, 0.065, "invesimento_automatico");
 		
@@ -153,7 +150,7 @@ class ContaDAOTest {
 	}
 
 	@Test
-	void updateByTestLancaException() {
+	void givenUpdate_whenIdDoesNotExist_thenThrowRuntimeException() {
 		ContaDAO dao = new ContaDAO(connection);
 		DTOConta dto = new DTOConta(ID_NOT_EXISTS, "00111222000144", 0.0, 5, 0.065, "invesimento_automatico");
 

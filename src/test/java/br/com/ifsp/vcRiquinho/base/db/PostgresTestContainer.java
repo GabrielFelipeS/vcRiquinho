@@ -17,7 +17,6 @@ import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
 
 //@Disabled
-//@Testcontainers
 public class PostgresTestContainer {
 	 
 	private static Connection connection;
