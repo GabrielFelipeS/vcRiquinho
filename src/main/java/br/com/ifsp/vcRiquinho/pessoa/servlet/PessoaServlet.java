@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.ifsp.vcRiquinho.pessoa.service.CadastroPessoaService;
-import br.com.ifsp.vcRiquinho.pessoa.service.DeletarPessoaService;
+import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoaConta;
+import br.com.ifsp.vcRiquinho.pessoa.service.PessoaService;
 
 /**
  * Servlet implementation class PessoaServlet
@@ -34,7 +34,7 @@ public class PessoaServlet extends HttpServlet {
 		System.out.println(request.getParameter("idProduto"));
 		System.out.println(request.getParameter("tipo_conta"));
 
-		CadastroPessoaService service = new CadastroPessoaService();
+		PessoaService service = new PessoaService();
 		try {
 			service.cadastrar(request);
 
@@ -50,7 +50,7 @@ public class PessoaServlet extends HttpServlet {
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		DeletarPessoaService service = new DeletarPessoaService();
+		PessoaService service = new PessoaService();
 
 		try {
 			service.deletar(request.getParameter("id"));
@@ -63,8 +63,16 @@ public class PessoaServlet extends HttpServlet {
 	
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//super.doPut(req, resp);
+		PessoaService service = new PessoaService();
+		try {
+			DTOPessoaConta dto = null;
+			service.update(dto);
+		} catch (Exception e) {
+			//request.getSession().setAttribute("mensagemErro", "Email ou Documento titular já cadastrados");
+			//request.getRequestDispatcher("/cadastroPessoa").forward(request, response);
+			throw new RuntimeException(e.getMessage());
+		}
+		
 	}
 
 }

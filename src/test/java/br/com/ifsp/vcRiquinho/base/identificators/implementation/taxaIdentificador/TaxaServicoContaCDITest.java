@@ -12,29 +12,21 @@ import br.com.ifsp.vcRiquinho.pessoa.models.concrate.PessoaJuridica;
 class TaxaServicoContaCDITest {
 
 	@Test
-	void getTaxaIdentificatorPorClassePessoaFisica() {
+	void getTaxaIdentificatorPassandoAClasse() {
 		TaxaIdentificator identificador = new TaxaServicoContaCDI();
 		assertEquals(TaxaServicoContaCDI.TAXA_SERVICO_PF, identificador.getTaxa(PessoaFisica.class));
-	}
-
-	@Test
-	void getTaxaIdentificatorPorClassePessoaFisica2() {
-		TaxaIdentificator identificador = new TaxaServicoContaCDI();
-		assertEquals(TaxaServicoContaCDI.TAXA_SERVICO_PF,
-				identificador.getTaxa(new PessoaFisica(0, "", "", new ContaCDI(0, "", 0.0, 0.0), "")));
-	}
-
-	@Test
-	void getTaxaIdentificatorPorClassePessoaJuridica() {
-		TaxaIdentificator identificador = new TaxaServicoContaCDI();
 		assertEquals(TaxaServicoContaCDI.TAXA_SERVICO_PJ, identificador.getTaxa(PessoaJuridica.class));
 	}
 
 	@Test
-	void getTaxaIdentificatorPorClassePessoaJuridica2() {
+	void getTaxaIdentificatorPassandoOObjecto() {
 		TaxaIdentificator identificador = new TaxaServicoContaCDI();
+		assertEquals(TaxaServicoContaCDI.TAXA_SERVICO_PF,
+				identificador.getTaxa(new PessoaFisica(0, "", "", new ContaCDI(0, "", 0.0, 0.0), "")));
 		assertEquals(TaxaServicoContaCDI.TAXA_SERVICO_PJ,
 				identificador.getTaxa(new PessoaJuridica(0, "", "", new ContaCDI(0, "", 0.0, 0.0), "")));
 	}
+
+
 
 }

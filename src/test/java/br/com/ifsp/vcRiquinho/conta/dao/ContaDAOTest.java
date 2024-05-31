@@ -110,24 +110,24 @@ class ContaDAOTest {
 	}
 
 	@Test
-	void deleteByTestFail() {
+	void deleteByTestFailIdNaoExiste() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		assertThrows(RuntimeException.class, () -> dao.deleteBy(ID_NOT_EXISTS));
 	}
 
 	@Test
-	void findByTestContsaEncontradasParaDocumentoTitularExistente() {
+	void findByDocumentTestContaEncontradasParaDocumentoTitularExistente() {
 		ContaDAO dao = new ContaDAO(connection);
 
-		assertDoesNotThrow(() -> dao.findBy("00111222000144"));
+		assertDoesNotThrow(() -> dao.findByDocument("00111222000144"));
 	}
 
 	@Test
-	void findByTestContsaEncontradasParaDocumentoTitularInexistente() {
+	void findByDocumentTestContaNaoEncontradaParaDocumentoTitularInexistente() {
 		ContaDAO dao = new ContaDAO(connection);
 
-		assertThrows(RuntimeException.class, () -> dao.findBy("12345678955"));
+		assertThrows(RuntimeException.class, () -> dao.findByDocument("12345678955"));
 	}
 
 	@Test
@@ -148,11 +148,12 @@ class ContaDAOTest {
 	void updateByTestNotNull() {
 		ContaDAO dao = new ContaDAO(connection);
 		DTOConta dto = new DTOConta(ID_EXISTS, "00111222000144", 0.0, null, 0.065, "invesimento_automatico");
+		
 		assertNotNull(dao.update(dto));
 	}
 
 	@Test
-	void updateByTestNull() {
+	void updateByTestLancaException() {
 		ContaDAO dao = new ContaDAO(connection);
 		DTOConta dto = new DTOConta(ID_NOT_EXISTS, "00111222000144", 0.0, 5, 0.065, "invesimento_automatico");
 

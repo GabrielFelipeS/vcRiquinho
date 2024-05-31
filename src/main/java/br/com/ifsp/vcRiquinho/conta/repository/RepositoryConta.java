@@ -68,7 +68,7 @@ public class RepositoryConta implements IRepositoryConta {
 		try {
 			Set<Conta> contas = new HashSet<>();
 
-			Set<DTOConta> dtoContas = contaDAO.findBy(documentoTitular);
+			Set<DTOConta> dtoContas = contaDAO.findByDocument(documentoTitular);
 			for (DTOConta dto : dtoContas) {
 				Produto produto = repositoryProduto.findBy(dto.id_produto());
 				Conta conta = createContaBy(dto, produto);
@@ -94,12 +94,10 @@ public class RepositoryConta implements IRepositoryConta {
 	public List<Conta> findAll() {
 		try {
 			List<Conta> contas = new LinkedList<>();
-
 			List<DTOConta> dtosContas = contaDAO.findAll();
 
 			for (DTOConta dto : dtosContas) {
 				Produto produto = repositoryProduto.findBy(dto.id_produto());
-
 				Conta conta = createContaBy(dto, produto);
 
 				contas.add(conta);
