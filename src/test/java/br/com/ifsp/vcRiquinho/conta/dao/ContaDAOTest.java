@@ -106,7 +106,7 @@ class ContaDAOTest {
 	}
 
 	@Test 
-	void givenFindByDocument_whenDocumentExists_thenGivenThreeAccount() {
+	void givenFindByDocument_whenDocumentExists_thenReturnThreeAccount() {
 		final int QUANTIDADE_CONTAS_DA_PESSOA=3;
 		ContaDAO dao = new ContaDAO(connection);
 

@@ -1,4 +1,4 @@
-package br.com.ifsp.vcRiquinho.pessoa.servlet;
+package br.com.ifsp.vcRiquinho.usuario.servlet;
 
 import java.io.IOException;
 
@@ -8,15 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class FormPessoaServlet
- */
-
-public class FormPessoaServlet extends HttpServlet {
+// Mapping /register
+public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/views/cadastroPessoa.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/register.jsp");
 		dispatcher.forward(request, response);
 
 	}

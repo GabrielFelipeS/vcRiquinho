@@ -14,7 +14,7 @@ import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCDI;
 public class ContaCDIFactoryTest {
 
 	@Test
-	void givencreateBy_whenDTOContaHasNoNullParameters_thenReturnContaCDI() {
+	void givenCreateBy_whenDTOContaHasNoNullParameters_thenReturnContaCDI() {
 		IFactoryConta factory = new ContaCdiFactory();
 
 		Conta conta = factory.createBy(new DTOConta(0, "", 0.0, 0, 0.0, ""));
@@ -22,14 +22,14 @@ public class ContaCDIFactoryTest {
 	}
 
 	@Test
-	void createContaCDIAlgumValorNulo() {
+	void givenCreateBy_whenDTOContaHasNullParameters_thenReturnContaCDI() {
 		IFactoryConta factory = new ContaCdiFactory();
 
 		assertThrows(RuntimeException.class, () -> factory.createBy(new DTOConta(0, null, 0.0, 0, 0.0, "")));
 	}
 
 	@Test
-	void convertContaCDI() {
+	void givenContaCDI_whenConvert_thenReturnDTOConta() {
 		IFactoryConta factory = new ContaCdiFactory();
 
 		Conta conta = new ContaCDI(0, "", 0.0, 0.0);

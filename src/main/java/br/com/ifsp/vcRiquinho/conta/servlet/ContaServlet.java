@@ -35,28 +35,13 @@ public class ContaServlet extends HttpServlet {
 		IContaDAO contaDAO = new ContaDAO(connection);
 		
 		IRepositoryProduto repositoryProduto = new RepositoryProduto(new ProdutoDAO(connection),new FactoryProdutoCreator());
-		System.out.println("TESTE");
 		IFactoryContaCreatorProvider factoryContaCreatorProvider = new FactoryContaCreatorProvider();
 		
 		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
 		
-		
 		for(Conta c : repository.findAll()) {
 			System.out.println(c.getNumConta());
 		}
-		
-		
-		  PrintWriter out = response.getWriter();
-
-	        // Escreva algum conteúdo
-	        out.println("<html>");
-	        out.println("<body>");
-	        out.println("<h1>Olá, Mundo!</h1>");
-	        out.println("</body>");
-	        out.println("</html>");
-
-	        // Feche o fluxo de saída
-	        out.close();
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
