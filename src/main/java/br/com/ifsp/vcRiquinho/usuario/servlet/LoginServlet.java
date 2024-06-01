@@ -10,13 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+// Mapping /login
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final int TEMPO_PARA_EXPIRACAO_15MIN = 15 * 60;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/views/login.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/login.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -36,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 			
 			 request.getRequestDispatcher("index.jsp").include(request, response);  
 		} else {
-			request.getRequestDispatcher("login.html").include(request, response);
+			request.getRequestDispatcher("login.jsp").include(request, response);
 		}
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}

@@ -25,15 +25,6 @@ public class PessoaServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println(request.getParameter("documento_titular"));
-		System.out.println(request.getParameter("tipo_pessoa"));
-		System.out.println(request.getParameter("nome"));
-		System.out.println(request.getParameter("email"));
-		System.out.println(request.getParameter("documentoTitular_conta"));
-		System.out.println(request.getParameter("cdiAtual"));
-		System.out.println(request.getParameter("idProduto"));
-		System.out.println(request.getParameter("tipo_conta"));
-
 		PessoaService service = new PessoaService();
 		try {
 			service.cadastrar(request);
