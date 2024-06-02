@@ -16,24 +16,28 @@ import br.com.ifsp.vcRiquinho.pessoa.service.PessoaService;
  */
 public class PessoaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
-
+	
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		PessoaService service = new PessoaService();
 		try {
 			service.cadastrar(request);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
+			System.out.println("SUCCESS");
+			response.sendRedirect("login");
 		} catch (Exception e) {
+			System.out.println("FAILED");
 			request.getSession().setAttribute("mensagemErro", "Email ou Documento titular já cadastrados");
-			request.getRequestDispatcher("/cadastroPessoa").forward(request, response);
+			request.getRequestDispatcher("/cadaaaastroPessoa").forward(request, response);
+			//response.sendRedirect("register"); 
 			e.printStackTrace();
 		}
 	}

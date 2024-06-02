@@ -33,9 +33,12 @@ body {
 
 	<jsp:include page="../component/navbar.jsp" />
 	
-	<erro:message attribute="erroLogin"></erro:message>
+	
 	
 	<div class="container mt-5">
+	
+		<erro:message attribute="erroLogin"></erro:message>
+	
 		<div
 			class="row d-flex justify-content-center align-items-center h-100">
 			<div class="col-12 col-md-10 col-lg-8 col-x1-7">

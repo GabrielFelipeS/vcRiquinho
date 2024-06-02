@@ -2,7 +2,6 @@ package br.com.ifsp.vcRiquinho.usuario.servlet;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +23,7 @@ public class LoginServlet extends HttpServlet {
 		Object isLoggedin = request.getSession().getAttribute("logado");
 		
 		if(isLoggedin != null && ((Boolean) isLoggedin)) {
-			 getServletContext().getRequestDispatcher("/views/index.jsp").forward(request, response);
+			 response.sendRedirect("home");
 		} else {
 			getServletContext().getRequestDispatcher("/views/login.jsp").forward(request, response);
 		}
@@ -36,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 
 		if (password.equals("admin123")) {
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(true);
 			session.setAttribute("logado", true);
 			session.setAttribute("conta", new PessoaJuridica(1, "TESTE", "TESTE@teste.com", new ContaCDI(4, "499", 2000.0, 0.65), "499"));
 			session.setMaxInactiveInterval(TEMPO_PARA_EXPIRACAO_15MIN);
