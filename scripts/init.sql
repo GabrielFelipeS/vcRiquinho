@@ -45,9 +45,9 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(50)  REFERENCES pessoa(email) NOT NULL,
     password VARCHAR(50) NOT NULL,
+    admin BOOLEAN DEFAULT false,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
 ALTER TABLE conta
 ADD CONSTRAINT sem_duplicidade_conta_documento UNIQUE (documento_titular, tipo_conta);
 
