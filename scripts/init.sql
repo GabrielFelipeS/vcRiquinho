@@ -146,7 +146,8 @@ INSERT INTO conta (documento_titular, montante_financeiro, id_produto, cdi, tipo
 -- password4 -> MZbpLGDJo8e7Nu9HbhYdMoT3HjT5j5fT5Gl+IYlPZkA=
 -- password5 -> J7JpvhVGZ/b+JNjbF09smFiZzSejjr1xG74VoLeCkl4=
 
-INSERT INTO users (email, password, admin) VALUES ('example1@example.com', 'XohImNooBHFR0OVxbVbYk9+If/c72wT7NcRS7XNn7KE=', true),
+INSERT INTO users (email, password, admin) VALUES 
+('mariasantos@email.com', 'XohImNooBHFR0OVxbVbYk9+If/c72wT7NcRS7XNn7KE=', true),
 ('empresas@email.com', 'eFs7s2MOy4QGHSr8QdL9wLxnLC8B7U3Zo+m1rXbaxHI=', false),
 ('empresat@email.com', 'Q8ERma2FCyO2kh9RAaDDsA9QZlQmrdAHyVZ6Ga+bi4Y=', false),
 ('empresau@email.com', 'MZbpLGDJo8e7Nu9HbhYdMoT3HjT5j5fT5Gl+IYlPZkA=', false),
@@ -405,11 +406,12 @@ BEGIN
 	-- password4 -> MZbpLGDJo8e7Nu9HbhYdMoT3HjT5j5fT5Gl+IYlPZkA=
 	-- password5 -> J7JpvhVGZ/b+JNjbF09smFiZzSejjr1xG74VoLeCkl4=
 
-	INSERT INTO users (email, password, admin) VALUES ('example1@example.com', 'XohImNooBHFR0OVxbVbYk9+If/c72wT7NcRS7XNn7KE=', true),
-	('empresas@email.com', 'eFs7s2MOy4QGHSr8QdL9wLxnLC8B7U3Zo+m1rXbaxHI=', false),
-	('empresat@email.com', 'Q8ERma2FCyO2kh9RAaDDsA9QZlQmrdAHyVZ6Ga+bi4Y=', false),
-	('empresau@email.com', 'MZbpLGDJo8e7Nu9HbhYdMoT3HjT5j5fT5Gl+IYlPZkA=', false),
-	('joaosilva@email.com', 'J7JpvhVGZ/b+JNjbF09smFiZzSejjr1xG74VoLeCkl4=', true);
+INSERT INTO users (email, password, admin) VALUES 
+('mariasantos@email.com', 'XohImNooBHFR0OVxbVbYk9+If/c72wT7NcRS7XNn7KE=', true),
+('empresas@email.com', 'eFs7s2MOy4QGHSr8QdL9wLxnLC8B7U3Zo+m1rXbaxHI=', false),
+('empresat@email.com', 'Q8ERma2FCyO2kh9RAaDDsA9QZlQmrdAHyVZ6Ga+bi4Y=', false),
+('empresau@email.com', 'MZbpLGDJo8e7Nu9HbhYdMoT3HjT5j5fT5Gl+IYlPZkA=', false),
+('joaosilva@email.com', 'J7JpvhVGZ/b+JNjbF09smFiZzSejjr1xG74VoLeCkl4=', true);
 
   RETURN TRUE;
 END;
