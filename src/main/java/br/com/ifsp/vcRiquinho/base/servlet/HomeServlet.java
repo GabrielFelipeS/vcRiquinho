@@ -15,5 +15,9 @@ public class HomeServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.getRequestDispatcher("/views/index.jsp").forward(request, response);
 	}
-
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 }

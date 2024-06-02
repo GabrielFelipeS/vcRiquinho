@@ -1,14 +1,16 @@
 package br.com.ifsp.vcRiquinho.pessoa.servlet;
 
 import java.io.IOException;
+import java.util.Objects;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoaConta;
+import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 import br.com.ifsp.vcRiquinho.pessoa.service.PessoaService;
 
 /**
@@ -31,13 +33,10 @@ public class PessoaServlet extends HttpServlet {
 		try {
 			service.cadastrar(request);
 
-			System.out.println("SUCCESS");
 			response.sendRedirect("login");
 		} catch (Exception e) {
-			System.out.println("FAILED");
 			request.getSession().setAttribute("mensagemErro", "Email ou Documento titular já cadastrados");
-			request.getRequestDispatcher("/cadaaaastroPessoa").forward(request, response);
-			//response.sendRedirect("register"); 
+			response.sendRedirect("register"); 
 			e.printStackTrace();
 		}
 	}
@@ -45,14 +44,25 @@ public class PessoaServlet extends HttpServlet {
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PessoaService service = new PessoaService();
-
-		try {
-			service.deletar(request.getParameter("id"));
-		} catch (Exception e) {
-			//request.getSession().setAttribute("mensagemErro", "Email ou Documento titular já cadastrados");
-			//request.getRequestDispatcher("/cadastroPessoa").forward(request, response);
-			throw new RuntimeException(e.getMessage());
+		
+		
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("logado") == null) {
+			session.setAttribute("semPermissao", "Você precisa estar logado para acessar esse conteúdo");
+			response.sendRedirect("home");
+		} else { 	
+			System.out.println("DELETAR");
+			Pessoa pessoa = (Pessoa) Objects.requireNonNull(session.getAttribute("conta"), "Atributo não deve ser nulo");
+			
+			PessoaService service = new PessoaService();
+			
+			try {
+				service.deletar(pessoa.getDocumentoTitular());
+			} catch (Exception e) {
+				throw new RuntimeException(e.getMessage());
+			}
 		}
 	}
 	

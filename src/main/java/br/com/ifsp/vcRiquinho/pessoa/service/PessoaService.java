@@ -69,8 +69,9 @@ public class PessoaService {
 			connector.disableAutoCommit();
 
 			IRepositoryPessoa repository = factory.createBy(conn);
+			System.out.println("ANTES DELETE");
 			repository.deleteBy(id);
-
+			System.out.println("DEPOIS DELETE");
 			connector.commit();
 		} catch (Exception e) {
 

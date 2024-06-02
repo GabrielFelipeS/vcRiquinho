@@ -89,6 +89,16 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>ProfileServlet</servlet-name>
+		<servlet-class>br.com.ifsp.vcRiquinho.usuario.servlet.ProfileServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProfileServlet</servlet-name>
+		<url-pattern>/profile</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>ProdutoViewServlet</servlet-name>
 		<servlet-class>br.com.ifsp.vcRiquinho.produto.servlet.ProdutoViewServlet</servlet-class>
 	</servlet>
