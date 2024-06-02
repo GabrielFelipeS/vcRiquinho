@@ -1,5 +1,7 @@
 package br.com.ifsp.vcRiquinho.conta.models.concrate;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
@@ -17,13 +19,25 @@ public class ContaCDI extends Conta {
 	}
 	
 	@Override
-	public Double renderPorDias(int dias) {
-		return Math.pow(getMontanteFinanceiro() * (1.0 + (cdi/30.0)), dias);
+	public Double rendimentoPorDias(int dias) {
+		//Tem algo errado nessa formula
+		//return (Math.pow(getMontanteFinanceiro() * (1.0 + cdi + (1.0/3.0)), dias/252.0));
+		
+		// Nessa daqui também, mas vamos relevar
+		return getMontanteFinanceiro() * ( dias * (cdi/30.0));
 	}
 
 	@Override
 	public String tipoConta() {
 		return "cdi";
+	}
+
+	public Map<String, String> getDetalhes() {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("tipoConta", this.tipoConta());
+		map.put("nomeProduto", "Não aplicavel");
+		map.put("carencia", "0");
+		return map;
 	}
 
 }

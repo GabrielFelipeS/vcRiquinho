@@ -1,5 +1,6 @@
 package br.com.ifsp.vcRiquinho.pessoa.models.abstracts;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -82,15 +83,14 @@ public abstract class Pessoa {
 		return contasFaltantes;
 	}
 
-	// TODO Talvez excluir o método
-//	/**
-//	 * @return List<Contas> É uma copia da lista, para não permitir acesso direto as contas
-//	 */
-//	public List<Conta> getContasListCopy() {
-//		List<Conta> listCopy = new ArrayList<>(); 
-//		contas.forEach(c -> listCopy.add(c));
-//		
-//		return listCopy;
-//	}
+	/**
+	 * @return List<Contas> É uma copia da lista, para não permitir acesso direto as contas
+	 */
+	public List<Conta> getContasListCopy() {
+		List<Conta> listCopy = new ArrayList<>(); 
+		contas.forEach(c -> listCopy.add(c));
+		
+		return listCopy;
+	}
 
 }

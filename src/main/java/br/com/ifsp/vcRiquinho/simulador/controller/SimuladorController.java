@@ -10,20 +10,24 @@ import br.com.ifsp.vcRiquinho.simulador.models.abstracts.SimuladorInterface;
 import br.com.ifsp.vcRiquinho.simulador.models.concrates.SimuladorService;
 
 public class SimuladorController {
-	private TaxaDeServicoServiceInterface servico;
 	private SimuladorInterface simulador;
-
-	public SimuladorController(TaxaDeServicoServiceInterface servico) {
-		this(servico, new SimuladorService());
+	private TaxaDeServicoServiceInterface identificador;
+	
+	public SimuladorController(TaxaDeServicoServiceInterface identificador) {
+		this(new SimuladorService(), identificador);
+	}
+	
+	public SimuladorController(SimuladorInterface simulador, TaxaDeServicoServiceInterface identificador) {
+		this.simulador = simulador;
+		this.identificador = identificador;
 	}
 
-	public SimuladorController(TaxaDeServicoServiceInterface servico, SimuladorInterface simulador) {
-		this.servico = Objects.requireNonNull(servico, "O servico não pode ser nulo");
+	public SimuladorController(SimuladorInterface simulador) {
 		this.simulador = Objects.requireNonNull(simulador, "O simulador não pode ser nulo");
 	}
 
 	public Double taxaDeServico(Pessoa pessoa, Conta conta, Integer dias) throws GracePeriodException {
-		Double taxaDeServico = servico.obterTaxa(conta, pessoa);
+		Double taxaDeServico = identificador.obterTaxa(conta, pessoa);
 		return simulador.simular(conta, taxaDeServico, dias);
 	}
 }

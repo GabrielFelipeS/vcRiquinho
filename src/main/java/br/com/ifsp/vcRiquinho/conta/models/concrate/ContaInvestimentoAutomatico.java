@@ -1,5 +1,7 @@
 package br.com.ifsp.vcRiquinho.conta.models.concrate;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
@@ -14,7 +16,7 @@ public class ContaInvestimentoAutomatico extends Conta {
 	}
 
 	@Override
-	public Double renderPorDias(int dias) {
+	public Double rendimentoPorDias(int dias) {
 		return Math.pow(1.0 + produto.getRendimentoMensal()/100.0, dias) * getMontanteFinanceiro(); 
 	}
 	
@@ -29,6 +31,15 @@ public class ContaInvestimentoAutomatico extends Conta {
 	@Override
 	public String tipoConta() {
 		return "investimento_automatico";
+	}	@Override
+	
+	
+	public Map<String, String> getDetalhes() {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("tipoConta", this.tipoConta().replace("_", " "));
+		map.put("nomeProduto", produto.getNome() + " - " + produto.tipoProduto().replace("_", " "));
+		map.put("carencia", String.valueOf(produto.getCarencia()));
+		return map;
 	}
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ taglib uri="../WEB-INF/errorTag.tld" prefix="erro"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +32,8 @@ body {
 <body>
 
 	<jsp:include page="../component/navbar.jsp" />
+	
+	<erro:message attribute="erroLogin"></erro:message>
 	
 	<div class="container mt-5">
 		<div

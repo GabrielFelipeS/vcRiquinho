@@ -26,14 +26,6 @@ public class PegarTipoDeContaMap implements TipoContaIdentificador {
 	
 	@Override
 	public TaxaIdentificator getTaxaIdentificator(Conta conta) {
-		return getTaxaIdentificator(conta.getClass());
+		return map.getOrDefault(conta.getClass(), new SemTaxaServico());
 	}
-	
-	@Override
-	public TaxaIdentificator getTaxaIdentificator(Class<? extends Conta> conta) {
-		return map.getOrDefault(conta, new SemTaxaServico());
-	}
-	
-	
-
 }
