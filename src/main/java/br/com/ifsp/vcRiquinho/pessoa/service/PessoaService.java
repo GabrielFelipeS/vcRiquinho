@@ -1,7 +1,10 @@
 package br.com.ifsp.vcRiquinho.pessoa.service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +19,7 @@ import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 import br.com.ifsp.vcRiquinho.pessoa.repository.IRepositoryPessoa;
 import br.com.ifsp.vcRiquinho.usuario.dao.UserDAO;
 import br.com.ifsp.vcRiquinho.usuario.dto.DTOUser;
+import br.com.ifsp.vcRiquinho.usuario.service.HashPassword;
 
 public class PessoaService {
 	private IDBConnector connector;
@@ -35,8 +39,9 @@ public class PessoaService {
 		} 
 	}
 
-	public Pessoa cadastrar(HttpServletRequest request)  {
-		DTOUser userDTO = new DTOUser(request.getParameter("email"), request.getParameter("email"));
+	public Pessoa cadastrar(HttpServletRequest request) throws NoSuchAlgorithmException  {
+		String hashedPassword = HashPassword.generate(request.getParameter("password"));
+		DTOUser userDTO = new DTOUser(request.getParameter("email"), hashedPassword);
 
 		IDTOPessoaContaFactory dtoFactory = new DTOPessoaContaFactory();
 		DTOPessoaConta dto = dtoFactory.createBy(request);
@@ -60,7 +65,11 @@ public class PessoaService {
 			
 			throw new RuntimeException(e.getMessage());
 		} 
+		
+		
 	}
+	
+
 
 	public void deletar(String id) {
 		IPessoaRepositoryFactory factory = new PessoaRepositoryFactory();
