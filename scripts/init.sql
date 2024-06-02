@@ -41,12 +41,12 @@ CREATE TABLE conta (
   data_modificacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE users {
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(50)  REFERENCES pessoa(email) NOT NULL,
     password VARCHAR(50) NOT NULL,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-}
+);
 
 ALTER TABLE conta
 ADD CONSTRAINT sem_duplicidade_conta_documento UNIQUE (documento_titular, tipo_conta);
@@ -183,12 +183,13 @@ CREATE TABLE conta (
   data_modificacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE users {
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(50)  REFERENCES pessoa(email) NOT NULL,
     password VARCHAR(50) NOT NULL,
+    admin BOOLEAN DEFAULT false,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-}
+);
 
 ALTER TABLE conta
 ADD CONSTRAINT sem_duplicidade_conta_documento UNIQUE (documento_titular, tipo_conta);
@@ -379,6 +380,20 @@ BEGIN
   RETURN TRUE;
 END;
 $$ LANGUAGE plpgsql;
+
+-- Senhas em texto simples e suas versões criptografadas usando SHA-256
+-- password1 -> XohImNooBHFR0OVxbVbYk9+If/c72wT7NcRS7XNn7KE=
+-- password2 -> eFs7s2MOy4QGHSr8QdL9wLxnLC8B7U3Zo+m1rXbaxHI=
+-- password3 -> Q8ERma2FCyO2kh9RAaDDsA9QZlQmrdAHyVZ6Ga+bi4Y=
+-- password4 -> MZbpLGDJo8e7Nu9HbhYdMoT3HjT5j5fT5Gl+IYlPZkA=
+-- password5 -> J7JpvhVGZ/b+JNjbF09smFiZzSejjr1xG74VoLeCkl4=
+
+INSERT INTO users (email, password, admin) VALUES ('example1@example.com', 'XohImNooBHFR0OVxbVbYk9+If/c72wT7NcRS7XNn7KE=', true),
+	('example2@example.com', 'eFs7s2MOy4QGHSr8QdL9wLxnLC8B7U3Zo+m1rXbaxHI=', true),
+	('example3@example.com', 'Q8ERma2FCyO2kh9RAaDDsA9QZlQmrdAHyVZ6Ga+bi4Y=', false),
+	('example4@example.com', 'MZbpLGDJo8e7Nu9HbhYdMoT3HjT5j5fT5Gl+IYlPZkA=', false),
+	('example5@example.com', 'J7JpvhVGZ/b+JNjbF09smFiZzSejjr1xG74VoLeCkl4=', false);
+
 
 SELECT reset_table_in_pessoa();
 SELECT reset_table_in_produto_and_conta();
