@@ -69,16 +69,16 @@ EXECUTE PROCEDURE atualiza_data_modificacao();
 
 INSERT INTO produto (nome, descricao, carencia, rendimento_mensal, tipo_produto) 
 	VALUES 
-		('Fundo de Renda Fixa ABC', 'Fundo de investimento em renda fixa com baixo risco',  1825, 0.015, 'renda_fixa'),
-		('Ações Tech Growth', 'Fundo de investimento em empresas de tecnologia', NULL, 0.05, 'renda_variavel'),
-		('Fundo Imobiliário Prime Realty', 'Fundo de investimento em imóveis comerciais', 1095, 0.02, 'renda_fixa'),
-		('Tesouro Direto IPCA+', 'Título do Tesouro Direto indexado ao IPCA',  730, 0.03, 'renda_fixa'),
-		('Fundo de Ações Sustentáveis ESG', 'Fundo de investimento em empresas com práticas sustentáveis', NULL, 0.04,  'renda_variavel'),
-		('CDB Banco X', 'Certificado de Depósito Bancário do Banco X', 365, 0.02, 'renda_fixa'),
-		('Fundo Multimercado Global', 'Fundo de investimento diversificado globalmente', NULL, 0.03, 'renda_variavel'),
-		('Fundo de Previdência Conservador', 'Fundo de previdência com alocação conservadora', 2190, 0.02, 'renda_fixa'),
-		('Fundo de Investimento em Ouro', 'Fundo de investimento em barras de ouro', NULL, 0.01, 'renda_variavel'),
-		('Fundo de Criptomoedas Blockchain', 'Fundo de investimento em criptomoedas baseadas em blockchain',180, 0.08, 'renda_fixa');
+		('Fundo de Renda Fixa ABC', 'Fundo de investimento em renda fixa com baixo risco',  1825, 0.15, 'renda_fixa'),
+		('Ações Tech Growth', 'Fundo de investimento em empresas de tecnologia', NULL, 0.5, 'renda_variavel'),
+		('Fundo Imobiliário Prime Realty', 'Fundo de investimento em imóveis comerciais', 1095, 0.2, 'renda_fixa'),
+		('Tesouro Direto IPCA+', 'Título do Tesouro Direto indexado ao IPCA',  730, 0.3, 'renda_fixa'),
+		('Fundo de Ações Sustentáveis ESG', 'Fundo de investimento em empresas com práticas sustentáveis', NULL, 0.4,  'renda_variavel'),
+		('CDB Banco X', 'Certificado de Depósito Bancário do Banco X', 365, 0.2, 'renda_fixa'),
+		('Fundo Multimercado Global', 'Fundo de investimento diversificado globalmente', NULL, 0.3, 'renda_variavel'),
+		('Fundo de Previdência Conservador', 'Fundo de previdência com alocação conservadora', 2190, 0.2, 'renda_fixa'),
+		('Fundo de Investimento em Ouro', 'Fundo de investimento em barras de ouro', NULL, 0.1, 'renda_variavel'),
+		('Fundo de Criptomoedas Blockchain', 'Fundo de investimento em criptomoedas baseadas em blockchain',180, 0.8, 'renda_fixa');
 
 INSERT INTO pessoa (documento_titular, nome, email, tipo_pessoa)
 	VALUES 
@@ -223,16 +223,16 @@ INSERT INTO pessoa (documento_titular, nome, email, tipo_pessoa)
 
 INSERT INTO produto (nome, descricao, carencia, rendimento_mensal, tipo_produto) 
 	VALUES 
-		('Fundo de Renda Fixa ABC', 'Fundo de investimento em renda fixa com baixo risco',  1825, 0.015, 'renda_fixa'),
-		('Ações Tech Growth', 'Fundo de investimento em empresas de tecnologia', NULL, 0.05, 'renda_variavel'),
-		('Fundo Imobiliário Prime Realty', 'Fundo de investimento em imóveis comerciais', 1095, 0.02, 'renda_fixa'),
-		('Tesouro Direto IPCA+', 'Título do Tesouro Direto indexado ao IPCA',  730, 0.03, 'renda_fixa'),
-		('Fundo de Ações Sustentáveis ESG', 'Fundo de investimento em empresas com práticas sustentáveis', NULL, 0.04,  'renda_variavel'),
+		('Fundo de Renda Fixa ABC', 'Fundo de investimento em renda fixa com baixo risco',  1825, 0.15, 'renda_fixa'),
+		('Ações Tech Growth', 'Fundo de investimento em empresas de tecnologia', NULL, 0.5, 'renda_variavel'),
+		('Fundo Imobiliário Prime Realty', 'Fundo de investimento em imóveis comerciais', 1095, 0.2, 'renda_fixa'),
+		('Tesouro Direto IPCA+', 'Título do Tesouro Direto indexado ao IPCA',  730, 0.3, 'renda_fixa'),
+		('Fundo de Ações Sustentáveis ESG', 'Fundo de investimento em empresas com práticas sustentáveis', NULL, 0.4,  'renda_variavel'),
 		('CDB Banco X', 'Certificado de Depósito Bancário do Banco X', 365, 0.02, 'renda_fixa'),
-		('Fundo Multimercado Global', 'Fundo de investimento diversificado globalmente', NULL, 0.03, 'renda_variavel'),
-		('Fundo de Previdência Conservador', 'Fundo de previdência com alocação conservadora', 2190, 0.02, 'renda_fixa'),
-		('Fundo de Investimento em Ouro', 'Fundo de investimento em barras de ouro', NULL, 0.01, 'renda_variavel'),
-		('Fundo de Criptomoedas Blockchain', 'Fundo de investimento em criptomoedas baseadas em blockchain',180, 0.08, 'renda_fixa');
+		('Fundo Multimercado Global', 'Fundo de investimento diversificado globalmente', NULL, 0.3, 'renda_variavel'),
+		('Fundo de Previdência Conservador', 'Fundo de previdência com alocação conservadora', 2190, 0.2, 'renda_fixa'),
+		('Fundo de Investimento em Ouro', 'Fundo de investimento em barras de ouro', NULL, 0.1, 'renda_variavel'),
+		('Fundo de Criptomoedas Blockchain', 'Fundo de investimento em criptomoedas baseadas em blockchain',180, 0.8, 'renda_fixa');
 
 INSERT INTO conta (documento_titular, montante_financeiro, id_produto, cdi, tipo_conta)
 		VALUES 

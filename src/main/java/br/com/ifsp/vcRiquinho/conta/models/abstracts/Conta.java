@@ -1,5 +1,6 @@
 package br.com.ifsp.vcRiquinho.conta.models.abstracts;
 
+import java.util.Map;
 import java.util.Objects;
 
 import br.com.ifsp.vcRiquinho.base.interfaces.Rentavel;
@@ -30,6 +31,8 @@ public abstract class Conta implements Rentavel {
 
 	public abstract String tipoConta();
 	
+	public abstract Map<String, String> getDetalhes();
+	
 	@Override
 	public int hashCode() {
 		return 0;
@@ -49,4 +52,5 @@ public abstract class Conta implements Rentavel {
 		}
 	}
 
+	
 }

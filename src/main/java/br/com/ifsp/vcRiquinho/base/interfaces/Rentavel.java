@@ -1,6 +1,6 @@
 package br.com.ifsp.vcRiquinho.base.interfaces;
 
 public interface Rentavel {
-	Double renderPorDias(int dias);
+	Double rendimentoPorDias(int dias);
 }
 

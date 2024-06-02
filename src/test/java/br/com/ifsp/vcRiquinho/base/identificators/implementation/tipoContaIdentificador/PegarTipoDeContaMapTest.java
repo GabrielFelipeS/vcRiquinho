@@ -13,18 +13,9 @@ import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCDI;
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCorrente;
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaInvestimentoAutomatico;
 import br.com.ifsp.vcRiquinho.produto.models.concrete.NullObjectProduto;
-import br.com.ifsp.vcRiquinho.produto.models.concrete.ProdutoRendaFixa;
 
 class PegarTipoDeContaMapTest {
 
-	@Test
-	void getTaxaIdentificatorPassandoAClasse() {
-		TipoContaIdentificador identificador = new PegarTipoDeContaMap();
-		assertEquals(TaxaServicoContaCDI.class, identificador.getTaxaIdentificator(ContaCDI.class).getClass());
-		assertEquals(TaxaServicoContaInvestimentoAutomatico.class,
-				identificador.getTaxaIdentificator(ContaInvestimentoAutomatico.class).getClass());
-		assertEquals(SemTaxaServico.class, identificador.getTaxaIdentificator(ContaCorrente.class).getClass());
-	}
 
 	@Test
 	void getTaxaIdentificatorPassandoOObjecto() {

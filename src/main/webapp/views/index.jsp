@@ -97,11 +97,11 @@ table.table td .add {
     display: none;
 }
 .container-custom {
-	margin-left: 50px;
+	margin-left: 70px;
 }
 
 </style>	
-<title>No docker</title>
+<title>vcRiquinho</title>
 </head>
 <body>
 	<jsp:include page="../component/navbar.jsp" />
@@ -130,7 +130,6 @@ table.table td .add {
 		</div>
 	</div>
 	
-	<jsp:include page="../component/tableProduto.jsp" />
 	
 </body>
 </html>

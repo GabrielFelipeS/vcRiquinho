@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCDI;
+import br.com.ifsp.vcRiquinho.pessoa.models.concrate.PessoaJuridica;
+
 
 // Mapping /login
 public class LoginServlet extends HttpServlet {
@@ -18,8 +21,13 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/login.jsp");
-		dispatcher.forward(request, response);
+		Object isLoggedin = request.getSession().getAttribute("logado");
+		
+		if(isLoggedin != null && ((Boolean) isLoggedin)) {
+			 getServletContext().getRequestDispatcher("/views/index.jsp").forward(request, response);
+		} else {
+			getServletContext().getRequestDispatcher("/views/login.jsp").forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -30,17 +38,18 @@ public class LoginServlet extends HttpServlet {
 		if (password.equals("admin123")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("logado", true);
+			session.setAttribute("conta", new PessoaJuridica(1, "TESTE", "TESTE@teste.com", new ContaCDI(4, "499", 2000.0, 0.65), "499"));
 			session.setMaxInactiveInterval(TEMPO_PARA_EXPIRACAO_15MIN);
 			
 			Cookie ck = new Cookie("idSession", session.getId());
 			ck.setMaxAge(TEMPO_PARA_EXPIRACAO_15MIN);
 			response.addCookie(ck);
 			
-			 request.getRequestDispatcher("index.jsp").include(request, response);  
+			response.sendRedirect("home");
 		} else {
-			request.getRequestDispatcher("login.jsp").include(request, response);
+			request.getSession().setAttribute("erroLogin", "Email ou senha incorretos");
+			response.sendRedirect("login");
 		}
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 }

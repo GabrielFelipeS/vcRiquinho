@@ -12,7 +12,7 @@ public class SimuladorService implements SimuladorInterface {
 	public Double simular(Conta conta, Double taxa, Integer dias) throws GracePeriodException {
 		if(isGracePeriod(conta, dias)) throw new GracePeriodException();
 		
-		return conta.renderPorDias(dias) * taxa;
+		return conta.rendimentoPorDias(dias) * taxa;
 	}
 
 	@Override

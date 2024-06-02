@@ -33,7 +33,7 @@ body {
 			<div class="col-12 col-md-10 col-lg-8 col-xl-7">
 				<div class="card bg-dark text-white" style="border-radius: 1rem;">
 					<div class="card-body p-5 text-center">
-						<jsp:include page="./forms/formCadastro.jsp" />
+						<jsp:include page="formCadastro.jsp" />
 					</div>
 				</div>
 			</div>

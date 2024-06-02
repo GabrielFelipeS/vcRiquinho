@@ -13,7 +13,7 @@ public class TaxaDeServicoService implements TaxaDeServicoServiceInterface {
 	private TipoContaIdentificador identificador;
 	
 	
-	TaxaDeServicoService() {
+	public TaxaDeServicoService() {
 		this(new PegarTipoDeContaMap());
 	}
 	
