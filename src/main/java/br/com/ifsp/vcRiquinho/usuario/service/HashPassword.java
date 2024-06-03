@@ -14,6 +14,7 @@ public class HashPassword {
 	 public static void main(String[] args) {
 	        String[] passwords = {
 	            "password1",
+	            "Password1",
 	            "password2",
 	            "password3",
 	            "password4",

@@ -26,7 +26,8 @@ public class UserDAO implements IUserDAO{
 	public DTOUser insert(DTOUser dto) {
 		try (PreparedStatement pst = conn.prepareStatement(
 				"INSERT INTO users (email, password) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
-			
+			pst.setString(1, dto.email());
+			pst.setString(2, dto.hashPassword());
 			pst.executeUpdate();
 
 			try (ResultSet generatedKeys = pst.getGeneratedKeys()) {

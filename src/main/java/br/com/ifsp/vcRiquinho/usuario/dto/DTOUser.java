@@ -1,5 +1,5 @@
 package br.com.ifsp.vcRiquinho.usuario.dto;
 
-public record DTOUser(String email, String password) {
+public record DTOUser(String email, String hashPassword) {
 
 }
