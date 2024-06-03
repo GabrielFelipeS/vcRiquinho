@@ -1,10 +1,12 @@
 package br.com.ifsp.vcRiquinho.usuario.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.List;
 
 import br.com.ifsp.vcRiquinho.usuario.dto.DTOUser;
@@ -24,6 +26,7 @@ public class UserDAO implements IUserDAO{
 
 	@Override
 	public DTOUser insert(DTOUser dto) {
+
 		try (PreparedStatement pst = conn.prepareStatement(
 				"INSERT INTO users (email, password) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 			pst.setString(1, dto.email());
@@ -67,6 +70,7 @@ public class UserDAO implements IUserDAO{
 	}
 
 
+
 	@Override
 	public DTOUser update(DTOUser dto) {
 		// TODO Auto-generated method stub
@@ -91,4 +95,5 @@ public class UserDAO implements IUserDAO{
 	private DTOUser createDTOUser(ResultSet rs) throws SQLException {
 		return new DTOUser(rs.getString("email"), rs.getString("password"));
 	}
+
 }

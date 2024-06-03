@@ -107,9 +107,11 @@ table.table td .add {
 	<jsp:include page="../component/navbar.jsp" />
 
 	<div class="container mt-5">
+
 	
 		<erro:message attribute="semPermissao"></erro:message>
 		
+
 		<div class="row d-flex justify-content-center align-items-center h-90">
 			<div class="col-12 col-md-12 col-lg-10 col-xl-7 mt-2 container-custom">
 				<h1>Seja bem vindo ao vcRiquinho</h1>
@@ -121,6 +123,7 @@ table.table td .add {
 	<div class="container mt-5">
 		
 		
+
 		 <div class="table-responsive">
 	       <div class="table-wrapper">
 	            <div class="table-title">

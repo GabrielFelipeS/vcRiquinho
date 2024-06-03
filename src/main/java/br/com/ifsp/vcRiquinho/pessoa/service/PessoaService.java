@@ -1,5 +1,6 @@
 package br.com.ifsp.vcRiquinho.pessoa.service;
 
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -20,6 +21,7 @@ import br.com.ifsp.vcRiquinho.pessoa.repository.IRepositoryPessoa;
 import br.com.ifsp.vcRiquinho.usuario.dao.UserDAO;
 import br.com.ifsp.vcRiquinho.usuario.dto.DTOUser;
 import br.com.ifsp.vcRiquinho.usuario.service.HashPassword;
+
 
 public class PessoaService {
 	private IDBConnector connector;
@@ -65,10 +67,9 @@ public class PessoaService {
 			
 			throw new RuntimeException(e.getMessage());
 		} 
-		
-		
 	}
 	
+
 
 
 	public void deletar(String id) {
@@ -78,9 +79,9 @@ public class PessoaService {
 			connector.disableAutoCommit();
 
 			IRepositoryPessoa repository = factory.createBy(conn);
-			System.out.println("ANTES DELETE");
+
 			repository.deleteBy(id);
-			System.out.println("DEPOIS DELETE");
+
 			connector.commit();
 		} catch (Exception e) {
 
