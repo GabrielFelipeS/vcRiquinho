@@ -12,6 +12,7 @@
 <link rel="icon" type="image/png"
 	href="https://cdn-icons-png.flaticon.com/512/10384/10384161.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <title>Perfil usuario</title>
 </head>
 <body>
@@ -35,17 +36,44 @@
 	  <p id="resposta"></p>
 	 <script>
         $('#excluir-conta').on('click', function() {
-            $.ajax({
-                url: '/vcRiquinho/pessoa',
-                method: 'DELETE', // ou 'POST', 'PUT', 'DELETE', etc.
-                contentType: 'application/json',
-                success: function(data) {
-                	window.location.assign('/vcRiquinho/logout');
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    $('#resposta').text('Erro: ' + textStatus + ' - ' + errorThrown);
-                }
-            });
+        	 Swal.fire({
+                 title: 'Você deseja realmente deletar a sua conta na vcRiquinho?',
+                 text: "Você pode cancelar se quiser!",
+                 icon: 'warning',
+                 showCancelButton: true,
+                 confirmButtonText: 'Sim, deletar!',
+                 cancelButtonText: 'Não, parar'
+             }).then((result) => {
+                 if (result.isConfirmed) {
+                     Swal.fire(
+                         'Deletando!',
+                         'Você escolheu continuar.',
+                         'success'
+                     );
+                     setTimeout(function() {
+                    	 $.ajax({
+                             url: '/vcRiquinho/pessoa',
+                             method: 'DELETE',
+                             contentType: 'application/json',
+                             success: function(data) {
+                             	window.location.assign('/vcRiquinho/logout');
+                             },
+                             error: function(jqXHR, textStatus, errorThrown) {
+                                 $('#resposta').text('Erro: ' + textStatus + ' - ' + errorThrown);
+                             }
+                         });
+                     }, 5000); // 5000 milissegundos = 5 segundos
+                 } else if (result.dismiss === Swal.DismissReason.cancel) {
+                     Swal.fire(
+                         'Parando!',
+                         'Você escolheu parar.',
+                         'error'
+                     );
+                     // Ação para parar
+                 }
+             })
+        	
+           
         });
     </script>
 </body>
