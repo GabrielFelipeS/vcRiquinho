@@ -1,10 +1,8 @@
 package br.com.ifsp.vcRiquinho.pessoa.service;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -78,9 +76,8 @@ public class PessoaService {
 			connector.disableAutoCommit();
 
 			IRepositoryPessoa repository = factory.createBy(conn);
-			System.out.println("ANTES DELETE");
 			repository.deleteBy(id);
-			System.out.println("DEPOIS DELETE");
+			
 			connector.commit();
 		} catch (Exception e) {
 
