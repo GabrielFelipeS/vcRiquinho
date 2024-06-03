@@ -111,6 +111,24 @@ public class PessoaDAO implements IPessoaDAO{
 	}
 
 	@Override
+	public DTOPessoa findByEmail(String email) {
+		try (PreparedStatement pst = conn.prepareStatement("SELECT * FROM pessoa WHERE email = ?")) {
+			pst.setString(1, email);
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next()) {
+					DTOPessoa dto = createDTOPessoa(rs);
+					return dto;
+				}
+
+				return null;
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+	
+	@Override
 	public DTOPessoa update(DTOPessoa dto) {
 		try (PreparedStatement pst = conn
 				.prepareStatement("UPDATE pessoa SET nome = ?, email = ? WHERE documento_titular = ? ")) {
@@ -126,5 +144,7 @@ public class PessoaDAO implements IPessoaDAO{
 			throw new RuntimeException(e.getMessage());
 		}
 	}
+
+
 
 }

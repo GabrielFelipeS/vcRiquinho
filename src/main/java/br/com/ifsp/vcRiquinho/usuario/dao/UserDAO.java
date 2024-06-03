@@ -44,9 +44,20 @@ public class UserDAO implements IUserDAO{
 	}
 
 	@Override
-	public Boolean deleteBy(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean deleteBy(String email) {
+		try (PreparedStatement pst = conn.prepareStatement("DELETE FROM users WHERE email = ?", Statement.RETURN_GENERATED_KEYS)){
+			pst.setString(1, email);
+			int affectedRows = pst.executeUpdate();
+			
+			if(affectedRows != 1) {
+				throw new RuntimeException("Ocorreu um erro ao tentar deletar usuário!");
+			}
+			
+			
+			return true;
+		} catch(SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override

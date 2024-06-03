@@ -63,11 +63,7 @@ public class PessoaService {
 			
 			throw new RuntimeException(e.getMessage());
 		} 
-		
-		
 	}
-	
-
 
 	public void deletar(String id) {
 		IPessoaRepositoryFactory factory = new PessoaRepositoryFactory();
@@ -75,8 +71,13 @@ public class PessoaService {
 		try (Connection conn = connector.getConnection()){
 			connector.disableAutoCommit();
 
+			UserDAO userDAO = new UserDAO(conn);
+			
 			IRepositoryPessoa repository = factory.createBy(conn);
+			String email = repository.findBy(id).getEmail();
 			repository.deleteBy(id);
+			
+			userDAO.deleteBy(email);
 			
 			connector.commit();
 		} catch (Exception e) {

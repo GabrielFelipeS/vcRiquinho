@@ -40,7 +40,7 @@
                 method: 'DELETE', // ou 'POST', 'PUT', 'DELETE', etc.
                 contentType: 'application/json',
                 success: function(data) {
-                    $('#resposta').text(JSON.stringify(data));
+                	window.location.assign('/vcRiquinho/logout');
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     $('#resposta').text('Erro: ' + textStatus + ' - ' + errorThrown);

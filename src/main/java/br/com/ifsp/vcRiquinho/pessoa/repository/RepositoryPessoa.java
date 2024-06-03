@@ -68,6 +68,19 @@ public class RepositoryPessoa implements IRepositoryPessoa {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
+	
+	@Override
+	public Pessoa findByEmail(String email) {
+		try {
+			DTOPessoa dto = pessoaDAO.findByEmail(email);
+			Set<Conta> contas = repositoryConta.findBy(dto.documento_titular());
+			
+			return createBy(dto, contas);
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+	
 
 	@Override
 	public void deleteBy(String id) {
@@ -102,5 +115,7 @@ public class RepositoryPessoa implements IRepositoryPessoa {
 		IFactoryPessoa factory = factoryCreator.createBy(dto.tipo_pessoa());
 		return factory.createBy(dto);
 	}
+
+
 
 }

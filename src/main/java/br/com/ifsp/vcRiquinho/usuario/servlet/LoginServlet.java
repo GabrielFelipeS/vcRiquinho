@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
-import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCDI;
-import br.com.ifsp.vcRiquinho.pessoa.models.concrate.PessoaJuridica;
+import br.com.ifsp.vcRiquinho.pessoa.factory.concrate.PessoaRepositoryFactory;
+import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 import br.com.ifsp.vcRiquinho.usuario.dao.UserDAO;
 import br.com.ifsp.vcRiquinho.usuario.service.HashPassword;
 
@@ -41,7 +41,6 @@ public class LoginServlet extends HttpServlet {
 
 		try {
 			hashedPassword = HashPassword.generate(request.getParameter("password"));
-			System.out.println(hashedPassword);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
@@ -50,15 +49,17 @@ public class LoginServlet extends HttpServlet {
 		UserDAO dao = new UserDAO(conn); 
 		
 		if (dao.loginValid(email, hashedPassword)) {
+			Pessoa pessoa = new PessoaRepositoryFactory().createBy(conn).findByEmail(email);
+			
 			HttpSession session = request.getSession(true);
 			session.setAttribute("logado", true);
-			session.setAttribute("conta", new PessoaJuridica(1, "TESTE", "TESTE@teste.com", new ContaCDI(4, "499", 2000.0, 0.65), "499"));
+			session.setAttribute("conta", pessoa);
 			session.setMaxInactiveInterval(TEMPO_PARA_EXPIRACAO_15MIN);
 			
 			Cookie ck = new Cookie("idSession", session.getId());
 			ck.setMaxAge(TEMPO_PARA_EXPIRACAO_15MIN);
-			response.addCookie(ck);
 			
+			response.addCookie(ck);
 			response.sendRedirect("home");
 		} else {
 			request.getSession().setAttribute("erroLogin", "Email ou senha incorretos");
