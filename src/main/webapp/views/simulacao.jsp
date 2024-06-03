@@ -58,7 +58,6 @@
 	if (obj != null) {
 	%>
 		<div class="container mt-5">
-			<div class="table-responsive">
 				<div class="table-wrapper">
 					<div class="table-title">
 						<div class="row">
@@ -73,7 +72,6 @@
 	
 					</div>
 				</div>
-			</div>
 		</div>
 	<%
 	}

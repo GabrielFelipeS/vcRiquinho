@@ -62,6 +62,7 @@ public class LoginServlet extends HttpServlet {
 
 			session.setAttribute("logado", true);
 			session.setAttribute("conta", pessoa);
+			session.setAttribute("isAdmin", dao.isAdmin(email));
 			session.setMaxInactiveInterval(TEMPO_PARA_EXPIRACAO_15MIN);
 			
 			Cookie ck = new Cookie("idSession", session.getId());

@@ -50,10 +50,10 @@ public class SimulacoesTag extends TagSupport {
 	// Tipo conta - nome produto - montante financeiro atual - carencia -dias -
 	// pontante financeiro bruto - taxa de servico - montante financeiro liquido
 	private void printTableHeader() {
-		String line = "<thead>\n\r<tr> \n\r" + "    <th>Tipo conta</th>\n\r" + "    <th>Nome do produto</th>\n\r"
-				+ "    <th>Montante financeiro atual</th>\n\r" + "    <th>Carência</th>\n\r"
-				+ "    <th>Quantidades de dias</th>\n\r" + "    <th>Montante financeiro bruto</th>\n\r"
-				+ "    <th>Taxa de servico</th>\n\r" + "    <th>Montante financeiro liquido</th>\n\r" + "  </tr>\n\r</thead>\n\r";
+		String line = "<thead><tr> " + "    <th>Tipo conta</th>" + "    <th>Nome do produto</th>"
+				+ "    <th>Montante atual</th>" + "    <th>Carência</th>"
+				+ "    <th>Quantidades de dias</th>" + "    <th>Montante bruto</th>"
+				+ "    <th>Taxa de servico</th>" + "    <th>Montante liquido</th>" + "  </tr></thead>";
 
 		printLine(line);
 
@@ -61,7 +61,7 @@ public class SimulacoesTag extends TagSupport {
 
 	private void printTableLine(DTOSimulacao simulacao) {
 		String line = String.format(
-				"<tr>\n\r <td>%s</td>\n\r  <td>%s</td>\n\r          <td>R$ %.2f</td>\n\r <td>%s</td>\n\r <td>%d dias</td>\n\r <td>R$ %.2f</td>\n\r <td>%s</td>\n\r <td>R$ %.2f</td>\n\r</tr>\n",
+				"<tr> <td>%s</td>  <td>%s</td> <td>R$ %.2f</td> <td>%s</td> <td>%d dias</td> <td>R$ %.2f</td> <td>%s</td> <td>R$ %.2f</td></tr>",
 				simulacao.tipoConta(), simulacao.nomeProduto(), simulacao.montanteFinanceiroAtual(), simulacao.carencia(),
 				simulacao.dias(), simulacao.montanteFinanceiroBruto(), simulacao.taxaServico(), simulacao.montanteFinanceiroLiquido());
 

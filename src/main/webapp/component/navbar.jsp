@@ -32,6 +32,21 @@
 				<%
 				}
 				%>
+				
+				<%
+				Object isAdmin = session.getAttribute("isAdmin");
+				if (isAdmin != null && (Boolean) isAdmin) {
+				%>
+					<li class="nav-item"><a class="nav-link text-white"
+						href="simulacao">Painel de produtos</a></li>
+						
+					<li class="nav-item"><a class="nav-link text-white"
+						href="simulacao">Simulação geral</a></li>
+
+				<%
+				}
+				%>
+				
 			</ul>
 
 			<!-- Left links -->
