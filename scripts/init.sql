@@ -41,6 +41,13 @@ CREATE TABLE conta (
   data_modificacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(50)  REFERENCES pessoa(email) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    admin BOOLEAN DEFAULT false,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 ALTER TABLE conta
 ADD CONSTRAINT sem_duplicidade_conta_documento UNIQUE (documento_titular, tipo_conta);
 
@@ -69,16 +76,16 @@ EXECUTE PROCEDURE atualiza_data_modificacao();
 
 INSERT INTO produto (nome, descricao, carencia, rendimento_mensal, tipo_produto) 
 	VALUES 
-		('Fundo de Renda Fixa ABC', 'Fundo de investimento em renda fixa com baixo risco',  1825, 0.15, 'renda_fixa'),
+		('Fundo de Renda Fixa ABC', 'Fundo de investimento em renda fixa com baixo risco',  100, 0.15, 'renda_fixa'),
 		('Ações Tech Growth', 'Fundo de investimento em empresas de tecnologia', NULL, 0.5, 'renda_variavel'),
-		('Fundo Imobiliário Prime Realty', 'Fundo de investimento em imóveis comerciais', 1095, 0.2, 'renda_fixa'),
-		('Tesouro Direto IPCA+', 'Título do Tesouro Direto indexado ao IPCA',  730, 0.3, 'renda_fixa'),
+		('Fundo Imobiliário Prime Realty', 'Fundo de investimento em imóveis comerciais', 50, 0.2, 'renda_fixa'),
+		('Tesouro Direto IPCA+', 'Título do Tesouro Direto indexado ao IPCA',  60, 0.3, 'renda_fixa'),
 		('Fundo de Ações Sustentáveis ESG', 'Fundo de investimento em empresas com práticas sustentáveis', NULL, 0.4,  'renda_variavel'),
-		('CDB Banco X', 'Certificado de Depósito Bancário do Banco X', 365, 0.2, 'renda_fixa'),
+		('CDB Banco X', 'Certificado de Depósito Bancário do Banco X', 45, 0.2, 'renda_fixa'),
 		('Fundo Multimercado Global', 'Fundo de investimento diversificado globalmente', NULL, 0.3, 'renda_variavel'),
-		('Fundo de Previdência Conservador', 'Fundo de previdência com alocação conservadora', 2190, 0.2, 'renda_fixa'),
+		('Fundo de Previdência Conservador', 'Fundo de previdência com alocação conservadora', 21, 0.2, 'renda_fixa'),
 		('Fundo de Investimento em Ouro', 'Fundo de investimento em barras de ouro', NULL, 0.1, 'renda_variavel'),
-		('Fundo de Criptomoedas Blockchain', 'Fundo de investimento em criptomoedas baseadas em blockchain',180, 0.8, 'renda_fixa');
+		('Fundo de Criptomoedas Blockchain', 'Fundo de investimento em criptomoedas baseadas em blockchain',210, 0.8, 'renda_fixa');
 
 INSERT INTO pessoa (documento_titular, nome, email, tipo_pessoa)
 	VALUES 
@@ -132,6 +139,21 @@ INSERT INTO conta (documento_titular, montante_financeiro, id_produto, cdi, tipo
 	('99900011122', 20000.00, NULL, NULL, 'corrente'),
 	('99900011122', 25000.00, 5, NULL, 'investimento_automatico');
 
+-- Senhas em texto simples e suas versões criptografadas usando SHA-256
+-- password1 -> CxTVAaWURCoBxoWVQbyz6BZNGD0yk3uFGDVEL2nVyU4=
+-- password2 -> bPYV1byqx3g1Ko8fM2DSPwLzTsGC4lmJf9bOSF14cNQ=
+-- password3 -> WQasNhoTfi0oZGXNZYjrtaw/WulVABEAvEFXfD11F2Q=
+-- password4 -> uXhzpA9zq+3Y1oWnzV5fheSpz7g+rCaIZkCggThQEis=
+-- password5 -> iyyG6pzy6k61F/0eBrdPOZ5/7A/vkuO0gqbPLisJICM=
+
+INSERT INTO users (email, password, admin) VALUES 
+('mariasantos@email.com', 'CxTVAaWURCoBxoWVQbyz6BZNGD0yk3uFGDVEL2nVyU4=', true),
+('empresas@email.com', 'bPYV1byqx3g1Ko8fM2DSPwLzTsGC4lmJf9bOSF14cNQ=', false),
+('empresat@email.com', 'WQasNhoTfi0oZGXNZYjrtaw/WulVABEAvEFXfD11F2Q=', false),
+('empresau@email.com', 'uXhzpA9zq+3Y1oWnzV5fheSpz7g+rCaIZkCggThQEis=', false),
+('joaosilva@email.com', 'iyyG6pzy6k61F/0eBrdPOZ5/7A/vkuO0gqbPLisJICM=', true);
+
+select * from users; 
 
 create database dbtest_vcriquinho;
 
@@ -174,6 +196,14 @@ CREATE TABLE conta (
   ativo BOOLEAN DEFAULT TRUE,
   data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   data_modificacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(50)  REFERENCES pessoa(email) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    admin BOOLEAN DEFAULT false,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE conta
@@ -223,16 +253,16 @@ INSERT INTO pessoa (documento_titular, nome, email, tipo_pessoa)
 
 INSERT INTO produto (nome, descricao, carencia, rendimento_mensal, tipo_produto) 
 	VALUES 
-		('Fundo de Renda Fixa ABC', 'Fundo de investimento em renda fixa com baixo risco',  1825, 0.15, 'renda_fixa'),
+		('Fundo de Renda Fixa ABC', 'Fundo de investimento em renda fixa com baixo risco',  100, 0.15, 'renda_fixa'),
 		('Ações Tech Growth', 'Fundo de investimento em empresas de tecnologia', NULL, 0.5, 'renda_variavel'),
-		('Fundo Imobiliário Prime Realty', 'Fundo de investimento em imóveis comerciais', 1095, 0.2, 'renda_fixa'),
-		('Tesouro Direto IPCA+', 'Título do Tesouro Direto indexado ao IPCA',  730, 0.3, 'renda_fixa'),
+		('Fundo Imobiliário Prime Realty', 'Fundo de investimento em imóveis comerciais', 50, 0.2, 'renda_fixa'),
+		('Tesouro Direto IPCA+', 'Título do Tesouro Direto indexado ao IPCA',  60, 0.3, 'renda_fixa'),
 		('Fundo de Ações Sustentáveis ESG', 'Fundo de investimento em empresas com práticas sustentáveis', NULL, 0.4,  'renda_variavel'),
-		('CDB Banco X', 'Certificado de Depósito Bancário do Banco X', 365, 0.02, 'renda_fixa'),
+		('CDB Banco X', 'Certificado de Depósito Bancário do Banco X', 45, 0.2, 'renda_fixa'),
 		('Fundo Multimercado Global', 'Fundo de investimento diversificado globalmente', NULL, 0.3, 'renda_variavel'),
-		('Fundo de Previdência Conservador', 'Fundo de previdência com alocação conservadora', 2190, 0.2, 'renda_fixa'),
+		('Fundo de Previdência Conservador', 'Fundo de previdência com alocação conservadora', 21, 0.2, 'renda_fixa'),
 		('Fundo de Investimento em Ouro', 'Fundo de investimento em barras de ouro', NULL, 0.1, 'renda_variavel'),
-		('Fundo de Criptomoedas Blockchain', 'Fundo de investimento em criptomoedas baseadas em blockchain',180, 0.8, 'renda_fixa');
+		('Fundo de Criptomoedas Blockchain', 'Fundo de investimento em criptomoedas baseadas em blockchain',210, 0.8, 'renda_fixa');
 
 INSERT INTO conta (documento_titular, montante_financeiro, id_produto, cdi, tipo_conta)
 		VALUES 
@@ -364,9 +394,33 @@ BEGIN
 	
   RETURN TRUE;
 END;
+$$ LANGUAGE plpgsql;	
+
+CREATE OR REPLACE FUNCTION reset_table_in_users()
+RETURNS BOOLEAN AS $$
+BEGIN
+  	TRUNCATE users RESTART IDENTITY CASCADE;
+  	
+  	-- Senhas em texto simples e suas versões criptografadas usando SHA-256
+	-- password1 -> CxTVAaWURCoBxoWVQbyz6BZNGD0yk3uFGDVEL2nVyU4=
+	-- password2 -> bPYV1byqx3g1Ko8fM2DSPwLzTsGC4lmJf9bOSF14cNQ=
+	-- password3 -> WQasNhoTfi0oZGXNZYjrtaw/WulVABEAvEFXfD11F2Q=
+	-- password4 -> uXhzpA9zq+3Y1oWnzV5fheSpz7g+rCaIZkCggThQEis=
+	-- password5 -> iyyG6pzy6k61F/0eBrdPOZ5/7A/vkuO0gqbPLisJICM=
+
+INSERT INTO users (email, password, admin) VALUES 
+('mariasantos@email.com', 'XohImNooBHFR0OVxbVbYk9+If/c72wT7NcRS7XNn7KE=', true),
+('empresas@email.com', 'eFs7s2MOy4QGHSr8QdL9wLxnLC8B7U3Zo+m1rXbaxHI=', false),
+('empresat@email.com', 'Q8ERma2FCyO2kh9RAaDDsA9QZlQmrdAHyVZ6Ga+bi4Y=', false),
+('empresau@email.com', 'MZbpLGDJo8e7Nu9HbhYdMoT3HjT5j5fT5Gl+IYlPZkA=', false),
+('joaosilva@email.com', 'J7JpvhVGZ/b+JNjbF09smFiZzSejjr1xG74VoLeCkl4=', true);
+
+  RETURN TRUE;
+END;
 $$ LANGUAGE plpgsql;
 
 SELECT reset_table_in_pessoa();
 SELECT reset_table_in_produto_and_conta();
 SELECT reset_table_in_conta();
+SELECT reset_table_in_users();
 

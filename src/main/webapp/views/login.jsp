@@ -16,9 +16,9 @@ body {
 }
 
 .input-custom {
-	border: 1px solid #ced4da; /* Cor da borda padr„o */
-	padding: .375rem .75rem; /* EspaÁamento interno */
-	transition: border-color 0.3s ease; /* TransiÁ„o suave */
+	border: 1px solid #ced4da; /* Cor da borda padr√£o */
+	padding: .375rem .75rem; /* Espa√ßamento interno */
+	transition: border-color 0.3s ease; /* Transi√ß√£o suave */
 }
 
 /* Efeito de hover */
@@ -33,9 +33,14 @@ body {
 
 	<jsp:include page="../component/navbar.jsp" />
 	
-	<erro:message attribute="erroLogin"></erro:message>
+
+	
 	
 	<div class="container mt-5">
+	
+		<erro:message attribute="erroLogin"></erro:message>
+	
+
 		<div
 			class="row d-flex justify-content-center align-items-center h-100">
 			<div class="col-12 col-md-10 col-lg-8 col-x1-7">

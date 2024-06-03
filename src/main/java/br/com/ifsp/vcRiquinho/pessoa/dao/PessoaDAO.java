@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.com.ifsp.vcRiquinho.base.interfaces.DAO;
 import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoa;
 
 public class PessoaDAO implements IPessoaDAO{
@@ -59,14 +58,14 @@ public class PessoaDAO implements IPessoaDAO{
 			int affectedRows = pst.executeUpdate();
 
 			if (affectedRows == 0) {
-				throw new SQLException("Falha na criação do usuário, nenhuma linha afetada.");
+				throw new SQLException("Falha na criação da entidade pessoa, nenhuma linha afetada.");
 			}
 
 			try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
 					return findBy(dto.documento_titular());
 				} else {
-					throw new SQLException("Falha na criação do usuário, nenhum ID obtido.");
+					throw new SQLException("Falha na criação da entidade pessoa, nenhum ID obtido.");
 				}
 			}
 
@@ -84,7 +83,7 @@ public class PessoaDAO implements IPessoaDAO{
 			int affectedRows = pst.executeUpdate();
 
 			if (affectedRows == 0) {
-				throw new SQLException("Falha na criação do usuário, nenhuma linha afetada.");
+				throw new SQLException("Falha ao deletar pessoa, nenhuma linha afetada.");
 			}
 
 			return true;
