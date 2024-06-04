@@ -20,8 +20,6 @@ import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 import br.com.ifsp.vcRiquinho.usuario.dao.UserDAO;
 import br.com.ifsp.vcRiquinho.usuario.service.HashPassword;
 
-
-
 // Mapping /login
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

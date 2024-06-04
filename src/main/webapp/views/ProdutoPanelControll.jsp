@@ -12,7 +12,6 @@
 	import="br.com.ifsp.vcRiquinho.produto.repository.RepositoryProduto"%>
 <%@ page import="br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO"%>
 <%@ page import="java.util.List"%>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
