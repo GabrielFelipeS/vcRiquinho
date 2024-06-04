@@ -67,7 +67,7 @@ body {
 
 .table-title {
 	padding-bottom: 15px;
-	background: #435d7d;
+	background: #454D6B;
 	color: #fff;
 	padding: 16px 30px;
 	margin: -20px -25px 10px;
