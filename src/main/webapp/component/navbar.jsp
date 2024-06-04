@@ -41,7 +41,7 @@
 						href="simulacao">Painel de produtos</a></li>
 						
 					<li class="nav-item"><a class="nav-link text-white"
-						href="simulacao">Simulação geral</a></li>
+						href="painelProduto">Simulação geral</a></li>
 
 				<%
 				}
@@ -53,7 +53,7 @@
 			<%
 			if (session.getAttribute("logado") != null) {
 			%>
-				<div class="d-flex align-items-center mr-5">
+				<div class="d-flex align-items-center ms-auto"  style=" justify-content: flex-end;">
 					<a href="profile">
 						<button href="profile" data-mdb-ripple-init type="button"
 							class="btn btn-link px-3 me-2"
@@ -68,7 +68,7 @@
 			<%
 			} else {
 			%>
-				<div class="d-flex align-items-center mr-5">
+				<div class="d-flex align-items-center ms-auto" style=" justify-content: flex-end;">
 					<a href="login">
 						<button href="login" data-mdb-ripple-init type="button"
 							class="btn btn-link px-3 me-2"
