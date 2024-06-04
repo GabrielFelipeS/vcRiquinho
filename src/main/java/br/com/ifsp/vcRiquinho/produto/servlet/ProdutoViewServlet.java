@@ -17,10 +17,14 @@ public class ProdutoViewServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Object isAdmin = session.getAttribute("isAdmin");
 		if (isAdmin != null && (Boolean) isAdmin) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/ProdutoPanelControll.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			session.setAttribute("semPermissao", "Você não tem acesso a esse conteúdo");
+			response.sendRedirect("home");
 		}
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/views/ProdutoPanelControll.jsp");
-		dispatcher.forward(request, response);
+		
 	}
 
 	@Override

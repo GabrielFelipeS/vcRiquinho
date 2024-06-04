@@ -38,10 +38,10 @@
 				if (isAdmin != null && (Boolean) isAdmin) {
 				%>
 					<li class="nav-item"><a class="nav-link text-white"
-						href="simulacao">Painel de produtos</a></li>
+						href="painelProduto">Painel de produtos</a></li>
 						
 					<li class="nav-item"><a class="nav-link text-white"
-						href="painelProduto">Simulação geral</a></li>
+						href="simulacao">Simulação geral</a></li>
 
 				<%
 				}
