@@ -13,7 +13,7 @@
 	rel="stylesheet">
 <link rel="icon" type="image/png"
 	href="https://cdn-icons-png.flaticon.com/512/10384/10384161.png">
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <style>
 body {
 	background-color: #454d6b;
