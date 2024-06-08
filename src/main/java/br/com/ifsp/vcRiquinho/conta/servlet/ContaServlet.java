@@ -1,7 +1,6 @@
 package br.com.ifsp.vcRiquinho.conta.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 
 import javax.servlet.ServletException;
@@ -42,11 +41,6 @@ public class ContaServlet extends HttpServlet {
 		for(Conta c : repository.findAll()) {
 			System.out.println(c.getNumConta());
 		}
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	private IRepositoryConta gerarRepoitory(IDBConnector iDbConnector) {
-		return null;
 	}
 
 }
