@@ -174,4 +174,24 @@ public class ContaDAO implements IContaDAO{
 		}
 
 	}
+
+	@Override
+	public List<String> findMissingTypeAccounts(String documentoTitular) {
+		List<String> missingTypes = new LinkedList<>();
+		
+		String functionCall = "SELECT * FROM find_missing_types_account(?)";
+		try (PreparedStatement pstmt = conn.prepareStatement(functionCall)) {
+			pstmt.setString(1, documentoTitular);
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					 String tipoFaltante = rs.getString("tipo_faltante");
+					 missingTypes.add(tipoFaltante);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		
+		return missingTypes;
+	}
 }

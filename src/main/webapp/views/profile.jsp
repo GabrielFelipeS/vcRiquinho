@@ -4,18 +4,23 @@
 <%@ taglib uri="../WEB-INF/errorTag.tld" prefix="erro"%>
 <%@ page
 	import="br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress"%>
-<%@ page import="br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector"%>
 <%@ page
 	import="br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator"%>
-<%@ page
-	import="br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto"%>
+<%@ page import="br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO"%>
 <%@ page
 	import="br.com.ifsp.vcRiquinho.produto.repository.RepositoryProduto"%>
-<%@ page import="br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO"%>
+<%@ page import="java.sql.Connection"%>
 <%@ page import="java.util.List"%>
+<%@ page import="br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa"%>
 
-<%@ page import="br.com.ifsp.vcRiquinho.pessoa.factory.concrate.PessoaRepositoryFactory"%>
-<%@ page import="br.com.ifsp.vcRiquinho.pessoa.repository.RepositoryPessoa"%>
+<%@ page
+	import="br.com.ifsp.vcRiquinho.pessoa.factory.concrate.PessoaRepositoryFactory"%>
+
+<%@ page
+	import="br.com.ifsp.vcRiquinho.conta.factory.concrate.FactoryContaCreatorProvider"%>
+<%@ page
+	import="br.com.ifsp.vcRiquinho.conta.repository.RepositoryConta"%>
+<%@ page import=" br.com.ifsp.vcRiquinho.conta.dao.ContaDAO"%>
 
 <!DOCTYPE html>
 <html>
@@ -26,11 +31,22 @@
 	rel="stylesheet">
 <link rel="icon" type="image/png"
 	href="https://cdn-icons-png.flaticon.com/512/10384/10384161.png">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <title>Perfil usuario</title>
 </head>
 <body>
+	<%
+	Connection conn = new ConnectionPostgress().getConnection();
+	RepositoryProduto repositoryProduto = new RepositoryProduto(new ProdutoDAO(conn), new FactoryProdutoCreator());
+	RepositoryConta repository = new RepositoryConta(new ContaDAO(conn), repositoryProduto,
+			new FactoryContaCreatorProvider());
+
+	List<String> list = repository.findMissingTypeAccounts(((Pessoa) session.getAttribute("conta")).getDocumentoTitular());
+	list.forEach(System.out::println);
+	%>
+
 	<jsp:include page="../component/navbar.jsp" />
 
 	<erro:message attribute="semPermissao"></erro:message>
@@ -41,15 +57,15 @@
 			<div
 				class="col-12 col-md-12 col-lg-10 col-xl-7 mt-2 container-custom">
 				<div class="mb-3 text-center">
-						<button id="excluir-conta" type="submit" data-mdb-ripple-init type="button"
-							class="btn text-white" style="background-color: #d9534f;">
-							Excluir perfil</button>
+					<button id="excluir-conta" type="submit" data-mdb-ripple-init
+						type="button" class="btn text-white"
+						style="background-color: #d9534f;">Excluir perfil</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	  <p id="resposta"></p>
-	 <script>
+	<p id="resposta"></p>
+	<script>
         $('#excluir-conta').on('click', function() {
         	 Swal.fire({
                  title: 'Você deseja realmente deletar a sua conta na vcRiquinho?',
@@ -91,10 +107,10 @@
            
         });
     </script>
-    
-    
-    
-    <div class="container">
+
+
+
+	<div class="container">
 		<div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">
@@ -123,7 +139,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						
+
 					</tbody>
 				</table>
 			</div>
@@ -241,7 +257,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script>
 		$(document).on("click", ".edit", function () {
 		    var myData = $(this).data('id');

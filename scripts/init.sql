@@ -157,20 +157,16 @@ RETURNS TABLE (tipo_faltante TIPO_CONTA) AS $$
 BEGIN
     RETURN QUERY
     WITH all_combinations AS (
-        SELECT c.id AS conta_id, t.tipo
-        FROM conta c
-        CROSS JOIN (SELECT unnest(enum_range(NULL::TIPO_CONTA)) AS tipo) t
-        WHERE c.documento_titular = documento_titular_param
+        SELECT unnest(enum_range(NULL::TIPO_CONTA)) as tipo_conta
     ),
     missing_types AS (
-        SELECT ac.conta_id, ac.tipo
+        SELECT ac.tipo_conta
         FROM all_combinations ac
-        LEFT JOIN conta c ON ac.conta_id = c.id AND ac.tipo = c.tipo_conta
-        WHERE c.tipo_conta IS NULL
+        LEFT JOIN conta c ON ac.tipo_conta = c.tipo_conta AND c.documento_titular = documento_titular_param
+        WHERE c.tipo_conta IS  NULL 
     )
-    SELECT mt.tipo AS tipo_faltante
-    FROM missing_types mt
-    JOIN conta c ON mt.conta_id = c.id;
+    SELECT mt.tipo_conta AS tipo_faltante
+    FROM missing_types mt;
 END;
 $$ LANGUAGE plpgsql;
 
