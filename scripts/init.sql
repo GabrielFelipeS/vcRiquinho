@@ -15,7 +15,6 @@ create table produto (
   data_modificacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
 CREATE TYPE TIPO_PESSOA AS ENUM ('fisica', 'juridica');
 CREATE TABLE pessoa (
   id SERIAL,
@@ -153,7 +152,27 @@ INSERT INTO users (email, password, admin) VALUES
 ('empresau@email.com', 'uXhzpA9zq+3Y1oWnzV5fheSpz7g+rCaIZkCggThQEis=', false),
 ('joaosilva@email.com', 'iyyG6pzy6k61F/0eBrdPOZ5/7A/vkuO0gqbPLisJICM=', true);
 
-select * from users; 
+CREATE OR REPLACE FUNCTION find_missing_types_account(documento_titular_param VARCHAR)
+RETURNS TABLE (tipo_faltante TIPO_CONTA) AS $$
+BEGIN
+    RETURN QUERY
+    WITH all_combinations AS (
+        SELECT c.id AS conta_id, t.tipo
+        FROM conta c
+        CROSS JOIN (SELECT unnest(enum_range(NULL::TIPO_CONTA)) AS tipo) t
+        WHERE c.documento_titular = documento_titular_param
+    ),
+    missing_types AS (
+        SELECT ac.conta_id, ac.tipo
+        FROM all_combinations ac
+        LEFT JOIN conta c ON ac.conta_id = c.id AND ac.tipo = c.tipo_conta
+        WHERE c.tipo_conta IS NULL
+    )
+    SELECT mt.tipo AS tipo_faltante
+    FROM missing_types mt
+    JOIN conta c ON mt.conta_id = c.id;
+END;
+$$ LANGUAGE plpgsql;
 
 create database dbtest_vcriquinho;
 
@@ -297,7 +316,27 @@ INSERT INTO conta (documento_titular, montante_financeiro, id_produto, cdi, tipo
 		('99900011122', 20000.00, NULL, NULL, 'corrente'),
 		('99900011122', 25000.00, 5, NULL, 'investimento_automatico');
 
-
+CREATE OR REPLACE FUNCTION find_missing_types_account(documento_titular_param VARCHAR)
+RETURNS TABLE (tipo_faltante TIPO_CONTA) AS $$
+BEGIN
+    RETURN QUERY
+    WITH all_combinations AS (
+        SELECT c.id AS conta_id, t.tipo
+        FROM conta c
+        CROSS JOIN (SELECT unnest(enum_range(NULL::TIPO_CONTA)) AS tipo) t
+        WHERE c.documento_titular = documento_titular_param
+    ),
+    missing_types AS (
+        SELECT ac.conta_id, ac.tipo
+        FROM all_combinations ac
+        LEFT JOIN conta c ON ac.conta_id = c.id AND ac.tipo = c.tipo_conta
+        WHERE c.tipo_conta IS NULL
+    )
+    SELECT mt.tipo AS tipo_faltante
+    FROM missing_types mt
+    JOIN conta c ON mt.conta_id = c.id;
+END;
+$$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION reset_table_in_pessoa()
 RETURNS BOOLEAN AS $$
