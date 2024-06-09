@@ -15,7 +15,7 @@
 	<div class="col-md-6">
 		<label for="documento_titular" class="form-label">Documento
 			Titular:</label> <input type="text" id="documento_titular"
-			name="documento_titular" class="form-control mb-3" placeholder=""
+			name="documento_titular" class="form-control mb-3" placeholder="XX.XXX.XXX/YYYY-ZZ"
 			required>
 	</div>
 
@@ -65,32 +65,6 @@
 
 
 
-
-<script type="text/javascript" id="copyDocumentoTitular">
-   
-		const sourceField = document.getElementById('documento_titular');
-	
-	    sourceField.placeholder = "XX.XXX.XXX/YYYY-ZZ ";
-	    sourceField.onchange = function() {
-	    	  var regex = /^(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})$/;
-              if (!regex.test(this.value)) {
-                  alert("CNPJ inválido!");
-              }
-          };
-	      
-	      // Adiciona um evento 'input' ao sourceField
-	    sourceField.addEventListener('input', function() {
-	    	 copyDocumentoTitular();
-	      });
-	    
-          
-       	function copyDocumentoTitular() {
-        	  const targetField = document.getElementById('documentoTitular_conta');
-              if(targetField != null) {
-            	  targetField.value = sourceField.value;
-              }
-     	 }
-    </script>
 
 <script type="text/javascript" id="addConta">   
 		function clearContaForm() {
@@ -144,7 +118,11 @@
               console.log('Senha2:', senha2);
               
 			  if (senha1 !== senha2) {
-			    alert('As senhas não são iguais!');
+			    //alert('As senhas não são iguais!');
+			    Swal.fire({
+              	  text : "As senhas não são iguais!",
+              	  icon: "warning"
+                });
 			    //event.preventDefault(); // impede o envio do formulário
 			    return false;
 			  }
@@ -161,15 +139,25 @@
                documentoTitular.onchange = function() {
                	var regex = /^(\d{3}\.\d{3}\.\d{3}-\d{2})$/;
                    if (!regex.test(this.value)) {
-                       alert("CPF inválido!");
+                       Swal.fire({
+                     	  title: "Documento invalido!",
+                     	  text : "CPF inválido!",
+                     	  icon: "warning"
+                       });
+
                    }
                };
            } else if (tipoPessoa == "juridica") {
-               documentoTitular.placeholder = "XX.XXX.XXX/YYYY-ZZ ";
+               documentoTitular.placeholder = "XX.XXX.XXX/YYYY-ZZ";
                documentoTitular.onchange = function() {
                	var regex = /^(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})$/;
                    if (!regex.test(this.value)) {
-                       alert("CNPJ inválido!");
+                       Swal.fire({
+                     	  title: "Documento invalido!",
+                     	  text : "CNPJ inválido!",
+                     	  icon: "warning"
+                       });
+
                    }
                };
            }
@@ -181,7 +169,12 @@
 
            if ((tipoPessoa == "fisica" && !/^(\d{3}\.\d{3}\.\d{3}-\d{2})$/.test(documentoTitular)) ||
                (tipoPessoa == "juridica" && !/^(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})$/.test(documentoTitular))) {
-               alert("Documento inválido!");
+	               Swal.fire({
+	             	  title: "Documento invalido!",
+	             	  text : "Verifique o campo de documento (CPF/CNPJ)",
+	             	  icon: "warning"
+	               });
+
 			    return false;
 			  }
 			  
@@ -189,3 +182,28 @@
        }
        
    </script>
+   
+   
+<script type="text/javascript" id="copyDocumentoTitular">
+   
+		const sourceField = document.getElementById('documento_titular');
+	
+	    sourceField.placeholder = "XX.XXX.XXX/YYYY-ZZ";
+	    sourceField.addEventListener('input', () => { 
+	    	alterarPlaceholderEValidar();
+	    });
+	      
+	      // Adiciona um evento 'input' ao sourceField
+	    sourceField.addEventListener('input', function() {
+	    	 copyDocumentoTitular();
+	      });
+	    
+          
+       	function copyDocumentoTitular() {
+        	  const targetField = document.getElementById('documentoTitular_conta');
+              if(targetField != null) {
+            	  targetField.value = sourceField.value;
+              }
+     	 }
+    </script>
+   

@@ -109,6 +109,24 @@ public class RepositoryPessoa implements IRepositoryPessoa {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
+	
+	public List<Pessoa> findMissingAccounts(String email) {
+		try {
+			List<Pessoa> pessoas = new LinkedList<>();
+			List<DTOPessoa> DTOPessoas = pessoaDAO.findAll();
+
+			for (DTOPessoa dto : DTOPessoas) {
+				Set<Conta> contas = repositoryConta.findBy(dto.documento_titular());
+				Pessoa pessoa = createBy(dto, contas);
+				
+				pessoas.add(pessoa);
+			}
+
+			return pessoas;
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
 
 	private Pessoa createBy(DTOPessoa dto, Set<Conta> contas) {
 		IFactoryPessoaCreator factoryCreator = factoryPessoaCreatorProvider.createBy(contas);

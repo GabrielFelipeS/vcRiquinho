@@ -13,14 +13,19 @@ import br.com.ifsp.vcRiquinho.simulador.dto.DTOSimulacao;
 public class SimulacoesTag extends TagSupport {
 	private static final long serialVersionUID = 1L;
 	private JspWriter out;
-
+	private String attribute = "simulacoes";
+	
+	public void setAttribute(String attribute) {
+		this.attribute = attribute;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public int doStartTag() throws JspException {
 		out = pageContext.getOut();
 
 		HttpSession session = pageContext.getSession();
 
-		Object obj = session.getAttribute("simulacoes");
+		Object obj = session.getAttribute(attribute);
 		
 		
 		if (obj != null) {

@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>  
 <!DOCTYPE taglib  
         PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"  
-        "http://java.sun.com/j2ee/dtd/web-jsptaglibrary_1_2.dtd">  
-  
-<taglib>  
-  <tlib-version>1.0</tlib-version>  
-  <jsp-version>1.2</jsp-version>  
-  <short-name>tables</short-name>  
-  <uri>http://tomcat.apache.org/example-taglib</uri>  
-  
-  <tag>  
-    <name>produto</name>  
-    <tag-class>br.com.ifsp.vcRiquinho.produto.view.tags.ProdutosTag</tag-class>  
-    <attribute>  
-    <name>attribute</name>  
-    <required>false</required>  
-    </attribute>   
-  </tag>  
-  
-  <tag>  
-    <name>simulacao</name>   
-    <tag-class>br.com.ifsp.vcRiquinho.simulador.view.tags.SimulacoesTag</tag-class>  
-  </tag>  
-  
+        "http://java.sun.com/j2ee/dtd/web-jsptaglibrary_1_2.dtd">
+
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>1.2</jsp-version>
+	<short-name>tables</short-name>
+	<uri>http://tomcat.apache.org/example-taglib</uri>
+
+	<tag>
+		<name>produto</name>
+		<tag-class>br.com.ifsp.vcRiquinho.produto.view.tags.ProdutosTag</tag-class>
+		<attribute>
+			<name>attribute</name>
+			<required>false</required>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>simulacao</name>
+		<tag-class>br.com.ifsp.vcRiquinho.simulador.view.tags.SimulacoesTag</tag-class>
+		<attribute>
+			<name>attribute</name>
+			<required>false</required>
+		</attribute>
+	</tag>
+
 </taglib>  

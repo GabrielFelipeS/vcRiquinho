@@ -32,54 +32,55 @@
 				<%
 				}
 				%>
-				
+
 				<%
 				Object isAdmin = session.getAttribute("isAdmin");
 				if (isAdmin != null && (Boolean) isAdmin) {
 				%>
 					<li class="nav-item"><a class="nav-link text-white"
-						href="painelProduto">Painel de produtos</a></li>
-						
+						href="simulacaoGeral">Simulação geral</a></li>
+	
 					<li class="nav-item"><a class="nav-link text-white"
-						href="simulacao">Simulação geral</a></li>
-
+						href="painelProduto">Painel de produtos</a></li>
 				<%
 				}
 				%>
-				
+
 			</ul>
 
 			<!-- Left links -->
 			<%
 			if (session.getAttribute("logado") != null) {
 			%>
-				<div class="d-flex align-items-center ms-auto"  style=" justify-content: flex-end;">
-					<a href="profile">
-						<button href="profile" data-mdb-ripple-init type="button"
-							class="btn btn-link px-3 me-2"
-							style="color: white; text-decoration-color: white">Profile
-						</button>
-					</a> <a href="logout">
-						<button data-mdb-ripple-init type="button"
-							class="btn  me-3 text-white" style="background-color: #454d6b;">
-							Logout</button>
-					</a>
-				</div>
+			<div class="d-flex align-items-center ms-auto"
+				style="justify-content: flex-end;">
+				<a href="profile">
+					<button href="profile" data-mdb-ripple-init type="button"
+						class="btn btn-link px-3 me-2"
+						style="color: white; text-decoration-color: white">Profile
+					</button>
+				</a> <a href="logout">
+					<button data-mdb-ripple-init type="button"
+						class="btn  me-3 text-white" style="background-color: #454d6b;">
+						Logout</button>
+				</a>
+			</div>
 			<%
 			} else {
 			%>
-				<div class="d-flex align-items-center ms-auto" style=" justify-content: flex-end;">
-					<a href="login">
-						<button href="login" data-mdb-ripple-init type="button"
-							class="btn btn-link px-3 me-2"
-							style="color: white; text-decoration-color: white">Login
-						</button>
-					</a> <a href="register">
-						<button data-mdb-ripple-init type="button"
-							class="btn  me-3 text-white" style="background-color: #454d6b;">
-							Cadastre-se</button>
-					</a>
-				</div>
+			<div class="d-flex align-items-center ms-auto"
+				style="justify-content: flex-end;">
+				<a href="login">
+					<button href="login" data-mdb-ripple-init type="button"
+						class="btn btn-link px-3 me-2"
+						style="color: white; text-decoration-color: white">Login
+					</button>
+				</a> <a href="register">
+					<button data-mdb-ripple-init type="button"
+						class="btn  me-3 text-white" style="background-color: #454d6b;">
+						Cadastre-se</button>
+				</a>
+			</div>
 			<%
 			}
 			%>

@@ -16,8 +16,7 @@ import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 import br.com.ifsp.vcRiquinho.simulador.controller.SimulacoesController;
 import br.com.ifsp.vcRiquinho.simulador.dto.DTOSimulacao;
 
-@WebServlet("/simulacao")
-public class SimulcaoServlet extends HttpServlet {
+public class SimulacaoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

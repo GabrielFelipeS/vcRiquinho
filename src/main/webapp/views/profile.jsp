@@ -14,6 +14,9 @@
 <%@ page import="br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO"%>
 <%@ page import="java.util.List"%>
 
+<%@ page import="br.com.ifsp.vcRiquinho.pessoa.factory.concrate.PessoaRepositoryFactory"%>
+<%@ page import="br.com.ifsp.vcRiquinho.pessoa.repository.RepositoryPessoa"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +43,7 @@
 				<div class="mb-3 text-center">
 						<button id="excluir-conta" type="submit" data-mdb-ripple-init type="button"
 							class="btn text-white" style="background-color: #d9534f;">
-							Excluir conta</button>
+							Excluir perfil</button>
 				</div>
 			</div>
 		</div>
