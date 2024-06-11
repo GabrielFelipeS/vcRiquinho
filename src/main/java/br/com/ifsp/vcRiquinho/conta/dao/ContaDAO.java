@@ -42,7 +42,7 @@ public class ContaDAO implements IContaDAO{
 
 	@Override
 	public Set<DTOConta> findByDocument(String documentoTitular) {
-		try (PreparedStatement pst = conn.prepareStatement("SELECT * FROM conta WHERE documento_titular = ? ")) {
+		try (PreparedStatement pst = conn.prepareStatement("SELECT * FROM conta WHERE ativo = true AND documento_titular = ?")) {
 			pst.setString(1, documentoTitular);
 
 			try (ResultSet rs = pst.executeQuery()) {
@@ -173,5 +173,25 @@ public class ContaDAO implements IContaDAO{
 			throw new RuntimeException(e.getMessage());
 		}
 
+	}
+
+	@Override
+	public List<String> findMissingTypeAccounts(String documentoTitular) {
+		List<String> missingTypes = new LinkedList<>();
+		
+		String functionCall = "SELECT * FROM find_missing_types_account(?)";
+		try (PreparedStatement pstmt = conn.prepareStatement(functionCall)) {
+			pstmt.setString(1, documentoTitular);
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					 String tipoFaltante = rs.getString("tipo_faltante");
+					 missingTypes.add(tipoFaltante);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		
+		return missingTypes;
 	}
 }

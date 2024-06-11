@@ -41,7 +41,7 @@ public class ProdutoDAO implements IProdutoDAO {
 	public List<DTOProduto> findAll() {
 		List<DTOProduto> list = new LinkedList<DTOProduto>();
 		try (Statement st = conn.createStatement()) {
-			st.execute("SELECT id_produto, carencia, tipo_produto, nome, descricao, rendimento_mensal FROM produto");
+			st.execute("SELECT id_produto, carencia, tipo_produto, nome, descricao, rendimento_mensal FROM produto WHERE ativo = true");
 			try (ResultSet rs = st.getResultSet()) {
 
 				while (rs.next()) {

@@ -109,6 +109,15 @@ public class RepositoryConta implements IRepositoryConta {
 		}
 	}
 
+	public List<String> findMissingTypeAccounts(String documentoTitular) {
+		try {
+			List<String> missingFindTypeAccounts = contaDAO.findMissingTypeAccounts(documentoTitular);
+			return missingFindTypeAccounts;
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+	
 	private Conta createContaBy(DTOConta dtoConta, Produto produto) {
 		IFactoryContaCreator factoryContaCreator = factoryContaCreatorProvider.createBy(produto);
 		IFactoryConta factory = factoryContaCreator.createBy(dtoConta.tipo_conta());

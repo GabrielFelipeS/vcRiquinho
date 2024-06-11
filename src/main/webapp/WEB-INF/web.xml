@@ -25,6 +25,74 @@
     </error-page>
 	
 
+	<!-- Páginas de erro -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/errors/404.jsp</location>
+	</error-page>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/errors/500.jsp</location>
+	</error-page>
+
+	<error-page>
+		<location>/errors/general-error.jsp</location>
+	</error-page>
+
+	<!-- Filtros -->
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>br.com.ifsp.vcRiquinho.base.view.filter.LoginFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/produto</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/simulacao</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/simulacaoGeral</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/profile</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/painelProduto</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>AdminFilter</filter-name>
+		<filter-class>br.com.ifsp.vcRiquinho.base.view.filter.AdminFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>AdminFilter</filter-name>
+		<url-pattern>/painelProduto</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>AdminFilter</filter-name>
+		<url-pattern>/produto</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>AdminFilter</filter-name>
+		<url-pattern>/simulacaoGeral</url-pattern>
+	</filter-mapping>
+
+
+	<!-- Mapeando para servlets -->
 	<servlet>
 		<servlet-name>HomeServlet</servlet-name>
 		<servlet-class>br.com.ifsp.vcRiquinho.base.servlet.HomeServlet</servlet-class>
@@ -50,6 +118,16 @@
 	<servlet-mapping>
 		<servlet-name>ContaServlet</servlet-name>
 		<url-pattern>/conta</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ContaViewServlet</servlet-name>
+		<servlet-class>br.com.ifsp.vcRiquinho.conta.servlet.ContaViewServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ContaServlet</servlet-name>
+		<url-pattern>/contaView</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -91,7 +169,17 @@
 		<servlet-name>LogoutServlet</servlet-name>
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
-	
+
+	<servlet>
+		<servlet-name>ProfileServlet</servlet-name>
+		<servlet-class>br.com.ifsp.vcRiquinho.usuario.servlet.ProfileServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProfileServlet</servlet-name>
+		<url-pattern>/profile</url-pattern>
+	</servlet-mapping>
+
 	<servlet>
 
 		<servlet-name>ProfileServlet</servlet-name>
@@ -113,7 +201,7 @@
 		<servlet-name>ProdutoViewServlet</servlet-name>
 		<url-pattern>/painelProduto</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>ProdutoDatabaseServlet</servlet-name>
 		<servlet-class>br.com.ifsp.vcRiquinho.produto.servlet.ProdutoDatabaseServlet</servlet-class>
@@ -122,5 +210,27 @@
 	<servlet-mapping>
 		<servlet-name>ProdutoDatabaseServlet</servlet-name>
 		<url-pattern>/produto</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SimulacaoServlet</servlet-name>
+		<servlet-class>
+			br.com.ifsp.vcRiquinho.simulador.servlet.SimulacaoServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SimulacaoServlet</servlet-name>
+		<url-pattern>/simulacao</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SimulacaoGeralServlet</servlet-name>
+		<servlet-class>
+			br.com.ifsp.vcRiquinho.simulador.servlet.SimulacaoGeralServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SimulacaoGeralServlet</servlet-name>
+		<url-pattern>/simulacaoGeral</url-pattern>
 	</servlet-mapping>
 </web-app>

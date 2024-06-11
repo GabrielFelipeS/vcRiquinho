@@ -47,9 +47,20 @@ public class UserDAO implements IUserDAO{
 	}
 
 	@Override
-	public Boolean deleteBy(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean deleteBy(String email) {
+		try (PreparedStatement pst = conn.prepareStatement("DELETE FROM users WHERE email = ?", Statement.RETURN_GENERATED_KEYS)){
+			pst.setString(1, email);
+			int affectedRows = pst.executeUpdate();
+			
+			if(affectedRows != 1) {
+				throw new RuntimeException("Ocorreu um erro ao tentar deletar usuário!");
+			}
+			
+			
+			return true;
+		} catch(SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -94,6 +105,20 @@ public class UserDAO implements IUserDAO{
 	
 	private DTOUser createDTOUser(ResultSet rs) throws SQLException {
 		return new DTOUser(rs.getString("email"), rs.getString("password"));
+	}
+
+
+	public Boolean isAdmin(String email) {
+		try (PreparedStatement pst = conn.prepareStatement("SELECT * FROM users WHERE email = ? AND admin = true")) {
+			pst.setString(1, email);
+			
+			try (ResultSet rs = pst.executeQuery()) {
+				return rs.next();
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 }

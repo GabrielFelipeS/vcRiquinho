@@ -27,7 +27,7 @@ services:
     networks: 
       - banco
     environment:
-      POSTGRES_URL: jdbc:postgresql://db:5433/vcriquinho
+      POSTGRES_URL: jdbc:postgresql://db:5432/vcriquinho
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
     depends_on:

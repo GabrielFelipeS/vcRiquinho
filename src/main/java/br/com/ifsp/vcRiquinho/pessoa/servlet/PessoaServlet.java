@@ -48,16 +48,13 @@ public class PessoaServlet extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		
-		
-		
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("logado") == null) {
 			session.setAttribute("semPermissao", "Você precisa estar logado para acessar esse conteúdo");
 			response.sendRedirect("home");
 		} else { 	
-			System.out.println("DELETAR");
+
 			Pessoa pessoa = (Pessoa) Objects.requireNonNull(session.getAttribute("conta"), "Atributo não deve ser nulo");
 			
 			PessoaService service = new PessoaService();
@@ -66,7 +63,9 @@ public class PessoaServlet extends HttpServlet {
 				service.deletar(pessoa.getDocumentoTitular());
 			} catch (Exception e) {
 				throw new RuntimeException(e.getMessage());
-			}
+			} 
+			System.out.println("DELETADO");
+
 		}
 	}
 	

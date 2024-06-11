@@ -1,8 +1,12 @@
 package br.com.ifsp.vcRiquinho.base.view.tags;
 
+import java.util.Locale;
+
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
+
 import javax.servlet.jsp.tagext.TagSupport;
 
 public class ErrorTag extends TagSupport{
@@ -14,6 +18,9 @@ public class ErrorTag extends TagSupport{
 	}
 	
 	public int doStartTag() throws JspException {  
+		Locale locale = new java.util.Locale("pt", "BR"); 
+		pageContext.setAttribute("locale", locale, PageContext.SESSION_SCOPE);
+		
 	    JspWriter out=pageContext.getOut();//returns the instance of JspWriter  
 	    
 	    try{  
