@@ -21,7 +21,7 @@ services:
       - ./scripts:/scripts
       - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
   web:
-    build: kaizenn/vcriquinho-web:latest
+    build: .
     ports:
       - 8080:8080
     networks: 
