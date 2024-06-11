@@ -27,7 +27,7 @@
 				if (session.getAttribute("logado") != null) {
 				%>
 					<li class="nav-item"><a class="nav-link text-white"
-						href="simulacao">SimulaÃ§Ã£o</a></li>
+						href="simulacao">Simulação</a></li>
 
 				<%
 				}
@@ -39,7 +39,7 @@
 				if (isAdmin != null && (Boolean) isAdmin) {
 				%>
 					<li class="nav-item"><a class="nav-link text-white"
-						href="simulacaoGeral">SimulaÃ§Ã£o geral</a></li>
+						href="simulacaoGeral">Simulação geral</a></li>
 	
 					<li class="nav-item"><a class="nav-link text-white"
 						href="painelProduto">Painel de produtos</a></li>
