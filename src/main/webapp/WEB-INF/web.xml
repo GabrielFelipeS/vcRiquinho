@@ -31,6 +31,11 @@
 
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/produto</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/simulacao</url-pattern>
 	</filter-mapping>
 
@@ -165,20 +170,22 @@
 		<servlet-name>ProdutoDatabaseServlet</servlet-name>
 		<url-pattern>/produto</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>SimulacaoServlet</servlet-name>
-		<servlet-class> br.com.ifsp.vcRiquinho.simulador.servlet.SimulacaoServlet</servlet-class>
+		<servlet-class>
+			br.com.ifsp.vcRiquinho.simulador.servlet.SimulacaoServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>SimulacaoServlet</servlet-name>
 		<url-pattern>/simulacao</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>SimulacaoGeralServlet</servlet-name>
-		<servlet-class> br.com.ifsp.vcRiquinho.simulador.servlet.SimulacaoGeralServlet</servlet-class>
+		<servlet-class>
+			br.com.ifsp.vcRiquinho.simulador.servlet.SimulacaoGeralServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

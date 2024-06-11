@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
@@ -40,6 +41,30 @@ public class ContaServlet extends HttpServlet {
 		
 		for(Conta c : repository.findAll()) {
 			System.out.println(c.getNumConta());
+		}
+	}
+	
+	
+	@Override
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Integer id = Integer.valueOf(request.getParameter("idProduto"));
+
+		IDBConnector iDbConnector = new ConnectionPostgress();
+		
+		try {
+			Connection connection = iDbConnector.getConnection();
+			IContaDAO contaDAO = new ContaDAO(connection);
+			IRepositoryProduto repositoryProduto = new RepositoryProduto(new ProdutoDAO(connection),new FactoryProdutoCreator());
+			IFactoryContaCreatorProvider factoryContaCreatorProvider = new FactoryContaCreatorProvider();
+			
+			IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
+
+			repository.deleteBy(id);
+		} catch (RuntimeException e) {
+			session.setAttribute("erroProduto", e.getMessage());
+			response.sendRedirect("painelProduto");
 		}
 	}
 

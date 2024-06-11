@@ -71,19 +71,6 @@ public abstract class Pessoa {
 	}
 
 	/**
-	 * Verifica as contas já cadastradas, devolvendo uma lista de contas ainda não
-	 * cadastradas
-	 * 
-	 * @param lista de contas a verificar
-	 * @return lista de contas não cadastradas
-	 */
-	public List<Conta> verificarContasNaoCadastradas(List<Conta> contasAVerificar) {
-		Predicate<Conta> contasNaoCadastradas = conta -> !contas.contains(conta);
-		var contasFaltantes = contasAVerificar.stream().filter(contasNaoCadastradas).toList();
-		return contasFaltantes;
-	}
-
-	/**
 	 * @return List<Contas> É uma copia da lista, para não permitir acesso direto as contas
 	 */
 	public List<Conta> getContasListCopy() {

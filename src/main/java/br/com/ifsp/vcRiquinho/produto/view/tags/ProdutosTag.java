@@ -3,9 +3,11 @@ package br.com.ifsp.vcRiquinho.produto.view.tags;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
@@ -21,6 +23,9 @@ public class ProdutosTag extends TagSupport {
 	private JspWriter out;
 
 	public int doStartTag() throws JspException {
+		Locale locale = new java.util.Locale("pt", "BR"); // Português do Brasil
+		pageContext.setAttribute("locale", locale, PageContext.SESSION_SCOPE);
+		
 		out = pageContext.getOut();
 		IDBConnector dbConnector = new ConnectionPostgress();
 		Connection conn = dbConnector.getConnection();

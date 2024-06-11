@@ -371,7 +371,7 @@ $(document).ready(function(){
 					<thead>
 						<tr>
 							<th>Nome</th>
-							<th>Descricao</th>
+							<th>Descrição</th>
 							<th>Carência</th>
 							<th>Tipo Produto</th>
 							<th>Rendimento mensal</th>

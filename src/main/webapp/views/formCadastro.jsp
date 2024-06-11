@@ -63,9 +63,6 @@
 	</div>
 </form>
 
-
-
-
 <script type="text/javascript" id="addConta">   
 		function clearContaForm() {
     		 let accountDiv = document.getElementById("accountContainer");
@@ -102,8 +99,6 @@
             container.appendChild(accountDiv);
             copyDocumentoTitular();
         }
-        
-
     </script>
 
 <script type="text/javascript" id="placeholder_e_validacao">
