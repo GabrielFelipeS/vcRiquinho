@@ -119,7 +119,7 @@
 
 			    //alert('As senhas n√£o s√£o iguais!');
 			    Swal.fire({
-              	  text : "As senhas n√£o s√£o iguais!",
+              	  text : "As senhas n√o s√o iguais!",
               	  icon: "warning"
                 });
 
@@ -142,7 +142,7 @@
 
                        Swal.fire({
                      	  title: "Documento invalido!",
-                     	  text : "CPF inv√°lido!",
+                     	  text : "CPF inv·lido!",
                      	  icon: "warning"
                        });
 
@@ -155,7 +155,7 @@
                    if (!regex.test(this.value)) {
                        Swal.fire({
                      	  title: "Documento invalido!",
-                     	  text : "CNPJ inv√°lido!",
+                     	  text : "CNPJ inv·lido!",
                      	  icon: "warning"
                        });
 
