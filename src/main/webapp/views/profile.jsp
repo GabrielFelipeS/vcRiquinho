@@ -161,7 +161,19 @@
 			</div>
 		</div>
 	</div>
-
+<div class="container mt-5">
+		<div class="row d-flex justify-content-center align-items-center h-90">
+			<div
+				class="col-12 col-md-12 col-lg-10 col-xl-7 mt-2 container-custom">
+				<div class="mb-3 text-center">
+						<button id="excluir-conta" type="submit" data-mdb-ripple-init type="button"
+							class="btn text-white" style="background-color: #d9534f;">
+							Excluir conta</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<script>
         $('#excluir-perfil').on('click', function() {
         	 Swal.fire({
@@ -250,7 +262,6 @@
 	
 		
 	</script>
-	<!-- Edit Modal HTML -->
 	
 	<script>
 		$(document).on("click", ".edit", function () {
