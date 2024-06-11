@@ -58,7 +58,9 @@ public class SimulacoesController {
 		String nomeProduto = descricaoConta.get("nomeProduto");
 		String carencia = descricaoConta.get("carencia");
 		
+
 		return new DTOSimulacao(tipoConta, nomeProduto, montanteFinanceiroAtual, carencia, days, montanteFinanceiroBruto, taxaDeServico, montanteFinanceiroLiquido);
+
 	}
 
 

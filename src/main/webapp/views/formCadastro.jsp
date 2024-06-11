@@ -15,7 +15,9 @@
 	<div class="col-md-6">
 		<label for="documento_titular" class="form-label">Documento
 			Titular:</label> <input type="text" id="documento_titular"
+
 			name="documento_titular" class="form-control mb-3" placeholder="XX.XXX.XXX/YYYY-ZZ"
+
 			required>
 	</div>
 
@@ -37,8 +39,8 @@
 		<select id="accountType" class="form-select mb-3">
 			<option value="Conta Corrente">Conta Corrente</option>
 			<option value="Conta CDI">Conta CDI</option>
-			<option value="Conta Investimento Automático">Conta
-				Investimento Automático</option>
+			<option value="Conta Investimento AutomÃ¡tico">Conta
+				Investimento AutomÃ¡tico</option>
 		</select>
 	</div>
 	<div class="col-md-6">
@@ -85,7 +87,7 @@
                     <input type="text" id="cdiAtual" class="form-control mb-3" name="cdiAtual" value="0.12" readonly>
                     <input type="hidden" id="tipo_conta" class="form-control mb-3" name="tipo_conta" value="cdi">
                   `;
-            } else if (accountType === 'Conta Investimento Automático') {
+            } else if (accountType === 'Conta Investimento AutomÃ¡tico') {
                 accountDiv.innerHTML += `
                     <label for="idProduto" class="form-label">ID do Produto:</label><br>
                     <input type="number" id="idProduto" class="form-control mb-3" name="idProduto" value="2" readonly>
@@ -99,6 +101,7 @@
             container.appendChild(accountDiv);
             copyDocumentoTitular();
         }
+
     </script>
 
 <script type="text/javascript" id="placeholder_e_validacao">
@@ -113,12 +116,14 @@
               console.log('Senha2:', senha2);
               
 			  if (senha1 !== senha2) {
-			    //alert('As senhas não são iguais!');
+
+			    //alert('As senhas nÃ£o sÃ£o iguais!');
 			    Swal.fire({
-              	  text : "As senhas não são iguais!",
+              	  text : "As senhas nÃ£o sÃ£o iguais!",
               	  icon: "warning"
                 });
-			    //event.preventDefault(); // impede o envio do formulário
+
+			    //event.preventDefault(); // impede o envio do formulÃ¡rio
 			    return false;
 			  }
 			  
@@ -134,9 +139,10 @@
                documentoTitular.onchange = function() {
                	var regex = /^(\d{3}\.\d{3}\.\d{3}-\d{2})$/;
                    if (!regex.test(this.value)) {
+
                        Swal.fire({
                      	  title: "Documento invalido!",
-                     	  text : "CPF inválido!",
+                     	  text : "CPF invÃ¡lido!",
                      	  icon: "warning"
                        });
 
@@ -149,9 +155,10 @@
                    if (!regex.test(this.value)) {
                        Swal.fire({
                      	  title: "Documento invalido!",
-                     	  text : "CNPJ inválido!",
+                     	  text : "CNPJ invÃ¡lido!",
                      	  icon: "warning"
                        });
+
 
                    }
                };
@@ -164,11 +171,13 @@
 
            if ((tipoPessoa == "fisica" && !/^(\d{3}\.\d{3}\.\d{3}-\d{2})$/.test(documentoTitular)) ||
                (tipoPessoa == "juridica" && !/^(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})$/.test(documentoTitular))) {
+
 	               Swal.fire({
 	             	  title: "Documento invalido!",
 	             	  text : "Verifique o campo de documento (CPF/CNPJ)",
 	             	  icon: "warning"
 	               });
+
 
 			    return false;
 			  }
@@ -176,6 +185,7 @@
 			  return true;
        }
        
+
    </script>
    
    
@@ -202,3 +212,4 @@
      	 }
     </script>
    
+

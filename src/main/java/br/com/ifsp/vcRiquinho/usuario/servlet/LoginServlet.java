@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
+
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.pessoa.factory.concrate.PessoaRepositoryFactory;
 import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
@@ -46,6 +47,7 @@ public class LoginServlet extends HttpServlet {
 
 		try {
 			hashedPassword = HashPassword.generate(request.getParameter("password"));
+
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
@@ -54,8 +56,10 @@ public class LoginServlet extends HttpServlet {
 		UserDAO dao = new UserDAO(conn); 
 		
 		if (dao.loginValid(email, hashedPassword)) {
+
 			Pessoa pessoa = new PessoaRepositoryFactory().createBy(conn).findByEmail(email);
 			
+
 			HttpSession session = request.getSession(true);
 
 			session.setAttribute("logado", true);

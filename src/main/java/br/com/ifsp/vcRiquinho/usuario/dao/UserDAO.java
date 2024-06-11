@@ -107,6 +107,7 @@ public class UserDAO implements IUserDAO{
 		return new DTOUser(rs.getString("email"), rs.getString("password"));
 	}
 
+
 	public Boolean isAdmin(String email) {
 		try (PreparedStatement pst = conn.prepareStatement("SELECT * FROM users WHERE email = ? AND admin = true")) {
 			pst.setString(1, email);

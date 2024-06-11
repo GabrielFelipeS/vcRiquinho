@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="../WEB-INF/errorTag.tld" prefix="erro"%>
+
 <%@ taglib uri="../WEB-INF/errorTag.tld" prefix="erro"%>
 <%@ page
 	import="br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress"%>
@@ -23,6 +24,7 @@
 <%@ page import=" br.com.ifsp.vcRiquinho.conta.dao.ContaDAO"%>
 <%@ page import=" br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +34,7 @@
 	rel="stylesheet">
 <link rel="icon" type="image/png"
 	href="https://cdn-icons-png.flaticon.com/512/10384/10384161.png">
+
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet"
@@ -54,10 +57,12 @@
 	List<Conta> contas = pessoa.getContasListCopy();
 	%>
 
+
 	<jsp:include page="../component/navbar.jsp" />
 
 	<erro:message attribute="semPermissao"></erro:message>
 	<erro:message attribute="erroProfile"></erro:message>
+
 
 	<div class="container">
 		<div class="table-responsive">
@@ -134,13 +139,13 @@
 
 						</div>
 						<div class="form-group">
-							<label>Carência</label> <input type="number" class="form-control"
+							<label>Carï¿½ncia</label> <input type="number" class="form-control"
 								name="carencia" min="0" required>
 						</div>
 						<div class="form-group">
 							<label>Tipo Produto</label> <select name="tipo_produto">
 								<option value="renda_fixa">Renda Fixa</option>
-								<option value="renda_variavel">Renda Variável</option>
+								<option value="renda_variavel">Renda Variï¿½vel</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -159,14 +164,17 @@
 		</div>
 	</div>
 
+
 	<div class="container mt-5">
 		<div class="row d-flex justify-content-center align-items-center h-90">
 			<div
 				class="col-12 col-md-12 col-lg-10 col-xl-7 mt-2 container-custom">
 				<div class="mb-3 text-center">
+
 					<button id="excluir-perfil" type="submit" data-mdb-ripple-init
 						type="button" class="btn text-white"
 						style="background-color: #d9534f;">Excluir perfil</button>
+
 				</div>
 			</div>
 		</div>
@@ -175,17 +183,17 @@
 	<script>
         $('#excluir-perfil').on('click', function() {
         	 Swal.fire({
-                 title: 'Você deseja realmente deletar seu perfil na vcRiquinho?',
-                 text: "Você pode cancelar se quiser!",
+                 title: 'Vocï¿½ deseja realmente deletar seu perfil na vcRiquinho?',
+                 text: "Vocï¿½ pode cancelar se quiser!",
                  icon: 'warning',
                  showCancelButton: true,
                  confirmButtonText: 'Sim, deletar!',
-                 cancelButtonText: 'Não, parar'
+                 cancelButtonText: 'Nï¿½o, parar'
              }).then((result) => {
                  if (result.isConfirmed) {
                      Swal.fire(
                          'Deletando!',
-                         'Você escolheu continuar.',
+                         'Vocï¿½ escolheu continuar.',
                          'success'
                      );
                      setTimeout(function() {
@@ -204,10 +212,10 @@
                  } else if (result.dismiss === Swal.DismissReason.cancel) {
                      Swal.fire(
                          'Parando!',
-                         'Você escolheu parar.',
+                         'Vocï¿½ escolheu parar.',
                          'error'
                      );
-                     // Ação para parar
+                     // Aï¿½ï¿½o para parar
                  }
              })
         	
@@ -220,17 +228,17 @@
 	        	 var contaId = $(this).data('id');
 	        	 console.log(" a " + contaId)
 	        	 Swal.fire({
-	                 title: 'Você deseja realmente deletar essa conta do seu perfil na vcRiquinho?',
-	                 text: "Você pode cancelar se quiser!",
+	                 title: 'Vocï¿½ deseja realmente deletar essa conta do seu perfil na vcRiquinho?',
+	                 text: "Vocï¿½ pode cancelar se quiser!",
 	                 icon: 'warning',
 	                 showCancelButton: true,
 	                 confirmButtonText: 'Sim, deletar!',
-	                 cancelButtonText: 'Não, parar'
+	                 cancelButtonText: 'Nï¿½o, parar'
 	             }).then((result) => {
 	                 if (result.isConfirmed) {
 	                     Swal.fire(
 	                         'Deletando!',
-	                         'Você escolheu continuar.',
+	                         'Vocï¿½ escolheu continuar.',
 	                         'success'
 	                     );
 	                     setTimeout(function() {
@@ -250,7 +258,7 @@
 	                 } else if (result.dismiss === Swal.DismissReason.cancel) {
 	                     Swal.fire(
 	                         'Parando!',
-	                         'Você escolheu parar.',
+	                         'Vocï¿½ escolheu parar.',
 	                         'error'
 	                     );
 	                 }

@@ -13,19 +13,23 @@ import br.com.ifsp.vcRiquinho.simulador.dto.DTOSimulacao;
 public class SimulacoesTag extends TagSupport {
 	private static final long serialVersionUID = 1L;
 	private JspWriter out;
+
 	private String attribute = "simulacoes";
 	
 	public void setAttribute(String attribute) {
 		this.attribute = attribute;
 	}
 	
+
 	@SuppressWarnings("unchecked")
 	public int doStartTag() throws JspException {
 		out = pageContext.getOut();
 
 		HttpSession session = pageContext.getSession();
 
+
 		Object obj = session.getAttribute(attribute);
+
 		
 		
 		if (obj != null) {
@@ -55,6 +59,7 @@ public class SimulacoesTag extends TagSupport {
 	// Tipo conta - nome produto - montante financeiro atual - carencia -dias -
 	// pontante financeiro bruto - taxa de servico - montante financeiro liquido
 	private void printTableHeader() {
+
 		String line = "<thead><tr> " + "    <th>Tipo conta</th>" + "    <th>Nome do produto</th>"
 				+ "    <th>Montante atual</th>" + "    <th>Carência</th>"
 				+ "    <th>Quantidades de dias</th>" + "    <th>Montante bruto</th>"
@@ -66,7 +71,9 @@ public class SimulacoesTag extends TagSupport {
 
 	private void printTableLine(DTOSimulacao simulacao) {
 		String line = String.format(
+
 				"<tr> <td>%s</td>  <td>%s</td> <td>R$ %.2f</td> <td>%s</td> <td>%d dias</td> <td>R$ %.2f</td> <td>%s</td> <td>R$ %.2f</td></tr>",
+
 				simulacao.tipoConta(), simulacao.nomeProduto(), simulacao.montanteFinanceiroAtual(), simulacao.carencia(),
 				simulacao.dias(), simulacao.montanteFinanceiroBruto(), simulacao.taxaServico(), simulacao.montanteFinanceiroLiquido());
 

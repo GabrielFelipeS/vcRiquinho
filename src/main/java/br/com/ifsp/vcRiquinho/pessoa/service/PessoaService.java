@@ -1,11 +1,11 @@
 package br.com.ifsp.vcRiquinho.pessoa.service;
 
 
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -68,6 +68,9 @@ public class PessoaService {
 			throw new RuntimeException(e.getMessage());
 		} 
 	}
+	
+
+
 
 
 	public void deletar(String id) {
@@ -80,6 +83,7 @@ public class PessoaService {
 			
 			IRepositoryPessoa repository = factory.createBy(conn);
 			String email = repository.findBy(id).getEmail();
+
 			repository.deleteBy(id);
 			
 			userDAO.deleteBy(email);

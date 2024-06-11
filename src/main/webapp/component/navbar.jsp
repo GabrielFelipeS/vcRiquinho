@@ -27,18 +27,19 @@
 				if (session.getAttribute("logado") != null) {
 				%>
 					<li class="nav-item"><a class="nav-link text-white"
-						href="simulacao">Simulação</a></li>
+						href="simulacao">SimulaÃ§Ã£o</a></li>
 
 				<%
 				}
 				%>
+
 
 				<%
 				Object isAdmin = session.getAttribute("isAdmin");
 				if (isAdmin != null && (Boolean) isAdmin) {
 				%>
 					<li class="nav-item"><a class="nav-link text-white"
-						href="simulacaoGeral">Simulação geral</a></li>
+						href="simulacaoGeral">SimulaÃ§Ã£o geral</a></li>
 	
 					<li class="nav-item"><a class="nav-link text-white"
 						href="painelProduto">Painel de produtos</a></li>
@@ -46,12 +47,14 @@
 				}
 				%>
 
+
 			</ul>
 
 			<!-- Left links -->
 			<%
 			if (session.getAttribute("logado") != null) {
 			%>
+
 			<div class="d-flex align-items-center ms-auto"
 				style="justify-content: flex-end;">
 				<a href="profile">
@@ -81,6 +84,7 @@
 						Cadastre-se</button>
 				</a>
 			</div>
+
 			<%
 			}
 			%>

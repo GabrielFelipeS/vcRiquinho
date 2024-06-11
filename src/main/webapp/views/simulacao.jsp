@@ -17,7 +17,7 @@
 }
 </style>
 
-<title>SimulaÁ„o</title>
+<title>Simula√ß√£o</title>
 </head>
 <body>
 	<jsp:include page="../component/navbar.jsp" />
@@ -26,9 +26,9 @@
 		<div class="row d-flex justify-content-center align-items-center h-90">
 			<div
 				class="col-12 col-md-12 col-lg-10 col-xl-7 mt-2 container-custom">
-				<h1 class="text-center">FaÁa a simulaÁ„o agora mesmo</h1>
-				<p class="text-center">A simulaÁ„o ser· feita baseando-se no
-					perfil do usu·rio, usando suas contas e tipo de pessoa.</p>
+				<h1 class="text-center">Fa√ßa a simula√ß√£o agora mesmo</h1>
+				<p class="text-center">A simula√ß√£o ser√° feita baseando-se no
+					perfil do usu√°rio, usando suas contas e tipo de pessoa.</p>
 
 				<div class="d-flex justify-content-center mt-5">
 					<form method="post" action="simulacao">
@@ -58,12 +58,13 @@
 	if (obj != null) {
 	%>
 		<div class="container mt-5">
+
 				<div class="table-wrapper">
 					<div class="table-title">
 						<div class="row">
 							<div class="col-sm-8 mb-2">
 								<h2>
-									SimulaÁıes <b>Detalhes</b>
+									Simula√ß√µes <b>Detalhes</b>
 								</h2>
 							</div>
 						</div>
@@ -72,6 +73,7 @@
 	
 					</div>
 				</div>
+
 		</div>
 	<%
 	}

@@ -7,6 +7,23 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+	
+	
+    <error-page>
+        <error-code>404</error-code>
+        <location>/errors/404.jsp</location>
+    </error-page>
+
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/errors/500.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <location>/errors/general-error.jsp</location>
+    </error-page>
+	
 
 	<!-- Páginas de erro -->
 	<error-page>
@@ -86,7 +103,9 @@
 		<url-pattern>/home</url-pattern>
 	</servlet-mapping>
 
-	<servlet-mapping>
+
+	<servlet-mapping> 
+
 		<servlet-name>HomeServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
@@ -162,6 +181,18 @@
 	</servlet-mapping>
 
 	<servlet>
+
+		<servlet-name>ProfileServlet</servlet-name>
+		<servlet-class>br.com.ifsp.vcRiquinho.usuario.servlet.ProfileServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProfileServlet</servlet-name>
+		<url-pattern>/profile</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+
 		<servlet-name>ProdutoViewServlet</servlet-name>
 		<servlet-class>br.com.ifsp.vcRiquinho.produto.servlet.ProdutoViewServlet</servlet-class>
 	</servlet>
