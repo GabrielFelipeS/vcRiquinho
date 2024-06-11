@@ -49,8 +49,8 @@
 			new FactoryContaCreatorProvider());
 
 	Pessoa pessoa = (Pessoa) session.getAttribute("conta");
-	List<String> list = repository.findMissingTypeAccounts((pessoa).getDocumentoTitular());
-	list.forEach(System.out::println);
+	List<String> listMissingTypeAccounts = repository.findMissingTypeAccounts(pessoa.getDocumentoTitular());
+
 	List<Conta> contas = pessoa.getContasListCopy();
 	%>
 
@@ -69,10 +69,12 @@
 								Gerenciar <b>Contas</b>
 							</h2>
 						</div>
+					<%if(listMissingTypeAccounts.size() != 0){%>
 						<div class="col-xs-6">
-							<a href="#addEmployeeModal" class="btn btn-success"
-								data-toggle="modal"><span>Adicionar novo conta</span></a>
-						</div>
+						<a href="#addEmployeeModal" class="btn btn-success"
+							data-toggle="modal"><span>Adicionar novo conta</span></a>
+					</div>
+					<%}%>
 					</div>
 				</div>
 				<table class="table table-striped table-hover">
@@ -162,7 +164,7 @@
 			<div
 				class="col-12 col-md-12 col-lg-10 col-xl-7 mt-2 container-custom">
 				<div class="mb-3 text-center">
-					<button id="excluir-conta" type="submit" data-mdb-ripple-init
+					<button id="excluir-perfil" type="submit" data-mdb-ripple-init
 						type="button" class="btn text-white"
 						style="background-color: #d9534f;">Excluir perfil</button>
 				</div>
@@ -171,9 +173,9 @@
 	</div>
 
 	<script>
-        $('#excluir-conta').on('click', function() {
+        $('#excluir-perfil').on('click', function() {
         	 Swal.fire({
-                 title: 'Você deseja realmente deletar a sua conta na vcRiquinho?',
+                 title: 'Você deseja realmente deletar seu perfil na vcRiquinho?',
                  text: "Você pode cancelar se quiser!",
                  icon: 'warning',
                  showCancelButton: true,
@@ -216,7 +218,7 @@
 	<script>
 	        $('.delete').on('click', function() {
 	        	 var contaId = $(this).data('id');
-	        	 
+	        	 console.log(" a " + contaId)
 	        	 Swal.fire({
 	                 title: 'Você deseja realmente deletar essa conta do seu perfil na vcRiquinho?',
 	                 text: "Você pode cancelar se quiser!",
@@ -233,11 +235,12 @@
 	                     );
 	                     setTimeout(function() {
 	                    	 $.ajax({
-	                             url: '/vcRiquinho/conta?contaId='+contaId,
+	                             url: '/vcRiquinho/conta?contaId='+ encodeURIComponent(contaId),
 	                             method: 'DELETE',
+	                             data: { contaId: contaId },
 	                             contentType: 'application/json',
 	                             success: function(data) {
-	                             	window.location.assign('/vcRiquinho/painelProduto');
+	                             	window.location.assign('/vcRiquinho/perfil');
 	                             },
 	                             error: function(jqXHR, textStatus, errorThrown) {
 	                                 $('#resposta').text('Erro: ' + textStatus + ' - ' + errorThrown);
@@ -332,47 +335,7 @@
 		    $(".modal-content #data").val( myData );
 		});
 		
-	        $('.delete').on('click', function() {
-	        	 var productId = $(this).data('id');
-	        	 
-	        	 Swal.fire({
-	                 title: 'Você deseja realmente deletar esse produto da vcRiquinho?',
-	                 text: "Você pode cancelar se quiser!",
-	                 icon: 'warning',
-	                 showCancelButton: true,
-	                 confirmButtonText: 'Sim, deletar!',
-	                 cancelButtonText: 'Não, parar'
-	             }).then((result) => {
-	                 if (result.isConfirmed) {
-	                     Swal.fire(
-	                         'Deletando!',
-	                         'Você escolheu continuar.',
-	                         'success'
-	                     );
-	                     setTimeout(function() {
-	                    	 $.ajax({
-	                             url: '/vcRiquinho/produto?idProduto='+productId,
-	                             method: 'DELETE',
-	                             contentType: 'application/json',
-	                             success: function(data) {
-	                             	window.location.assign('/vcRiquinho/painelProduto');
-	                             },
-	                             error: function(jqXHR, textStatus, errorThrown) {
-	                                 $('#resposta').text('Erro: ' + textStatus + ' - ' + errorThrown);
-	                             }
-	                         });
-	                     }, 5000); 
-	                 } else if (result.dismiss === Swal.DismissReason.cancel) {
-	                     Swal.fire(
-	                         'Parando!',
-	                         'Você escolheu parar.',
-	                         'error'
-	                     );
-	                 }
-	             })
-	        	
-	           
-	        });
+	      
 	
 		
 	</script>

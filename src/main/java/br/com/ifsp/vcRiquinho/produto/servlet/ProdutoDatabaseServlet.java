@@ -58,12 +58,6 @@ public class ProdutoDatabaseServlet extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Object isAdmin = session.getAttribute("isAdmin");
-		if (isAdmin == null || !((Boolean) isAdmin)) {
-			session.setAttribute("semPermissao", "Você não tem acesso a esse conteúdo");
-			response.sendRedirect("home");
-		}
-
 		Integer id = Integer.valueOf(request.getParameter("idProduto"));
 
 		IDBConnector connector = new ConnectionPostgress();

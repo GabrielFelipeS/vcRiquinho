@@ -42,7 +42,7 @@ public class ContaDAO implements IContaDAO{
 
 	@Override
 	public Set<DTOConta> findByDocument(String documentoTitular) {
-		try (PreparedStatement pst = conn.prepareStatement("SELECT * FROM conta WHERE documento_titular = ? ")) {
+		try (PreparedStatement pst = conn.prepareStatement("SELECT * FROM conta WHERE ativo = true AND documento_titular = ?")) {
 			pst.setString(1, documentoTitular);
 
 			try (ResultSet rs = pst.executeQuery()) {

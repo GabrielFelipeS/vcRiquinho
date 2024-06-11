@@ -100,6 +100,16 @@
 		<servlet-name>ContaServlet</servlet-name>
 		<url-pattern>/conta</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ContaViewServlet</servlet-name>
+		<servlet-class>br.com.ifsp.vcRiquinho.conta.servlet.ContaViewServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ContaServlet</servlet-name>
+		<url-pattern>/contaView</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>RegisterServlet</servlet-name>

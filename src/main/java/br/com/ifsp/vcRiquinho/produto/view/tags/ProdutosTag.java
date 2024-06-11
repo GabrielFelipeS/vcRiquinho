@@ -23,7 +23,7 @@ public class ProdutosTag extends TagSupport {
 	private JspWriter out;
 
 	public int doStartTag() throws JspException {
-		Locale locale = new java.util.Locale("pt", "BR"); // Português do Brasil
+		Locale locale = new java.util.Locale("pt", "BR");
 		pageContext.setAttribute("locale", locale, PageContext.SESSION_SCOPE);
 		
 		out = pageContext.getOut();

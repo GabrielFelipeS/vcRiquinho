@@ -17,6 +17,8 @@ import br.com.ifsp.vcRiquinho.conta.factory.concrate.FactoryContaCreatorProvider
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.conta.repository.IRepositoryConta;
 import br.com.ifsp.vcRiquinho.conta.repository.RepositoryConta;
+import br.com.ifsp.vcRiquinho.pessoa.factory.concrate.PessoaRepositoryFactory;
+import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 import br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO;
 import br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator;
 import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryContaCreatorProvider;
@@ -25,46 +27,52 @@ import br.com.ifsp.vcRiquinho.produto.repository.RepositoryProduto;
 
 public class ContaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-	 
-		
+			throws ServletException, IOException {	
 		IDBConnector iDbConnector = new ConnectionPostgress();
 		Connection connection = iDbConnector.getConnection();
 		IContaDAO contaDAO = new ContaDAO(connection);
-		
-		IRepositoryProduto repositoryProduto = new RepositoryProduto(new ProdutoDAO(connection),new FactoryProdutoCreator());
+
+		IRepositoryProduto repositoryProduto = new RepositoryProduto(new ProdutoDAO(connection),
+				new FactoryProdutoCreator());
 		IFactoryContaCreatorProvider factoryContaCreatorProvider = new FactoryContaCreatorProvider();
-		
+
 		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
-		
-		for(Conta c : repository.findAll()) {
+
+		for (Conta c : repository.findAll()) {
 			System.out.println(c.getNumConta());
 		}
 	}
-	
-	
+
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Integer id = Integer.valueOf(request.getParameter("idProduto"));
+		Integer id = Integer.valueOf(request.getParameter("contaId"));
 
 		IDBConnector iDbConnector = new ConnectionPostgress();
-		
+
 		try {
 			Connection connection = iDbConnector.getConnection();
 			IContaDAO contaDAO = new ContaDAO(connection);
-			IRepositoryProduto repositoryProduto = new RepositoryProduto(new ProdutoDAO(connection),new FactoryProdutoCreator());
+			IRepositoryProduto repositoryProduto = new RepositoryProduto(new ProdutoDAO(connection),
+					new FactoryProdutoCreator());
 			IFactoryContaCreatorProvider factoryContaCreatorProvider = new FactoryContaCreatorProvider();
-			
+
 			IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
 
 			repository.deleteBy(id);
+			
+			Connection conn = new ConnectionPostgress().getConnection();
+			String documentoTitular = ((Pessoa) session.getAttribute("conta")).getDocumentoTitular() ;
+			Pessoa pessoa = new PessoaRepositoryFactory().createBy(conn).findBy(documentoTitular);
+
+			session.setAttribute("logado", true);
+			session.setAttribute("conta", pessoa);
 		} catch (RuntimeException e) {
-			session.setAttribute("erroProduto", e.getMessage());
-			response.sendRedirect("painelProduto");
+			session.setAttribute("erroProfile", e.getMessage());
+			response.sendRedirect("profile");
 		}
 	}
 
