@@ -3,3 +3,7 @@
 /.settings/
 /build/
 /.github/
+.idea
+.classpath
+.project
+.env
