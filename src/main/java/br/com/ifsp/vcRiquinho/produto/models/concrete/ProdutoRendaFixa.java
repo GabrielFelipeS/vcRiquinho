@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import br.com.ifsp.vcRiquinho.produto.exceptions.DaysCannotByNegativeException;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
@@ -13,6 +14,8 @@ import jakarta.persistence.Entity;
 public class ProdutoRendaFixa extends Produto {
 	private Double rendimentoMensal;
 	private Integer carencia;
+
+	@Column(name = "data_criacao")
 	private LocalDate localDate;
 
 	public ProdutoRendaFixa() {
