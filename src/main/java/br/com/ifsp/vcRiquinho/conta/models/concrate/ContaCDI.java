@@ -5,9 +5,18 @@ import java.util.Map;
 import java.util.Objects;
 
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 
+@Entity
+@DiscriminatorValue("cdi")
 public class ContaCDI extends Conta {
 	private Double cdi;
+
+	public ContaCDI() {
+
+	}
 
 	public ContaCDI(Integer numConta, String documentoTitular, Double montanteFinanceiro, Double cdi) {
 		super(numConta, documentoTitular, montanteFinanceiro);

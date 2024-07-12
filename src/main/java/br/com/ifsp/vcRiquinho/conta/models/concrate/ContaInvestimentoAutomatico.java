@@ -6,9 +6,20 @@ import java.util.Objects;
 
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 
+@Entity
+@DiscriminatorValue("investimento_automatico")
 public class ContaInvestimentoAutomatico extends Conta {
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private Produto produto;
+
+	public ContaInvestimentoAutomatico() {
+	}
 
 	public ContaInvestimentoAutomatico(Integer numConta, String documentoTitular,Double montanteFinanceiro, Produto produto) {
 		super(numConta, documentoTitular, montanteFinanceiro);
