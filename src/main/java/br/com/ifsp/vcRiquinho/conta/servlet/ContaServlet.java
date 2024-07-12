@@ -38,8 +38,8 @@ public class ContaServlet extends HttpServlet {
 				new FactoryProdutoCreator());
 		IFactoryContaCreatorProvider factoryContaCreatorProvider = new FactoryContaCreatorProvider();
 
-		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
-
+		//IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
+		IRepositoryConta repository =null;
 		for (Conta c : repository.findAll()) {
 			System.out.println(c.getNumConta());
 		}
@@ -60,9 +60,8 @@ public class ContaServlet extends HttpServlet {
 					new FactoryProdutoCreator());
 			IFactoryContaCreatorProvider factoryContaCreatorProvider = new FactoryContaCreatorProvider();
 
-			IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
-
-			repository.deleteBy(id);
+			//IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
+			IRepositoryConta repository =null;
 			
 			Connection conn = new ConnectionPostgress().getConnection();
 			String documentoTitular = ((Pessoa) session.getAttribute("conta")).getDocumentoTitular() ;

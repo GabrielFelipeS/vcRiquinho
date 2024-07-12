@@ -6,7 +6,11 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -32,6 +36,20 @@ public class PostgresTestContainer {
 	@BeforeAll
 	public static void setUp() {
 		connection = connectInContainer(new ConnectionPostgress());
+	}
+
+	public static EntityManagerFactory getEntityManagerFactoryInContainer() {
+		PostgresTestContainer.postgresContainer.start();
+
+		Map<String, String> properties = new HashMap<>();
+		properties.put("javax.persistence.jdbc.url", String.format("jdbc:postgresql://localhost:%d/dbtest_vcriquinho",
+				PostgresTestContainer.postgresContainer.getMappedPort(5432)));
+		properties.put("javax.persistence.jdbc.user", "postgres");
+		properties.put("javax.persistence.jdbc.password", "admin");
+		properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+		properties.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
+
+		return Persistence.createEntityManagerFactory("vcriquinho-postgres", properties);
 	}
 
 	@Test

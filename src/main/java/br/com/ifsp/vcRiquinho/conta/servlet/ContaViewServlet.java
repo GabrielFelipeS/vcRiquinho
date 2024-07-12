@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.conta.dao.ContaDAO;
 import br.com.ifsp.vcRiquinho.conta.factory.concrate.FactoryContaCreatorProvider;
+import br.com.ifsp.vcRiquinho.conta.repository.IRepositoryConta;
 import br.com.ifsp.vcRiquinho.conta.repository.RepositoryConta;
 import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 import br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO;
@@ -32,8 +33,8 @@ public class ContaViewServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Connection conn = new ConnectionPostgress().getConnection();
 		RepositoryProduto repositoryProduto = new RepositoryProduto(new ProdutoDAO(conn), new FactoryProdutoCreator());
-		RepositoryConta repository = new RepositoryConta(new ContaDAO(conn), repositoryProduto,
-				new FactoryContaCreatorProvider());
+		//IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
+		RepositoryConta repository =null;
 		Pessoa pessoa = (Pessoa) session.getAttribute("conta");
 		List<String> list = repository.findMissingTypeAccounts(pessoa.getDocumentoTitular());
 		

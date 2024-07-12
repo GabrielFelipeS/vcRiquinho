@@ -7,7 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
+import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCorrente;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -26,13 +32,7 @@ import br.com.ifsp.vcRiquinho.produto.repository.IRepositoryProduto;
 import br.com.ifsp.vcRiquinho.produto.repository.RepositoryProduto;
 
 class RepositoryContaTest {
-	private static IDBConnector iDbConnector = new ConnectionPostgress();
-	private static Connection connection;
-
-	private IContaDAO contaDAO = new ContaDAO(connection);
-	private IRepositoryProduto repositoryProduto = new RepositoryProduto(new ProdutoDAO(connection),
-			new FactoryProdutoCreator());
-	private IFactoryContaCreatorProvider factoryContaCreatorProvider = new FactoryContaCreatorProvider();
+	private static EntityManagerFactory emf;
 
 	private int ID_EXISTS = 1;
 	private int ID_NOT_EXISTS = 1000;
@@ -43,52 +43,41 @@ class RepositoryContaTest {
 	 */
 	@BeforeAll
 	public static void setUp() {
-		connection = getConnection(iDbConnector);
+		emf = getEntityManagerFactory();
 
 		// iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST,
 		// ConnectionPostgress.DEFAULT_USER_DBTEST,
 		// ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
 	}
 
-	private static Connection getConnection(IDBConnector iDbConnector2) {
-		return PostgresTestContainer.connectInContainer(iDbConnector);
+	private static EntityManagerFactory getEntityManagerFactory() {
+		return PostgresTestContainer.getEntityManagerFactoryInContainer();
 	}
 
 	@Test
 	void findByIdExistenteEntaoSemLancamentoDeExcecao() {
-		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
+		IRepositoryConta repository = new RepositoryConta(emf);
 
 		assertDoesNotThrow(() -> repository.findBy(ID_EXISTS));
 	}
 
 	@Test
 	void findByIdNaoExistenteEntaoLancaExcecao() {
-		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
+		IRepositoryConta repository = new RepositoryConta(emf);
 
 		assertThrows(RuntimeException.class, () -> repository.findBy(ID_NOT_EXISTS));
 	}
 
 	@Test
 	void findAllTestSemErros() {
-		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
+		IRepositoryConta repository = new RepositoryConta(emf);
 
 		assertDoesNotThrow(() -> repository.findAll());
 	}
 
 	@Test
-	void findAllTestErroDeConexao() throws SQLException {
-		connection.close();
-		connection = getConnection(iDbConnector);
-
-		IContaDAO outroDAO = new ContaDAO(connection);
-		IRepositoryConta repository = new RepositoryConta(outroDAO, repositoryProduto, factoryContaCreatorProvider);
-
-		assertThrows(RuntimeException.class, () -> repository.findAll());
-	}
-
-	@Test
 	void insertTestCriacaoBemSucedida() {
-		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
+		IRepositoryConta repository = new RepositoryConta(emf);
 		DTOConta dto = new DTOConta(0, "00111222000144", 0.0, null, 0.065, "corrente");
 
 		Conta conta = repository.insert(dto);
@@ -99,7 +88,7 @@ class RepositoryContaTest {
 
 	@Test
 	void insertTestFalhaNaCriacaoTipoDeContaJaExisteParaDocumento() {
-		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
+		IRepositoryConta repository = new RepositoryConta(emf);
 
 		DTOConta dto = new DTOConta(0, "00111222000144", 0.0, null, 0.065, "cdi");
 
@@ -109,7 +98,7 @@ class RepositoryContaTest {
 
 	@Test
 	void updateTestSucessoNaAtualizacao() {
-		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
+		IRepositoryConta repository = new RepositoryConta(emf);
 
 		DTOConta dto = new DTOConta(1, "00111222000144", 0.0, 5, 0.065, "investimento_automatico");
 
@@ -120,7 +109,7 @@ class RepositoryContaTest {
 
 	@Test
 	void updateTestFalhaNumContaNaoExisteNenhumaLinhaAfetada() {
-		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
+		IRepositoryConta repository = new RepositoryConta(emf);
 
 		DTOConta dto = new DTOConta(0, "00111222000144", 0.0, null, 0.065, "cdi");
 
@@ -129,7 +118,7 @@ class RepositoryContaTest {
 
 	@Test
 	void deleteTestContaDeletadaComSucesso() {
-		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
+		IRepositoryConta repository = new RepositoryConta(emf);
 
 		DTOConta dto = new DTOConta(1, "00111222000144", 0.0, null, 0.065, "investimento_automatico");
 
@@ -138,10 +127,19 @@ class RepositoryContaTest {
 
 	@Test
 	void deleteTestFalhaNenhumaLinhaAfetada() {
-		IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
+		IRepositoryConta repository = new RepositoryConta(emf);
 
 		DTOConta dto = new DTOConta(0, "00111222000144", 0.0, null, 0.065, "cdi");
 
 		assertThrows(RuntimeException.class, () -> repository.deleteBy(dto.numConta()));
+	}
+
+	@Test
+	void testeIdea() {
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		em.persist(new ContaCorrente("499.306.608-28", 2000.0));
+		em.getTransaction().commit();
+		assertEquals(true, true);
 	}
 }

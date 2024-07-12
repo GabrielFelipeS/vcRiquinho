@@ -37,9 +37,7 @@ public class RepositoryPessoaTest {
 	private static IDBConnector iDbConnector = new ConnectionPostgress();
 	private static Connection connection;
 
-	private IRepositoryConta repositoryConta = new RepositoryConta(new ContaDAO(connection),
-			new RepositoryProduto(new ProdutoDAO(connection), new FactoryProdutoCreator()),
-			new FactoryContaCreatorProvider());
+	private IRepositoryConta repositoryConta = null;
 
 	private IPessoaDAO dao = new PessoaDAO(connection);
 	private IFactoryPessoaCreatorProvider factoryPessoaCreatorProvider = new FactoryPessoaCreatorProvider();

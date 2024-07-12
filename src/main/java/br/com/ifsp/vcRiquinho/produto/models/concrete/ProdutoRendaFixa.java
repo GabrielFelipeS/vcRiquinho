@@ -5,11 +5,19 @@ import java.util.Objects;
 
 import br.com.ifsp.vcRiquinho.produto.exceptions.DaysCannotByNegativeException;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 
+@Entity
+@DiscriminatorValue("renda_fixa")
 public class ProdutoRendaFixa extends Produto {
 	private Double rendimentoMensal;
 	private Integer carencia;
 	private LocalDate localDate;
+
+	public ProdutoRendaFixa() {
+
+	}
 
 	public ProdutoRendaFixa(Integer id, Double rendimentoMensalEsperado, Integer carencia) {
 		this(id, "vcInveste", 

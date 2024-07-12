@@ -1,11 +1,23 @@
 package br.com.ifsp.vcRiquinho.produto.models.abstracts;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
+@Inheritance
+@DiscriminatorColumn(name = "tipo_produto", discriminatorType = DiscriminatorType.STRING)
 public abstract class Produto {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String descricao;
+
+	public Produto() {
+
+	}
 
 	public Produto(Integer id, String nome, String descricao) {
 		this.id = Objects.requireNonNull(id, "ID não pode ser nulo");
