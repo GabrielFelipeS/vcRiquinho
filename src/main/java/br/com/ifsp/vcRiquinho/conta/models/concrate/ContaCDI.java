@@ -17,7 +17,10 @@ public class ContaCDI extends Conta {
 	public ContaCDI() {
 
 	}
-
+	public ContaCDI(String documentoTitular, Double montanteFinanceiro, Double cdi) {
+		super(documentoTitular, montanteFinanceiro);
+		this.cdi = Objects.requireNonNull(cdi, "O cdi não pode ser vazio");
+	}
 	public ContaCDI(Integer numConta, String documentoTitular, Double montanteFinanceiro, Double cdi) {
 		super(numConta, documentoTitular, montanteFinanceiro);
 		this.cdi = Objects.requireNonNull(cdi, "O cdi não pode ser vazio");

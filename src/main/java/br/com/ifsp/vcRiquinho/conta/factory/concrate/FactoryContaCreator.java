@@ -8,33 +8,20 @@ import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
 import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryConta;
 import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryContaCreator;
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
+import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCDI;
+import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCorrente;
+import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaInvestimentoAutomatico;
+import br.com.ifsp.vcRiquinho.conta.models.concrate.NullObjectConta;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
 
-public class FactoryContaCreator implements IFactoryContaCreator{
-	private Produto produto;
-	private Map<String, IFactoryConta> map;
+public class FactoryContaCreator {
 
-	public FactoryContaCreator(Produto produto) {
-		this.produto = produto;
-		this.map = createMap();
-	}
-
-	private Map<String, IFactoryConta> createMap() {
-		Map<String, IFactoryConta> map = new HashMap<>();
-		map.put("cdi", new ContaCdiFactory());
-		map.put("corrente", new ContaCorrenteFactory());
-		map.put("investimento_automatico", new ContaInvestimentoAutomaticoFactory(produto));
-		return map;
-	}
-
-	@Override
-	public IFactoryConta createBy(String str) {		
-		return map.getOrDefault(str, new ContaCorrenteFactory());
-	}
-
-
-	@Override
-	public String convert(IFactoryConta factry) {
-		return factry.toString();
+	public static Conta createBy(DTOConta dto, Produto produto) {
+		return switch (dto.tipo_conta()) {
+			case "cdi" -> new ContaCDI(dto.documentoTitular(), dto.montanteFinanceiro(), dto.cdi());
+			case "corrente" -> new ContaCorrente(dto.documentoTitular(), dto.montanteFinanceiro());
+			case "investimento_automatico" -> new ContaInvestimentoAutomatico(dto.documentoTitular(), dto.montanteFinanceiro(), produto);
+			default -> new NullObjectConta();
+		};
 	}
 }

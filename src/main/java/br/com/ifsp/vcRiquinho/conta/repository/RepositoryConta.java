@@ -1,8 +1,7 @@
 package br.com.ifsp.vcRiquinho.conta.repository;
 
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
-import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryConta;
-import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryContaCreator;
+import br.com.ifsp.vcRiquinho.conta.factory.concrate.FactoryContaCreator;
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
 import jakarta.persistence.EntityManagerFactory;
@@ -22,7 +21,7 @@ public class RepositoryConta implements IRepositoryConta {
 	@Override
 	public Conta insert(DTOConta dto) {
 		try {
-			//dto = contaDAO.insert(dto);
+			// dto = contaDAO.insert(dto);
 			//Produto produto = repositoryProduto.findBy(dto.id_produto());
 
 		//	return createContaBy(dto, produto);
@@ -114,10 +113,6 @@ public class RepositoryConta implements IRepositoryConta {
 	}
 	
 	private Conta createContaBy(DTOConta dtoConta, Produto produto) {
-		//IFactoryContaCreator factoryContaCreator = factoryContaCreatorProvider.createBy(produto);
-	//	IFactoryConta factory = factoryContaCreator.createBy(dtoConta.tipo_conta());
-
-		//return factory.createBy(dtoConta);
-		return null;
+		return FactoryContaCreator.createBy(dtoConta, produto);
 	}
 }

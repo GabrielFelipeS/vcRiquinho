@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCorrente;
+import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaInvestimentoAutomatico;
+import br.com.ifsp.vcRiquinho.produto.models.concrete.ProdutoRendaFixa;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -44,10 +46,6 @@ class RepositoryContaTest {
 	@BeforeAll
 	public static void setUp() {
 		emf = getEntityManagerFactory();
-
-		// iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST,
-		// ConnectionPostgress.DEFAULT_USER_DBTEST,
-		// ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
 	}
 
 	private static EntityManagerFactory getEntityManagerFactory() {
@@ -136,9 +134,10 @@ class RepositoryContaTest {
 
 	@Test
 	void testeIdea() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("vcriquinho-postgres");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-		em.persist(new ContaCorrente("499.306.608-28", 2000.0));
+		em.persist(new ContaInvestimentoAutomatico(0, "499.306.608-28", 2000.0, new ProdutoRendaFixa(1, 200.0, 50)));
 		em.getTransaction().commit();
 		assertEquals(true, true);
 	}

@@ -6,19 +6,22 @@ import java.util.Objects;
 
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 @DiscriminatorValue("investimento_automatico")
 public class ContaInvestimentoAutomatico extends Conta {
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
+	@JoinColumn(name = "id_produto")
 	private Produto produto;
 
 	public ContaInvestimentoAutomatico() {
+	}
+
+	public ContaInvestimentoAutomatico(String documentoTitular,Double montanteFinanceiro, Produto produto) {
+		super(numConta, documentoTitular, montanteFinanceiro);
+		this.produto = Objects.requireNonNull(produto, "Produto não pode ser nulo");
 	}
 
 	public ContaInvestimentoAutomatico(Integer numConta, String documentoTitular,Double montanteFinanceiro, Produto produto) {
