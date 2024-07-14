@@ -17,11 +17,8 @@ import org.junit.jupiter.api.Test;
 import br.com.ifsp.vcRiquinho.base.db.PostgresTestContainer;
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
-import br.com.ifsp.vcRiquinho.conta.dao.ContaDAO;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
-import br.com.ifsp.vcRiquinho.conta.factory.concrate.FactoryContaCreatorProvider;
 import br.com.ifsp.vcRiquinho.conta.repository.IRepositoryConta;
-import br.com.ifsp.vcRiquinho.conta.repository.RepositoryConta;
 import br.com.ifsp.vcRiquinho.pessoa.dao.IPessoaDAO;
 import br.com.ifsp.vcRiquinho.pessoa.dao.PessoaDAO;
 import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoa;
@@ -29,9 +26,6 @@ import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoaConta;
 import br.com.ifsp.vcRiquinho.pessoa.factory.concrate.FactoryPessoaCreatorProvider;
 import br.com.ifsp.vcRiquinho.pessoa.factory.interfaces.IFactoryPessoaCreatorProvider;
 import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
-import br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO;
-import br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator;
-import br.com.ifsp.vcRiquinho.produto.repository.RepositoryProduto;
 
 public class RepositoryPessoaTest {
 	private static IDBConnector iDbConnector = new ConnectionPostgress();

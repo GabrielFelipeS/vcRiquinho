@@ -2,10 +2,7 @@ package br.com.ifsp.vcRiquinho.pessoa.factory.concrate;
 
 import java.sql.Connection;
 
-import br.com.ifsp.vcRiquinho.conta.dao.ContaDAO;
-import br.com.ifsp.vcRiquinho.conta.factory.concrate.FactoryContaCreatorProvider;
 import br.com.ifsp.vcRiquinho.conta.repository.IRepositoryConta;
-import br.com.ifsp.vcRiquinho.conta.repository.RepositoryConta;
 import br.com.ifsp.vcRiquinho.pessoa.dao.PessoaDAO;
 import br.com.ifsp.vcRiquinho.pessoa.factory.interfaces.IPessoaRepositoryFactory;
 import br.com.ifsp.vcRiquinho.pessoa.repository.IRepositoryPessoa;

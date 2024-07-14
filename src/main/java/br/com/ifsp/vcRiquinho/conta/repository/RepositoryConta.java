@@ -1,10 +1,13 @@
 package br.com.ifsp.vcRiquinho.conta.repository;
 
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
-import br.com.ifsp.vcRiquinho.conta.factory.concrate.FactoryContaCreator;
+import br.com.ifsp.vcRiquinho.conta.factory.FactoryContaCreator;
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
+import br.com.ifsp.vcRiquinho.produto.models.concrete.NullObjectProduto;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -21,11 +24,20 @@ public class RepositoryConta implements IRepositoryConta {
 	@Override
 	public Conta insert(DTOConta dto) {
 		try {
-			// dto = contaDAO.insert(dto);
-			//Produto produto = repositoryProduto.findBy(dto.id_produto());
+			EntityManager em = emf.createEntityManager();
 
-		//	return createContaBy(dto, produto);
-			return null;
+			Produto produto = dto.id_produto() != null ?
+					em.find(Produto.class, dto.id_produto()) :
+					new NullObjectProduto() ;
+
+			Conta conta = createContaBy(dto, produto);
+
+			em.getTransaction().begin();
+			em.persist(conta);
+			em.getTransaction().commit();
+			em.close();
+
+			return conta;
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -34,10 +46,18 @@ public class RepositoryConta implements IRepositoryConta {
 	@Override
 	public Conta update(DTOConta dto) {
 		try {
-			//dto = contaDAO.update(dto);
-		//	Produto produto = repositoryProduto.findBy(dto.id_produto());
+			EntityManager em = emf.createEntityManager();
+			Produto produto = dto.id_produto() != null ?
+					em.find(Produto.class, dto.id_produto())
+					: null;
 
-			return createContaBy(dto, null);
+			Conta conta = createContaBy(dto, produto);
+
+			em.getTransaction().begin();
+			em.merge(conta);
+			em.getTransaction().commit();
+
+			return conta;
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -46,11 +66,11 @@ public class RepositoryConta implements IRepositoryConta {
 	@Override
 	public Conta findBy(Integer id) {
 		try {
-		//	DTOConta dtoConta = contaDAO.findBy(id);
-		//	Produto produto = repositoryProduto.findBy(dtoConta.id_produto());
+			EntityManager em = emf.createEntityManager();
+			Conta conta = em.find(Conta.class, id);
+			em.close();
 
-			return createContaBy(null, null);
-
+			return conta;
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -77,7 +97,13 @@ public class RepositoryConta implements IRepositoryConta {
 	@Override
 	public void deleteBy(Integer id) {
 		try {
-		//	contaDAO.deleteBy(id);
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			Query query = em.createNamedQuery("deletarContaPorID");
+			query.setParameter("id", id);
+			query.executeUpdate();
+			em.getTransaction().commit();
+
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}

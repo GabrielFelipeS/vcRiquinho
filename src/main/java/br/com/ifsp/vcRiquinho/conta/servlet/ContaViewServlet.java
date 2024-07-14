@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
-import br.com.ifsp.vcRiquinho.conta.dao.ContaDAO;
-import br.com.ifsp.vcRiquinho.conta.factory.concrate.FactoryContaCreatorProvider;
-import br.com.ifsp.vcRiquinho.conta.repository.IRepositoryConta;
 import br.com.ifsp.vcRiquinho.conta.repository.RepositoryConta;
 import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 import br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO;

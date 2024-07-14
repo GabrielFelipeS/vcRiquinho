@@ -1,12 +1,6 @@
-package br.com.ifsp.vcRiquinho.conta.factory.concrate;
+package br.com.ifsp.vcRiquinho.conta.factory;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import br.com.ifsp.vcRiquinho.base.interfaces.Factory;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
-import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryConta;
-import br.com.ifsp.vcRiquinho.conta.factory.interfaces.IFactoryContaCreator;
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCDI;
 import br.com.ifsp.vcRiquinho.conta.models.concrate.ContaCorrente;

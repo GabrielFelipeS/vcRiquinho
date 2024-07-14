@@ -12,7 +12,7 @@ import jakarta.persistence.*;
 @DiscriminatorValue("investimento_automatico")
 public class ContaInvestimentoAutomatico extends Conta {
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
 
@@ -20,7 +20,7 @@ public class ContaInvestimentoAutomatico extends Conta {
 	}
 
 	public ContaInvestimentoAutomatico(String documentoTitular,Double montanteFinanceiro, Produto produto) {
-		super(numConta, documentoTitular, montanteFinanceiro);
+		super(documentoTitular, montanteFinanceiro);
 		this.produto = Objects.requireNonNull(produto, "Produto não pode ser nulo");
 	}
 

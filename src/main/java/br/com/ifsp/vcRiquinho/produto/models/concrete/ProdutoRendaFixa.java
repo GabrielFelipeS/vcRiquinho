@@ -12,6 +12,7 @@ import jakarta.persistence.Entity;
 @Entity
 @DiscriminatorValue("renda_fixa")
 public class ProdutoRendaFixa extends Produto {
+	@Column(name = "rendimento_mensal")
 	private Double rendimentoMensal;
 	private Integer carencia;
 

@@ -13,7 +13,6 @@ import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
 import br.com.ifsp.vcRiquinho.conta.dao.ContaDAO;
 import br.com.ifsp.vcRiquinho.conta.dao.IContaDAO;
-import br.com.ifsp.vcRiquinho.conta.factory.concrate.FactoryContaCreatorProvider;
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.conta.repository.IRepositoryConta;
 import br.com.ifsp.vcRiquinho.conta.repository.RepositoryConta;
@@ -24,9 +23,12 @@ import br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator;
 import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryContaCreatorProvider;
 import br.com.ifsp.vcRiquinho.produto.repository.IRepositoryProduto;
 import br.com.ifsp.vcRiquinho.produto.repository.RepositoryProduto;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class ContaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("vcriquinho-postgres");
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {	
@@ -34,12 +36,9 @@ public class ContaServlet extends HttpServlet {
 		Connection connection = iDbConnector.getConnection();
 		IContaDAO contaDAO = new ContaDAO(connection);
 
-		IRepositoryProduto repositoryProduto = new RepositoryProduto(new ProdutoDAO(connection),
-				new FactoryProdutoCreator());
-		IFactoryContaCreatorProvider factoryContaCreatorProvider = new FactoryContaCreatorProvider();
 
-		//IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
-		IRepositoryConta repository =null;
+		IRepositoryConta repository = new RepositoryConta(emf);
+
 		for (Conta c : repository.findAll()) {
 			System.out.println(c.getNumConta());
 		}
@@ -54,15 +53,8 @@ public class ContaServlet extends HttpServlet {
 		IDBConnector iDbConnector = new ConnectionPostgress();
 
 		try {
-			Connection connection = iDbConnector.getConnection();
-			IContaDAO contaDAO = new ContaDAO(connection);
-			IRepositoryProduto repositoryProduto = new RepositoryProduto(new ProdutoDAO(connection),
-					new FactoryProdutoCreator());
-			IFactoryContaCreatorProvider factoryContaCreatorProvider = new FactoryContaCreatorProvider();
+			IRepositoryConta repository = new RepositoryConta(emf);
 
-			//IRepositoryConta repository = new RepositoryConta(contaDAO, repositoryProduto, factoryContaCreatorProvider);
-			IRepositoryConta repository =null;
-			
 			Connection conn = new ConnectionPostgress().getConnection();
 			String documentoTitular = ((Pessoa) session.getAttribute("conta")).getDocumentoTitular() ;
 			Pessoa pessoa = new PessoaRepositoryFactory().createBy(conn).findBy(documentoTitular);

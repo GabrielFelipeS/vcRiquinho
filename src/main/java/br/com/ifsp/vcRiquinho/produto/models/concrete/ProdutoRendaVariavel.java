@@ -3,12 +3,14 @@ package br.com.ifsp.vcRiquinho.produto.models.concrete;
 import java.util.Objects;
 
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("renda_variavel")
 public class ProdutoRendaVariavel extends Produto {
+	@Column(name = "rendimento_mensal")
 	private Double rendimentoMensalEsperado;
 
 
