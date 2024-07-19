@@ -10,16 +10,17 @@ import javax.servlet.http.HttpSession;
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
-import br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO;
 import br.com.ifsp.vcRiquinho.produto.dto.DTOProduto;
-import br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator;
 import br.com.ifsp.vcRiquinho.produto.repository.RepositoryProduto;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 /**
  * Servlet implementation class ProdutoDatabaseServlet
  */
 public class ProdutoDatabaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("vcriquinho-postgres");
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,8 +40,7 @@ public class ProdutoDatabaseServlet extends HttpServlet {
 		IDBConnector connector = new ConnectionPostgress();
 
 		try {
-			RepositoryProduto repository = new RepositoryProduto(new ProdutoDAO(connector.getConnection()),
-					new FactoryProdutoCreator());
+			RepositoryProduto repository = new RepositoryProduto(emf);
 
 			repository.insert(new DTOProduto(null, Integer.valueOf(request.getParameter("carencia")),
 					request.getParameter("tipo_produto"), request.getParameter("nome"),
@@ -60,13 +60,10 @@ public class ProdutoDatabaseServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Integer id = Integer.valueOf(request.getParameter("idProduto"));
 
-		IDBConnector connector = new ConnectionPostgress();
-		
 		try {
-			RepositoryProduto repository = new RepositoryProduto(new ProdutoDAO(connector.getConnection()),
-					new FactoryProdutoCreator());
-
+			RepositoryProduto repository = new RepositoryProduto(emf);
 			repository.deleteBy(id);
+
 			System.out.println(id);
 		} catch (RuntimeException e) {
 			session.setAttribute("erroProduto", e.getMessage());

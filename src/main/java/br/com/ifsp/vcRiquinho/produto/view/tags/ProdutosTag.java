@@ -2,7 +2,6 @@ package br.com.ifsp.vcRiquinho.produto.view.tags;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.List;
 
 import java.util.Locale;
 
@@ -14,11 +13,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
-import br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO;
-import br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
-import br.com.ifsp.vcRiquinho.produto.repository.IRepositoryProduto;
-import br.com.ifsp.vcRiquinho.produto.repository.RepositoryProduto;
 
 public class ProdutosTag extends TagSupport {
 	private static final long serialVersionUID = 1L;
@@ -34,15 +29,15 @@ public class ProdutosTag extends TagSupport {
 		IDBConnector dbConnector = new ConnectionPostgress();
 		Connection conn = dbConnector.getConnection();
 
-		IRepositoryProduto repository = new RepositoryProduto(new ProdutoDAO(conn), new FactoryProdutoCreator());
-		List<Produto> produtos = repository.findAll();
+//		IRepositoryProduto repository = new RepositoryProduto(new ProdutoDAO(conn), new FactoryProdutoCreator());
+//		List<Produto> produtos = repository.findAll();
 
 		printLine("<table  class=\"table table-bordered\">");
 
 		printTableHeader();
-		for (Produto produto : produtos) {
-			printTableLine(produto);
-		}
+//		for (Produto produto : produtos) {
+//			printTableLine(produto);
+//		}
 
 		printLine("</table>");
 

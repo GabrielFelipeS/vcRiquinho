@@ -1,36 +1,26 @@
 package br.com.ifsp.vcRiquinho.produto.repository;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-
+import br.com.ifsp.vcRiquinho.base.db.PostgresTestContainer;
+import br.com.ifsp.vcRiquinho.produto.dao.IProdutoDAO;
+import br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO;
+import br.com.ifsp.vcRiquinho.produto.dto.DTOProduto;
+import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
+import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import br.com.ifsp.vcRiquinho.base.db.PostgresTestContainer;
-import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
-import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
-import br.com.ifsp.vcRiquinho.produto.dao.IProdutoDAO;
-import br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO;
-import br.com.ifsp.vcRiquinho.produto.dto.DTOProduto;
-import br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator;
-import br.com.ifsp.vcRiquinho.produto.factory.interfaces.IFactoryProdutoCreator;
-import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
+import java.sql.CallableStatement;
+import java.sql.SQLException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RepositoryProdutoTest {
-	private static IDBConnector iDbConnector = new ConnectionPostgress();
-	private static Connection connection;
-
-	private IProdutoDAO dao = new ProdutoDAO(connection);
-	private IFactoryProdutoCreator factoryProdutoCreator = new FactoryProdutoCreator();
-	private IRepositoryProduto repository = new RepositoryProduto(dao, factoryProdutoCreator);
+	private static EntityManagerFactory emf;
+	private RepositoryProduto repository = new RepositoryProduto(emf);
 
 	private int ID_EXISTS = 1;
+	private int OTHER_ID_EXISTS = 11;
 	private int ID_NOT_EXISTS = 1000;
 
 	/**
@@ -39,31 +29,33 @@ public class RepositoryProdutoTest {
 	 */
 	@BeforeAll
 	public static void setUp() {
-		connection = PostgresTestContainer.connectInContainer(iDbConnector);
+		emf = getEntityManagerFactory();
+	}
 
-		// iDbConnector.getConnection(ConnectionPostgress.DEFAULT_URL_DBTEST,
-		// ConnectionPostgress.DEFAULT_USER_DBTEST,
-		// ConnectionPostgress.DEFAULT_PASSWORD_DBTEST);
+	private static EntityManagerFactory getEntityManagerFactory() {
+		return PostgresTestContainer.getEntityManagerFactoryInContainer();
 	}
 
 	@AfterEach
 	void afterEach() {
-		String procedure = "{ call reset_table_in_produto_and_conta() }";
-		try (CallableStatement proc = connection.prepareCall(procedure)) {
-			proc.execute();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
+//		String procedure = "{ call reset_table_in_produto_and_conta() }";
+//		try (CallableStatement proc = connection.prepareCall(procedure)) {
+//			proc.execute();
+//		} catch (SQLException ex) {
+//			ex.printStackTrace();
+//		}
 	}
 
 	@Test
-	void findByIdExistenteEntaoSemLancamentoDeExcecao() {
+	void findByDocumentIdExistenteEntaoSemLancamentoDeExcecao() {
 		assertDoesNotThrow(() -> repository.findBy(ID_EXISTS));
 	}
 
 	@Test
-	void findByIdNaoExistenteEntaoLancaDeExcecao() {
-		assertThrows(RuntimeException.class, () -> repository.findBy(ID_NOT_EXISTS));
+	void findByDocumentIdNaoExistenteEntaoLancaDeExcecao() {
+		Produto produtoNull = repository.findBy(ID_NOT_EXISTS);
+
+		assertNull(produtoNull);
 	}
 
 	@Test
@@ -71,16 +63,6 @@ public class RepositoryProdutoTest {
 		assertDoesNotThrow(() -> repository.findAll());
 	}
 
-	@Test
-	void findAllTestErroDeConexao() throws SQLException {
-		connection.close();
-
-		IProdutoDAO outroDAO = new ProdutoDAO(connection);
-		IRepositoryProduto repository = new RepositoryProduto(outroDAO, factoryProdutoCreator);
-		setUp();
-
-		assertThrows(RuntimeException.class, () -> repository.findAll());
-	}
 
 	@Test
 	void insertTestCriacaoBemSucedida() {
@@ -95,37 +77,43 @@ public class RepositoryProdutoTest {
 	void insertTestFalhaNaCriacaoNomeRepedito() {
 		DTOProduto dto = new DTOProduto(0, 0, "renda_variavel", "TESTE_NOME", "TESTE_DESCRICAO", 0.0);
 
-		repository.insert(dto);
-		assertThrows(RuntimeException.class, () -> repository.insert(dto));
+		assertThrows(RuntimeException.class, () -> {
+			repository.insert(dto);
+			repository.insert(dto);
+		});
 	}
 
 	@Test
 	void updateTestSucessoNaAtualizacao() {
-		DTOProduto dto = new DTOProduto(ID_EXISTS, 0, "renda_variavel", "TESTE_NOME", "TESTE_DESCRICAO", 0.0);
+		DTOProduto dto = new DTOProduto(ID_EXISTS, 0, "renda_fixa", "TESTE_NOME_ATUALIZADO", "TESTE_DESCRICAO", 0.0);
 
-		Produto produto = repository.update(dto);
+		repository.update(dto);
+		Produto produto = repository.findBy(ID_EXISTS);
 
-		assertEquals(dto.nome(), produto.getNome());
+		assertEquals(produto.getNome(), dto.nome());
 	}
 
 	@Test
 	void updateTestFalhaNumContaNaoExisteNenhumaLinhaAfetada() {
 		DTOProduto dto = new DTOProduto(ID_NOT_EXISTS, 0, "renda_variavel", "TESTE_NOME", "TESTE_DESCRICAO", 0.0);
 
-		assertThrows(RuntimeException.class, () -> repository.update(dto));
+		assertDoesNotThrow(() -> repository.update(dto));
+		assertNull(repository.findBy(dto.id()));
 	}
 
 	@Test
 	void deleteTestContaDeletadaComSucesso() {
-		DTOProduto dto = new DTOProduto(ID_EXISTS, 0, "renda_variavel", "TESTE_NOME", "TESTE_DESCRICAO", 0.0);
+		DTOProduto dto = new DTOProduto(OTHER_ID_EXISTS, 0, "renda_variavel", "TESTE_NOME", "TESTE_DESCRICAO", 0.0);
 
 		assertDoesNotThrow(() -> repository.deleteBy(dto.id()));
+		assertNull(repository.findBy(OTHER_ID_EXISTS));
 	}
 
 	@Test
 	void deleteTestFalhaNenhumaLinhaAfetada() {
 		DTOProduto dto = new DTOProduto(ID_NOT_EXISTS, 0, "renda_variavel", "TESTE_NOME", "TESTE_DESCRICAO", 0.0);
 
-		assertThrows(RuntimeException.class, () -> repository.deleteBy(dto.id()));
+		assertDoesNotThrow(() -> repository.deleteBy(dto.id()));
+		assertNull(repository.findBy(dto.id()));
 	}
 }
