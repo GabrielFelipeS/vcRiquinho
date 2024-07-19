@@ -1,4 +1,4 @@
-package br.com.ifsp.vcRiquinho.pessoa.factory.concrate;
+package br.com.ifsp.vcRiquinho.pessoa.factory;
 
 import java.util.Set;
 
@@ -7,11 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
 import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoa;
 import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoaConta;
-import br.com.ifsp.vcRiquinho.pessoa.factory.interfaces.IDTOPessoaContaFactory;
 
-public class DTOPessoaContaFactory implements IDTOPessoaContaFactory {
+public class DTOPessoaContaFactory {
 
-	@Override
+
 	public DTOPessoaConta createBy(HttpServletRequest request) {
 		Integer idProduto = getIdProdutoOrNull(request.getParameter("idProduto"));
 		Double cdi = getCDIOrZero(request.getParameter("cdiAtual"));

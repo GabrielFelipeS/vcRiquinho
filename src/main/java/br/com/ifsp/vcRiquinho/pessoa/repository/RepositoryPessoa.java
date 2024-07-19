@@ -1,121 +1,143 @@
 package br.com.ifsp.vcRiquinho.pessoa.repository;
 
+import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
+import br.com.ifsp.vcRiquinho.conta.factory.FactoryConta;
+import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
+import br.com.ifsp.vcRiquinho.conta.repository.RepositoryConta;
+import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoa;
+import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoaConta;
+import br.com.ifsp.vcRiquinho.pessoa.factory.FactoryPessoa;
+import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
+import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
-import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
-import br.com.ifsp.vcRiquinho.conta.repository.IRepositoryConta;
-import br.com.ifsp.vcRiquinho.pessoa.dao.IPessoaDAO;
-import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoa;
-import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoaConta;
-import br.com.ifsp.vcRiquinho.pessoa.factory.interfaces.IFactoryPessoa;
-import br.com.ifsp.vcRiquinho.pessoa.factory.interfaces.IFactoryPessoaCreator;
-import br.com.ifsp.vcRiquinho.pessoa.factory.interfaces.IFactoryPessoaCreatorProvider;
-import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
+public class RepositoryPessoa {
+	private EntityManagerFactory emf;
+	private RepositoryConta repositoryConta;
 
-public class RepositoryPessoa implements IRepositoryPessoa {
-	private IPessoaDAO pessoaDAO;
-	private IFactoryPessoaCreatorProvider factoryPessoaCreatorProvider;
-	private IRepositoryConta repositoryConta;
 
-	public RepositoryPessoa(IPessoaDAO pessoaDAO, IFactoryPessoaCreatorProvider factoryPessoaCreatorProvider,
-			IRepositoryConta repositoryConta) {
-		
-		this.pessoaDAO = pessoaDAO;
-		this.factoryPessoaCreatorProvider = factoryPessoaCreatorProvider;
+	public RepositoryPessoa(EntityManagerFactory emf) {
+		this(emf, new RepositoryConta(emf));
+	}
+
+	public RepositoryPessoa(EntityManagerFactory emf, RepositoryConta repositoryConta) {
+		this.emf = emf;
 		this.repositoryConta = repositoryConta;
 	}
 
-	@Override
 	public Pessoa insert(DTOPessoaConta dto) {
-		try {
-			DTOPessoa dtoPessoa = dto.dtoPessoa();
-			dtoPessoa = pessoaDAO.insert(dtoPessoa);
+		try (EntityManager em = emf.createEntityManager()){
+
+			RepositoryConta repository = new RepositoryConta(emf);
+
 			Set<DTOConta> dtoContas = dto.dtoContas();
-			dtoContas.stream().forEach(repositoryConta::insert);			
-			
-			Set<Conta> contas = repositoryConta.findBy(dtoPessoa.documento_titular());
-			
-			return createBy(dtoPessoa, contas);
+			Set<Conta> contas = dtoContas.stream().map(dtoConta -> createConta(dtoConta, em)).collect(Collectors.toSet());
+
+			Pessoa pessoa = this.createBy(dto.dtoPessoa(), contas);
+
+			em.getTransaction().begin();
+			em.persist(pessoa);
+			em.getTransaction().commit();
+
+			return pessoa;
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
 
-	@Override
-	public Pessoa update(DTOPessoaConta dto) {
-		try {
-			DTOPessoa dtoPessoa = dto.dtoPessoa();
-			dtoPessoa = pessoaDAO.update(dtoPessoa);
-			Set<Conta> contas = repositoryConta.findBy(dtoPessoa.documento_titular());
-			
-			return createBy(dtoPessoa, contas);
+	public Pessoa update(Pessoa pessoa) {
+		try (EntityManager em = emf.createEntityManager()){
+			em.getTransaction().begin();
+			pessoa = em.merge(pessoa);
+			em.getTransaction().commit();
+			return pessoa;
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
 
-	@Override
-	public Pessoa findBy(String id) {
-		try {
-			DTOPessoa dto = pessoaDAO.findBy(id);
-			Set<Conta> contas = repositoryConta.findBy(dto.documento_titular());
-			
-			return createBy(dto, contas);
+	public Pessoa findBy(Integer id) {
+		try (EntityManager em = emf.createEntityManager()){
+			return em.find(Pessoa.class, id);
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
+	public Pessoa findBy(String document) {
+		try (EntityManager em = emf.createEntityManager()){
+
+			TypedQuery<Pessoa> query = em.createNamedQuery("findByDocument", Pessoa.class);
+			query.setParameter("document" ,document);
+
+			return query.getSingleResult();
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
 	
-	@Override
 	public Pessoa findByEmail(String email) {
 		try {
-			DTOPessoa dto = pessoaDAO.findByEmail(email);
-			Set<Conta> contas = repositoryConta.findBy(dto.documento_titular());
+		//	DTOPessoa dto = pessoaDAO.findByEmail(email);
+		//	Set<Conta> contas = repositoryConta.findBy(dto.documento_titular());
 			
-			return createBy(dto, contas);
+		//	return createBy(dto, contas);
+			return null;
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
 	
 
-	@Override
-	public void deleteBy(String id) {
-		try {
-			pessoaDAO.deleteBy(id);
-		} catch (RuntimeException e) {
+	public void deleteBy(String document) {
+		try (EntityManager em = emf.createEntityManager()){
+			repositoryConta.deleteBy(document);
+
+			em.getTransaction().begin();
+			Pessoa pessoa = em.merge(this.findBy(document));
+			em.remove(pessoa);
+			em.getTransaction().commit();
+
+			} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
 
-	@Override
 	public List<Pessoa> findAll() {
 		try {
 			List<Pessoa> pessoas = new LinkedList<>();
-			List<DTOPessoa> DTOPessoas = pessoaDAO.findAll();
+			//List<DTOPessoa> DTOPessoas = pessoaDAO.findAll();
 
-			for (DTOPessoa dto : DTOPessoas) {
-				Set<Conta> contas = repositoryConta.findBy(dto.documento_titular());
-				Pessoa pessoa = createBy(dto, contas);
+			//for (DTOPessoa dto : DTOPessoas) {
+			//	Set<Conta> contas = repositoryConta.findBy(dto.documento_titular());
+			//	Pessoa pessoa = createBy(dto, contas);
 				
-				pessoas.add(pessoa);
-			}
+			//	pessoas.add(pessoa);
+			//}
 
-			return pessoas;
+			//return pessoas;
+			return null;
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
 
 	private Pessoa createBy(DTOPessoa dto, Set<Conta> contas) {
-		IFactoryPessoaCreator factoryCreator = factoryPessoaCreatorProvider.createBy(contas);
-		IFactoryPessoa factory = factoryCreator.createBy(dto.tipo_pessoa());
-		return factory.createBy(dto);
+		return FactoryPessoa.createBy(dto, contas);
 	}
 
-
-
+	private Conta createConta(DTOConta dtoConta, EntityManager em) {
+		Produto produto = dtoConta.id_produto() != null?
+				em.find(Produto.class, dtoConta.id_produto()) : null;
+		System.out.println(dtoConta.id_produto() + " " + dtoConta.tipo_conta());
+		return FactoryConta.createBy(dtoConta, produto);
+	}
 }

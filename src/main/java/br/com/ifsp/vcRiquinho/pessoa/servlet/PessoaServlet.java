@@ -9,17 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.ifsp.vcRiquinho.base.db.implementation.EntityManagerFactoryPostgres;
 import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoaConta;
 import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 
 import br.com.ifsp.vcRiquinho.pessoa.service.PessoaService;
+import jakarta.persistence.EntityManagerFactory;
 
 /**
  * Servlet implementation class PessoaServlet
  */
 public class PessoaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private EntityManagerFactory emf = EntityManagerFactoryPostgres.getEntityManagerFactory();
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,7 +34,7 @@ public class PessoaServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PessoaService service = new PessoaService();
+		PessoaService service = new PessoaService(emf);
 		try {
 			service.cadastrar(request);
 
@@ -57,7 +59,7 @@ public class PessoaServlet extends HttpServlet {
 
 			Pessoa pessoa = (Pessoa) Objects.requireNonNull(session.getAttribute("conta"), "Atributo não deve ser nulo");
 			
-			PessoaService service = new PessoaService();
+			PessoaService service = new PessoaService(emf);
 			
 			try {
 				service.deletar(pessoa.getDocumentoTitular());
@@ -71,7 +73,7 @@ public class PessoaServlet extends HttpServlet {
 	
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PessoaService service = new PessoaService();
+		PessoaService service = new PessoaService(emf);
 		try {
 			DTOPessoaConta dto = null;
 			service.update(dto);

@@ -1,42 +1,37 @@
 package br.com.ifsp.vcRiquinho.pessoa.service;
 
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Base64;
-
-import javax.servlet.http.HttpServletRequest;
-
-import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
-import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
 import br.com.ifsp.vcRiquinho.pessoa.dto.DTOPessoaConta;
-import br.com.ifsp.vcRiquinho.pessoa.factory.concrate.DTOPessoaContaFactory;
-import br.com.ifsp.vcRiquinho.pessoa.factory.concrate.PessoaRepositoryFactory;
-import br.com.ifsp.vcRiquinho.pessoa.factory.interfaces.IDTOPessoaContaFactory;
-import br.com.ifsp.vcRiquinho.pessoa.factory.interfaces.IPessoaRepositoryFactory;
+
 import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 import br.com.ifsp.vcRiquinho.pessoa.repository.IRepositoryPessoa;
-import br.com.ifsp.vcRiquinho.usuario.dao.UserDAO;
+import br.com.ifsp.vcRiquinho.pessoa.repository.RepositoryPessoa;
 import br.com.ifsp.vcRiquinho.usuario.dto.DTOUser;
 import br.com.ifsp.vcRiquinho.usuario.service.HashPassword;
+import jakarta.persistence.EntityManagerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import java.security.NoSuchAlgorithmException;
 
 
 public class PessoaService {
-	private IDBConnector connector;
+	private static final Logger logger = LoggerFactory.getLogger(PessoaService.class);
 
-	public PessoaService() {
-		connector = new ConnectionPostgress();
+	private EntityManagerFactory emf;
+
+	public PessoaService(EntityManagerFactory emf) {
+		this.emf = emf;
 	}
 	
-	public Pessoa findBy(String id) {
-		try (Connection conn = connector.getConnection()) {
-			IPessoaRepositoryFactory factoryRepository = new PessoaRepositoryFactory();
-			IRepositoryPessoa repository = factoryRepository.createBy(conn);
+	public Pessoa findBy(String document) {
+		try  {
+			RepositoryPessoa repository = new RepositoryPessoa(emf);
 			
-			return repository.findBy(id);
-		} catch (RuntimeException | SQLException e) {
+			return repository.findBy(document);
+		} catch (RuntimeException e) {
+			logger.error(e.getMessage(), e.fillInStackTrace());
 			throw new RuntimeException(e.getMessage());
 		} 
 	}
@@ -44,11 +39,10 @@ public class PessoaService {
 	public Pessoa cadastrar(HttpServletRequest request) throws NoSuchAlgorithmException  {
 		String hashedPassword = HashPassword.generate(request.getParameter("password"));
 		DTOUser userDTO = new DTOUser(request.getParameter("email"), hashedPassword);
-
-		IDTOPessoaContaFactory dtoFactory = new DTOPessoaContaFactory();
+/*
 		DTOPessoaConta dto = dtoFactory.createBy(request);
 
-		try (Connection conn = connector.getConnection()) {
+		try  {
 			connector.disableAutoCommit();
 
 			IPessoaRepositoryFactory factoryRepository = new PessoaRepositoryFactory();
@@ -60,13 +54,15 @@ public class PessoaService {
 			userDAO.insert(userDTO);
 
 			connector.commit();
-			
+
 			return pessoa;
 		} catch (RuntimeException | SQLException e) {
 			connector.rollback();
-			
+
 			throw new RuntimeException(e.getMessage());
-		} 
+		}
+ */
+		return null;
 	}
 	
 
@@ -74,7 +70,7 @@ public class PessoaService {
 
 
 	public void deletar(String id) {
-		IPessoaRepositoryFactory factory = new PessoaRepositoryFactory();
+		/*IPessoaRepositoryFactory factory = new PessoaRepositoryFactory();
 
 		try (Connection conn = connector.getConnection()){
 			connector.disableAutoCommit();
@@ -95,9 +91,13 @@ public class PessoaService {
 			connector.rollback();
 			throw new RuntimeException(e.getMessage());
 		}
+
+		 */
+
 	}
 
 	public void update(DTOPessoaConta dto) {
+		/*
 		IPessoaRepositoryFactory factory = new PessoaRepositoryFactory();
 
 		try(Connection conn = connector.getConnection()) {
@@ -111,6 +111,8 @@ public class PessoaService {
 			connector.rollback();
 			
 			throw new RuntimeException(e.getMessage());
-		} 
+		}
+		 */
+
 	}
 }
