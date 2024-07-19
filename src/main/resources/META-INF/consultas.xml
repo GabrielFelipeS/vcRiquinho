@@ -7,4 +7,12 @@
         </query>
     </named-query>
 
+    <named-query name="findByDocument">
+        <query>
+            SELECT p FROM Pessoa p
+            WHERE p.documentoTitular = :document
+        </query>
+    </named-query>
+
+
 </entity-mappings>
