@@ -33,15 +33,25 @@ class RepositoryContaTest {
 		return PostgresTestContainer.getEntityManagerFactoryInContainer();
 	}
 
+
+	void afterEach() {
+//		String procedure = "{ call reset_table_in_produto_and_conta() }";
+//		try (CallableStatement proc = connection.prepareCall(procedure)) {
+//			proc.execute();
+//		} catch (SQLException ex) {
+//			ex.printStackTrace();
+//		}
+	}
+
 	@Test
 	void findByIdExistenteEntaoSemLancamentoDeExcecao() {
-		IRepositoryConta repository = new RepositoryConta(emf);
+		RepositoryConta repository = new RepositoryConta(emf);
 		assertDoesNotThrow(() -> repository.findBy(ID_EXISTS));
 	}
 
 	@Test
 	void findByIdNaoExistenteEntaoLancaExcecao() {
-		IRepositoryConta repository = new RepositoryConta(emf);
+		RepositoryConta repository = new RepositoryConta(emf);
 
 		Conta contaNull = repository.findBy(ID_NOT_EXISTS);
 		assertNull(contaNull);
@@ -49,14 +59,14 @@ class RepositoryContaTest {
 
 	@Test
 	void findAllTestSemErros() {
-		IRepositoryConta repository = new RepositoryConta(emf);
+		RepositoryConta repository = new RepositoryConta(emf);
 
 		assertDoesNotThrow(() -> repository.findAll());
 	}
 
 	@Test
 	void insertTestCriacaoBemSucedida() {
-		IRepositoryConta repository = new RepositoryConta(emf);
+		RepositoryConta repository = new RepositoryConta(emf);
 		DTOConta dto = new DTOConta(0, "00111222000144", 0.0, null, 0.065, "corrente");
 
 		Conta conta = repository.insert(dto);
@@ -67,7 +77,7 @@ class RepositoryContaTest {
 
 	@Test
 	void insertTestFalhaNaCriacaoTipoDeContaJaExisteParaDocumento() {
-		IRepositoryConta repository = new RepositoryConta(emf);
+		RepositoryConta repository = new RepositoryConta(emf);
 
 		DTOConta dto = new DTOConta(0, "00111222000144", 0.0, null, 0.065, "cdi");
 
@@ -77,7 +87,7 @@ class RepositoryContaTest {
 
 	@Test
 	void updateTestSucessoNaAtualizacao() {
-		IRepositoryConta repository = new RepositoryConta(emf);
+		RepositoryConta repository = new RepositoryConta(emf);
 
 		DTOConta dto = new DTOConta(OTHER_ID_EXISTS, "00111222000144", 0.0, 5, 0.065, "investimento_automatico");
 
@@ -88,7 +98,7 @@ class RepositoryContaTest {
 
 	@Test
 	void updateTestFalhaNumContaNaoExisteNenhumaLinhaAfetada() {
-		IRepositoryConta repository = new RepositoryConta(emf);
+		RepositoryConta repository = new RepositoryConta(emf);
 
 		DTOConta dto = new DTOConta(ID_NOT_EXISTS, "00111222000144", 0.0, null, 0.065, "cdi");
 
@@ -97,7 +107,7 @@ class RepositoryContaTest {
 
 	@Test
 	void deleteTestContaDeletadaComSucesso() {
-		IRepositoryConta repository = new RepositoryConta(emf);
+		RepositoryConta repository = new RepositoryConta(emf);
 
 		DTOConta dto = new DTOConta(ID_EXISTS, "00111222000144", 0.0, null, 0.065, "investimento_automatico");
 
@@ -105,8 +115,6 @@ class RepositoryContaTest {
 		repository.deleteBy(dto.numConta());
 		assertNull(repository.findBy(ID_EXISTS));
 	}
-
-
 
 	//@Test
 	void testeIdea() {

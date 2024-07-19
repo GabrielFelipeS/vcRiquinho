@@ -1,7 +1,7 @@
 package br.com.ifsp.vcRiquinho.conta.repository;
 
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
-import br.com.ifsp.vcRiquinho.conta.factory.FactoryContaCreator;
+import br.com.ifsp.vcRiquinho.conta.factory.FactoryConta;
 import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
 import br.com.ifsp.vcRiquinho.produto.models.concrete.NullObjectProduto;
@@ -14,14 +14,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class RepositoryConta implements IRepositoryConta {
+public class RepositoryConta {
 	private EntityManagerFactory emf;
 
 	public RepositoryConta(EntityManagerFactory emf) {
 		this.emf = emf;
 	}
 
-	@Override
 	public Conta insert(DTOConta dto) {
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -29,9 +28,9 @@ public class RepositoryConta implements IRepositoryConta {
 			Produto produto = dto.id_produto() != null ?
 					em.find(Produto.class, dto.id_produto()) :
 					new NullObjectProduto() ;
-
+			System.out.println("TESTE");
 			Conta conta = createContaBy(dto, produto);
-
+			System.out.println("TESTE");
 			em.getTransaction().begin();
 			em.persist(conta);
 			em.getTransaction().commit();
@@ -43,16 +42,16 @@ public class RepositoryConta implements IRepositoryConta {
 		}
 	}
 
-	@Override
 	public Conta update(DTOConta dto) {
 		try {
 			EntityManager em = emf.createEntityManager();
+			System.out.println("TESTE");
 			Produto produto = dto.id_produto() != null ?
 					em.find(Produto.class, dto.id_produto())
 					: null;
-
+			System.out.println("TESTE");
 			Conta conta = createContaBy(dto, produto);
-
+			System.out.println("TESTE");
 			em.getTransaction().begin();
 			em.merge(conta);
 			em.getTransaction().commit();
@@ -63,7 +62,6 @@ public class RepositoryConta implements IRepositoryConta {
 		}
 	}
 
-	@Override
 	public Conta findBy(Integer id) {
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -76,7 +74,6 @@ public class RepositoryConta implements IRepositoryConta {
 		}
 	}
 
-	@Override
 	public Set<Conta> findBy(String documentoTitular) {
 		try {
 			Set<Conta> contas = new HashSet<>();
@@ -94,14 +91,22 @@ public class RepositoryConta implements IRepositoryConta {
 		}
 	}
 
-	@Override
-	public void deleteBy(Integer id) {
+	public void deleteBy(String document) {
 		try {
+			Set<Conta> contas = this.findBy(document);
+
 			EntityManager em = emf.createEntityManager();
+
 			em.getTransaction().begin();
-			Query query = em.createNamedQuery("deletarContaPorID");
-			query.setParameter("id", id);
-			query.executeUpdate();
+			Conta conta1 = em.find(Conta.class, 9);
+			em.remove(conta1);
+
+			Conta conta2 = em.find(Conta.class, 10);
+			em.remove(conta2);
+
+			Conta conta3 = em.find(Conta.class, 11);
+			em.remove(conta3);
+
 			em.getTransaction().commit();
 
 		} catch (RuntimeException e) {
@@ -109,7 +114,22 @@ public class RepositoryConta implements IRepositoryConta {
 		}
 	}
 
-	@Override
+	public void deleteBy(Integer id) {
+		try {
+			EntityManager em = emf.createEntityManager();
+
+			em.getTransaction().begin();
+			Query query = em.createNamedQuery("deletarContaPorID");
+			query.setParameter("id", id);
+			query.executeUpdate();
+
+			em.getTransaction().commit();
+
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
 	public List<Conta> findAll() {
 		try {
 			List<Conta> contas = new LinkedList<>();
@@ -139,6 +159,6 @@ public class RepositoryConta implements IRepositoryConta {
 	}
 	
 	private Conta createContaBy(DTOConta dtoConta, Produto produto) {
-		return FactoryContaCreator.createBy(dtoConta, produto);
+		return FactoryConta.createBy(dtoConta, produto);
 	}
 }
