@@ -1,9 +1,13 @@
 package br.com.ifsp.vcRiquinho.simulador.servlet;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.util.LinkedList;
-import java.util.List;
+import br.com.ifsp.vcRiquinho.base.db.implementation.EntityManagerFactoryPostgres;
+import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
+import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
+import br.com.ifsp.vcRiquinho.pessoa.repository.IRepositoryPessoa;
+import br.com.ifsp.vcRiquinho.pessoa.repository.RepositoryPessoa;
+import br.com.ifsp.vcRiquinho.simulador.controller.SimulacoesController;
+import br.com.ifsp.vcRiquinho.simulador.dto.DTOSimulacao;
+import jakarta.persistence.EntityManagerFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,18 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
-import br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector;
-import br.com.ifsp.vcRiquinho.conta.models.abstracts.Conta;
-import br.com.ifsp.vcRiquinho.pessoa.factory.concrate.PessoaRepositoryFactory;
-import br.com.ifsp.vcRiquinho.pessoa.factory.interfaces.IPessoaRepositoryFactory;
-import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
-import br.com.ifsp.vcRiquinho.pessoa.repository.IRepositoryPessoa;
-import br.com.ifsp.vcRiquinho.simulador.controller.SimulacoesController;
-import br.com.ifsp.vcRiquinho.simulador.dto.DTOSimulacao;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SimulacaoGeralServlet extends HttpServlet {
+	private EntityManagerFactory emf = EntityManagerFactoryPostgres.getEntityManagerFactory();
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,11 +32,7 @@ public class SimulacaoGeralServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		IDBConnector connector = new ConnectionPostgress();
-		Connection conn = connector.getConnection();
-		
-		IPessoaRepositoryFactory factoryRepository = new PessoaRepositoryFactory();
-		IRepositoryPessoa repository = factoryRepository.createBy(conn);
+		RepositoryPessoa repository = new RepositoryPessoa(emf);
 		
 		Integer days = Integer.valueOf(request.getParameter("days"));
 		

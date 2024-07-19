@@ -5,7 +5,7 @@
 	import="br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress"%>
 <%@ page import="br.com.ifsp.vcRiquinho.base.db.interfaces.IDBConnector"%>
 <%@ page
-	import="br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator"%>
+	import="br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProduto"%>
 <%@ page
 	import="br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto"%>
 <%@ page
@@ -346,7 +346,7 @@ $(document).ready(function(){
 	IDBConnector connector = new ConnectionPostgress();
 
 	RepositoryProduto repository = new RepositoryProduto(new ProdutoDAO(connector.getConnection()),
-			new FactoryProdutoCreator());
+			new FactoryProduto());
 	List<Produto> produtos = repository.findAll();
 	%>
 

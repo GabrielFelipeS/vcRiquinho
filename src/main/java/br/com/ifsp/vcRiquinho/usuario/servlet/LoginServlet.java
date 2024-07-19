@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 
 
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
-import br.com.ifsp.vcRiquinho.pessoa.factory.concrate.PessoaRepositoryFactory;
 import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 import br.com.ifsp.vcRiquinho.usuario.dao.UserDAO;
 import br.com.ifsp.vcRiquinho.usuario.service.HashPassword;
@@ -57,13 +56,13 @@ public class LoginServlet extends HttpServlet {
 		
 		if (dao.loginValid(email, hashedPassword)) {
 
-			Pessoa pessoa = new PessoaRepositoryFactory().createBy(conn).findByEmail(email);
+//			Pessoa pessoa = new PessoaRepositoryFactory().createBy(conn).findByEmail(email);
 			
 
 			HttpSession session = request.getSession(true);
 
 			session.setAttribute("logado", true);
-			session.setAttribute("conta", pessoa);
+//			session.setAttribute("conta", pessoa);
 			session.setAttribute("isAdmin", dao.isAdmin(email));
 			session.setMaxInactiveInterval(TEMPO_PARA_EXPIRACAO_15MIN);
 			

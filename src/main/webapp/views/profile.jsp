@@ -6,7 +6,7 @@
 <%@ page
 	import="br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress"%>
 <%@ page
-	import="br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProdutoCreator"%>
+	import="br.com.ifsp.vcRiquinho.produto.factory.concrate.FactoryProduto"%>
 <%@ page import="br.com.ifsp.vcRiquinho.produto.dao.ProdutoDAO"%>
 <%@ page
 	import="br.com.ifsp.vcRiquinho.produto.repository.RepositoryProduto"%>
@@ -47,7 +47,7 @@
 <body>
 	<%
 	Connection conn = new ConnectionPostgress().getConnection();
-	RepositoryProduto repositoryProduto = new RepositoryProduto(new ProdutoDAO(conn), new FactoryProdutoCreator());
+	RepositoryProduto repositoryProduto = new RepositoryProduto(new ProdutoDAO(conn), new FactoryProduto());
 	RepositoryConta repository = new RepositoryConta(new ContaDAO(conn), repositoryProduto,
 			new FactoryContaCreatorProvider());
 
