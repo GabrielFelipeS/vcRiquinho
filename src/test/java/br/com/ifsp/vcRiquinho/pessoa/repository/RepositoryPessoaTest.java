@@ -15,11 +15,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RepositoryPessoaTest {
+
 	private static EntityManagerFactory emf;
 	private static EntityManager em;
 
@@ -29,6 +32,8 @@ public class RepositoryPessoaTest {
 
 	private String DOCUMENT_EXISTS = "12345678901";
 	private String DOCUMENT_NOT_EXISTS = "00000000000";
+	private static final String EMAIL_EXISTS = "joaosilva@email.com";
+	private static final String EMAIL_NOT_EXISTS = "notExists@gmail.com";
 
 	/**
 	 * O metodo setUp utiliza a dependencia TestContainer Para criar uma conexão com
@@ -60,27 +65,42 @@ public class RepositoryPessoaTest {
 	}
 
 	@Test
+	void findByEmailExists() {
+		Optional<Pessoa> optional = repository.findByEmail(EMAIL_EXISTS);
+		assertTrue(optional.isPresent());
+	}
+
+	@Test
+	void findByEmailDoesNotExists() {
+		Optional<Pessoa> optional = repository.findByEmail(EMAIL_NOT_EXISTS);
+		assertTrue(optional.isEmpty());
+	}
+
+	@Test
 	void findByIdNaoExistenteEntaoLancaDeExcecao() {
 		assertThrows(RuntimeException.class, () -> repository.findBy(DOCUMENT_NOT_EXISTS));
 	}
 
 	@Test
 	void findAllTestSemErros() {
-		assertDoesNotThrow(() -> repository.findAll());
+		List<Pessoa> pessoas = repository.findAll();
+		assertNotEquals(0, pessoas.size());
 	}
-//
-//	@Test
-//	void insertTestCriacaoBemSucedida() {
-//		DTOPessoa dtoPessoa = new DTOPessoa(0, "11111111111", "Gabriel", "andrade.gabriel1@gmail.com", "juridica");
-//		DTOConta dtoConta = new DTOConta(1, "11111111111", 0.0, 2, 0.065, "investimento_automatico");
-//		DTOConta dtoConta2 = new DTOConta(2, "11111111111", 0.0, 2, 0.065, "investimento_automatico");
-//		DTOPessoaConta dto = new DTOPessoaConta(dtoPessoa, Set.of(dtoConta, dtoConta2));
-//
-//		Pessoa pessoa = repository.insert(dto);
-//
-//		assertEquals(dtoPessoa.nome(), pessoa.getNome());
-//		assertNotEquals(dtoPessoa.id(), pessoa.getId());
-//	}
+
+	@Test
+	void insertTestCriacaoBemSucedida() {
+		DTOPessoa dtoPessoa = new DTOPessoa(0, "11111111112", "Gabriel", "andrade.gabriel1@gmail.com", "juridica");
+		DTOConta dtoConta = new DTOConta(1, "11111111112", 0.0, 2, 0.065, "corrente");
+		//DTOConta dtoConta2 = new DTOConta(2, "111111111112", 0.0, 2, 0.065, "investimento_automatico");
+		DTOPessoaConta dto = new DTOPessoaConta(dtoPessoa, Set.of(dtoConta));
+
+		Pessoa pessoa = repository.insert(dto);
+
+		assertEquals(dtoPessoa.nome(), pessoa.getNome());
+		assertNotEquals(dtoPessoa.id(), pessoa.getId());
+		assertNotEquals(0, pessoa.getId());
+		pessoa.getContasListCopy().forEach(System.out::println);
+	}
 
 	@Test
 	void insertTestFalhaNaCriacaoDocumentoRepedito() {

@@ -11,11 +11,11 @@ import br.com.ifsp.vcRiquinho.pessoa.models.abstracts.Pessoa;
 import br.com.ifsp.vcRiquinho.produto.models.abstracts.Produto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Query;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,17 +35,21 @@ public class RepositoryPessoa {
 
 	public Pessoa insert(DTOPessoaConta dto) {
 		try (EntityManager em = emf.createEntityManager()){
-
 			RepositoryConta repository = new RepositoryConta(emf);
 
 			Set<DTOConta> dtoContas = dto.dtoContas();
-			Set<Conta> contas = dtoContas.stream().map(dtoConta -> createConta(dtoConta, em)).collect(Collectors.toSet());
+
+			em.getTransaction().begin();
+			Set<Conta> contas = dtoContas.stream()
+										.map(dtoConta -> createConta(dtoConta, em))
+										.collect(Collectors.toSet());
 
 			Pessoa pessoa = this.createBy(dto.dtoPessoa(), contas);
 
-			em.getTransaction().begin();
-			em.persist(pessoa);
+			pessoa = em.merge(pessoa);
+
 			em.getTransaction().commit();
+			em.close();
 
 			return pessoa;
 		} catch (RuntimeException e) {
@@ -75,7 +79,7 @@ public class RepositoryPessoa {
 	public Pessoa findBy(String document) {
 		try (EntityManager em = emf.createEntityManager()){
 
-			TypedQuery<Pessoa> query = em.createNamedQuery("findByDocument", Pessoa.class);
+			TypedQuery<Pessoa> query = em.createNamedQuery("Pessoa.findByDocument", Pessoa.class);
 			query.setParameter("document" ,document);
 
 			return query.getSingleResult();
@@ -84,13 +88,14 @@ public class RepositoryPessoa {
 		}
 	}
 	
-	public Pessoa findByEmail(String email) {
-		try {
-		//	DTOPessoa dto = pessoaDAO.findByEmail(email);
-		//	Set<Conta> contas = repositoryConta.findBy(dto.documento_titular());
-			
-		//	return createBy(dto, contas);
-			return null;
+	public Optional<Pessoa> findByEmail(String email) {
+		try (EntityManager em = emf.createEntityManager()){
+			TypedQuery<Pessoa> query = em.createNamedQuery("Pessoa.findByEmail", Pessoa.class);
+			query.setParameter("email" ,email);
+
+			return Optional.of(query.getSingleResult());
+		} catch (NoResultException e) {
+			return Optional.empty();
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -112,19 +117,9 @@ public class RepositoryPessoa {
 	}
 
 	public List<Pessoa> findAll() {
-		try {
-			List<Pessoa> pessoas = new LinkedList<>();
-			//List<DTOPessoa> DTOPessoas = pessoaDAO.findAll();
-
-			//for (DTOPessoa dto : DTOPessoas) {
-			//	Set<Conta> contas = repositoryConta.findBy(dto.documento_titular());
-			//	Pessoa pessoa = createBy(dto, contas);
-				
-			//	pessoas.add(pessoa);
-			//}
-
-			//return pessoas;
-			return null;
+		try (EntityManager em = emf.createEntityManager()){
+			TypedQuery<Pessoa> query = em.createNamedQuery("Pessoa.findAll", Pessoa.class);
+			return query.getResultList();
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -136,8 +131,9 @@ public class RepositoryPessoa {
 
 	private Conta createConta(DTOConta dtoConta, EntityManager em) {
 		Produto produto = dtoConta.id_produto() != null?
-				em.find(Produto.class, dtoConta.id_produto()) : null;
+				em.merge(em.find(Produto.class, dtoConta.id_produto())) : null;
 		System.out.println(dtoConta.id_produto() + " " + dtoConta.tipo_conta());
-		return FactoryConta.createBy(dtoConta, produto);
+
+		return  FactoryConta.createBy(dtoConta, produto);
 	}
 }

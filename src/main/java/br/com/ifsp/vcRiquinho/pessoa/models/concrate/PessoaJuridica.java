@@ -26,8 +26,4 @@ public class PessoaJuridica extends Pessoa{
 		this(id, nome, email, new HashSet<>(Arrays.asList(conta)), cnpj);
 	}
 
-	@Override
-	public String tipo() {
-		return "juridica";
-	}
 }

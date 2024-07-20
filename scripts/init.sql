@@ -43,6 +43,13 @@ CREATE TABLE conta
     data_modificacao    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+create table pessoa_conta
+(
+    id SERIAL PRIMARY KEY,
+    documento_titular_pessoa  VARCHAR(30) not null,
+    documento_titular_conta   VARCHAR(30) not null
+);
+
 CREATE TABLE users
 (
     id           SERIAL PRIMARY KEY,
@@ -146,12 +153,6 @@ VALUES ('00111222000144', 15000.00, 1, NULL, 'investimento_automatico'),
        ('99900011122', 20000.00, NULL, NULL, 'corrente'),
        ('99900011122', 25000.00, 5, NULL, 'investimento_automatico');
 
-create table Pessoa_Conta
-(
-    Pessoa_id integer not null,
-    contas_id integer not null,
-    primary key (Pessoa_id, contas_id)
-);
 -- Senhas em texto simples e suas versões criptografadas usando SHA-256
 -- password1 -> CxTVAaWURCoBxoWVQbyz6BZNGD0yk3uFGDVEL2nVyU4=
 -- password2 -> bPYV1byqx3g1Ko8fM2DSPwLzTsGC4lmJf9bOSF14cNQ=
@@ -230,6 +231,13 @@ CREATE TABLE conta
     ativo               BOOLEAN   DEFAULT TRUE,
     data_criacao        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_modificacao    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+create table pessoa_conta
+(
+    id SERIAL PRIMARY KEY,
+    documento_titular_pessoa  VARCHAR(30) not null,
+    documento_titular_conta   VARCHAR(30) not null
 );
 
 CREATE TABLE users

@@ -21,7 +21,6 @@ import br.com.ifsp.vcRiquinho.base.db.PostgresTestContainer;
 import br.com.ifsp.vcRiquinho.base.db.implementation.ConnectionPostgress;
 import br.com.ifsp.vcRiquinho.conta.dto.DTOConta;
 
-@TestInstance(Lifecycle.PER_CLASS)
 class ContaDAOTest {
 	private int ID_EXISTS = 1;
 	private int ID_NOT_EXISTS = 1000;
@@ -33,12 +32,10 @@ class ContaDAOTest {
 	 * O método setUp utiliza a dependencia TestContainer Para criar uma conexão com
 	 * o banco de dados do container criado no momento de rodar os testes
 	 */
-	@BeforeAll
 	public static void setUp() {
 		connection = PostgresTestContainer.connectInContainer(iDbConnector);
 	}
 
-	@AfterEach
 	void afterEach() throws SQLException {
 		String procedure = "{ call reset_table_in_conta() }";
 		try (CallableStatement proc = connection.prepareCall(procedure)) {
@@ -48,7 +45,6 @@ class ContaDAOTest {
 		}
 	}
 
-	@Test
 	void givenFindAll_whenConnectionDoesNotCloseAndDatabaseExists_thenReturnAllContas() {
 		ContaDAO dao = new ContaDAO(connection);
 		
@@ -58,7 +54,6 @@ class ContaDAOTest {
 		assertTrue(result.size() > 0);
 	}
 
-	@Test
 	void givenInsert_whenAccountNotExists_thenInsertSuccess() {
 		ContaDAO dao = new ContaDAO(connection);
 		DTOConta dto = new DTOConta(0, "00111222000144", 0.0, null, 0.065, "corrente");
@@ -72,7 +67,6 @@ class ContaDAOTest {
 		});
 	}
 
-	@Test
 	void givenInsert_whenAccountAlreadyExistsForDocument_thenRuntimeException() {
 		ContaDAO dao = new ContaDAO(connection);
 
@@ -82,7 +76,6 @@ class ContaDAOTest {
 		assertThrows(RuntimeException.class, () -> dao.insert(dto));
 	}
 
-	@Test
 	void givenInsert_whenDocumentDoesNotExist_thenRuntimeException() {
 		ContaDAO dao = new ContaDAO(connection);
 
@@ -91,21 +84,18 @@ class ContaDAOTest {
 		assertThrows(RuntimeException.class, () -> dao.insert(dto));
 	}
 
-	@Test
 	void givenDeleteBy_whenIdExists_thenTrue() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		assertTrue(dao.deleteBy(ID_EXISTS));
 	}
 
-	@Test
 	void givenDeleteBy_whenIdNotExists_thenThrowRuntimeException() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		assertThrows(RuntimeException.class, () -> dao.deleteBy(ID_NOT_EXISTS));
 	}
 
-	@Test 
 	void givenFindByDocument_whenDocumentExists_thenReturnThreeAccount() {
 		final int QUANTIDADE_CONTAS_DA_PESSOA=3;
 		ContaDAO dao = new ContaDAO(connection);
@@ -118,7 +108,6 @@ class ContaDAOTest {
 		assertEquals(QUANTIDADE_CONTAS_DA_PESSOA, list.size());
 	}
 
-	@Test
 	void givenFindByDocument_whenDocumentDoesNotExist_thenThrowRuntimeException() {
 		ContaDAO dao = new ContaDAO(connection);
 
@@ -127,21 +116,18 @@ class ContaDAOTest {
 		assertThrows(RuntimeException.class, () -> dao.findByDocument(documentDoesNotExist));
 	}
 
-	@Test
 	void givenFindBy_whenDocumentExists_thenReurnNotNull() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		assertNotNull(dao.findBy(ID_EXISTS));
 	}
 
-	@Test
 	void givenFindBy_whenContaNaoEncontrada_thenIDInexistenteExistente() {
 		ContaDAO dao = new ContaDAO(connection);
 
 		assertThrows(RuntimeException.class, () -> dao.findBy(ID_NOT_EXISTS));
 	}
 
-	@Test
 	void givenUpdate_whenIdExists_thenReturnNotNull() {
 		ContaDAO dao = new ContaDAO(connection);
 		DTOConta dto = new DTOConta(ID_EXISTS, "00111222000144", 0.0, null, 0.065, "invesimento_automatico");
@@ -149,7 +135,6 @@ class ContaDAOTest {
 		assertNotNull(dao.update(dto));
 	}
 
-	@Test
 	void givenUpdate_whenIdDoesNotExist_thenThrowRuntimeException() {
 		ContaDAO dao = new ContaDAO(connection);
 		DTOConta dto = new DTOConta(ID_NOT_EXISTS, "00111222000144", 0.0, 5, 0.065, "invesimento_automatico");

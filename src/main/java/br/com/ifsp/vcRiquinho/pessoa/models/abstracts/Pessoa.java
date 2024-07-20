@@ -13,16 +13,21 @@ import jakarta.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_pessoa", length = 8, discriminatorType = DiscriminatorType.STRING)
-public abstract class Pessoa {
+public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "documento_titular")
+    @Column(name = "documento_titular", unique = true)
     private String documentoTitular;
     private String nome;
     private String email;
 
-    @OneToMany(cascade = {CascadeType.ALL, CascadeType.REMOVE})
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "Pessoa_conta",
+            joinColumns = @JoinColumn(name = "documento_titular_pessoa", referencedColumnName = "documento_titular"),
+            inverseJoinColumns = @JoinColumn(name = "documento_titular_conta", referencedColumnName = "documento_titular")
+    )
     private Set<Conta> contas;
 
     public Pessoa() {
@@ -69,8 +74,6 @@ public abstract class Pessoa {
         this.documentoTitular = documentoTitular;
     }
 
-
-    public abstract String tipo();
 
     /**
      * Verifica se a quantidade de elementos é igual a 0 caso verdadeiro lançando

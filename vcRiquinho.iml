@@ -5,9 +5,11 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
-          <factory-entry name="vcriquinho-postgres" value="d3432e4c-98d8-4336-8134-4efd607eedcc" />
+          <factory-entry name="vcriquinho-postgres" value="5401513c-7322-45d3-8453-5a4dd53488e6" />
         </datasource-mapping>
-        <naming-strategy-map />
+        <naming-strategy-map>
+          <unit-entry name="vcriquinho-postgres" />
+        </naming-strategy-map>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>
     </facet>

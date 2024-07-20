@@ -12,7 +12,7 @@ import jakarta.persistence.*;
 @DiscriminatorValue("investimento_automatico")
 public class ContaInvestimentoAutomatico extends Conta {
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
 

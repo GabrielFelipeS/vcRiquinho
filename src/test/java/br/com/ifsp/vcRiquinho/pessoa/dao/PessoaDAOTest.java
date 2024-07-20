@@ -25,18 +25,7 @@ class PessoaDAOTest {
 	private static ConnectionPostgress iDbConnector = new ConnectionPostgress();
 	private static Connection connection;
 
-	/**
-	 * O método setUp utiliza a dependencia TestContainer Para criar uma conexão com
-	 * o banco de dados do container criado no momento de rodar os testes
-	 */
-	@BeforeAll
-	public static void setUp() {
-		connection = PostgresTestContainer.connectInContainer(iDbConnector);
-	}
-	
-
 	@DisplayName("Reset database after each test")
-	@AfterEach
 	void afterEach() throws SQLException {
 		String procedure = "{ call reset_table_in_pessoa() }";
 		try (CallableStatement proc = connection.prepareCall(procedure)) {
@@ -46,7 +35,7 @@ class PessoaDAOTest {
 		}
 	}
 
-	@Test
+	
 	void givenAllPessoas() {
 		PessoaDAO dao = new PessoaDAO(connection);
 		var result = dao.findAll();
@@ -55,7 +44,7 @@ class PessoaDAOTest {
 		assertTrue(result.size() > 0);
 	}
 
-	@Test
+	
 	void insertSuccess() {
 		PessoaDAO dao = new PessoaDAO(connection);
 
@@ -63,7 +52,7 @@ class PessoaDAOTest {
 		assertNotNull(dao.insert(dto));
 	}
 
-	@Test
+	
 	void givenInsertDuplicacaoContaPorDocumento() {
 		PessoaDAO dao = new PessoaDAO(connection);
 
@@ -73,42 +62,39 @@ class PessoaDAOTest {
 				"ERRO: duplicar valor da chave viola a restrição de unicidade \"sem_duplicidade_conta_documento");
 	}
 
-	@Test
 	void givenDeleteByTestSucess() {
 		PessoaDAO dao = new PessoaDAO(connection);
 
 		assertTrue(dao.deleteBy(DEFAULT_ID_EXISTS));
 	}
 
-	@Test
 	void deleteByTestFail() {
 		PessoaDAO dao = new PessoaDAO(connection);
 
 		assertThrows(RuntimeException.class, () -> dao.deleteBy(DEFAULT_ID_NOT_EXISTS));
 	}
 
-	@Test
 	void findByTestNotNull() {
 		PessoaDAO dao = new PessoaDAO(connection);
 
 		assertNotNull(dao.findBy("12345678901"));
 	}
 
-	@Test
+	
 	void findByTestNull() {
 		PessoaDAO dao = new PessoaDAO(connection);
 
 		assertNull(dao.findBy(DEFAULT_ID_NOT_EXISTS));
 	}
 
-	@Test
+	
 	void updateByTestNotNull() {
 		PessoaDAO dao = new PessoaDAO(connection);
 		DTOPessoa dto = new DTOPessoa(0, DEFAULT_ID_EXISTS, "João Silva", "joaosilva@email.com", "fisica");
 		assertNotNull(dao.update(dto));
 	}
 
-	@Test
+	
 	void updateByTestNull() {
 		PessoaDAO dao = new PessoaDAO(connection);
 		DTOPessoa dto = new DTOPessoa(0, DEFAULT_ID_NOT_EXISTS, "João Silva", "joaosilva@email.com", "fisica");

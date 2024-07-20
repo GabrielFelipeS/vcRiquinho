@@ -26,9 +26,5 @@ public class PessoaFisica extends Pessoa {
 	public PessoaFisica(Integer id, String nome, String email, Conta conta, String cpf) {
 		this(id, nome, email, new HashSet<>(Arrays.asList(conta)), cpf);
 	}
-	
-	@Override
-	public String tipo() {
-		return "fisica";
-	}
+
 }

@@ -21,6 +21,21 @@ public class RepositoryConta {
 		this.emf = emf;
 	}
 
+	public Conta insert(Conta conta) {
+		try {
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			em.persist(conta);
+			em.getTransaction().commit();
+			em.close();
+
+			return conta;
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
+
 	public Conta insert(DTOConta dto) {
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -31,14 +46,17 @@ public class RepositoryConta {
 			System.out.println("TESTE");
 			Conta conta = createContaBy(dto, produto);
 			System.out.println("TESTE");
-			em.getTransaction().begin();
-			em.persist(conta);
-			em.getTransaction().commit();
 			em.close();
 
-			return conta;
+			return this.insert(conta);
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
+		}
+	}
+
+	public void insert(Set<Conta> contas) {
+		for(Conta conta : contas) {
+			this.insert(conta);
 		}
 	}
 
@@ -119,7 +137,7 @@ public class RepositoryConta {
 			EntityManager em = emf.createEntityManager();
 
 			em.getTransaction().begin();
-			Query query = em.createNamedQuery("deletarContaPorID");
+			Query query = em.createNamedQuery("Conta.deletarContaPorID");
 			query.setParameter("id", id);
 			query.executeUpdate();
 
@@ -161,4 +179,6 @@ public class RepositoryConta {
 	private Conta createContaBy(DTOConta dtoConta, Produto produto) {
 		return FactoryConta.createBy(dtoConta, produto);
 	}
+
+
 }
